@@ -1,0 +1,19 @@
+<h1>Gestion des Serveurs</h1>
+<table class="table table-striped" >
+    <thead>
+        <tr>
+            <th scope="col">libellé</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Port</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let server of servers" >
+            <td>{{server.libelle}}</td>
+            <td>{{server.address}}</td>
+            <td>{{server.port}}</td>
+
+        </tr>
+    </tbody>
+</table>

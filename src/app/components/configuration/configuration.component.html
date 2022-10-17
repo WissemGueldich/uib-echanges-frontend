@@ -1,0 +1,27 @@
+<h1>Gestion des Configurations</h1>
+<table class="table table-striped" >
+    <thead>
+        <tr>
+            <th scope="col">libellé</th>
+            <th scope="col">filtre</th>
+            <th scope="col">Serveur source</th>
+            <th scope="col">Serveur destination</th>
+            <th scope="col">Ecrasement</th>
+            <th scope="col">Déplacement</th>
+            <th scope="col">Automatique</th>
+            <th scope="col">Archivage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let config of configs" >
+            <td>{{config.libelle}}</td>
+            <td>{{config.filter}}</td>
+            <td>{{config.sourceServer.libelle}}</td>
+            <td>{{config.destinationServer.libelle}}</td>
+            <td>{{config.overwrite}}</td>
+            <td>{{config.move}}</td>
+            <td>{{config.automatic}}</td>
+            <td>{{config.archive}}</td>
+        </tr>
+    </tbody>
+</table>
