@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-4">
+        <input type="text"
+            [(ngModel)]="filters.keyword"
+            name="keyword"
+            (input)="listInvoices()" 
+            class="form-control"
+            placeholder="Filter invoice"/>
+    </div>
+    <div class="col-md-4">
+        <select name="sortBy" 
+                [(ngModel)]="filters.sortBy" 
+                (change)="listInvoices()"
+                class="form-control">
+            <option>date</option>
+            <option>id</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <a class="btn btn-primary text-light" routerLink="/addinvoice">Add Invoice</a>
+    </div>
+</div><br>
+
+
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Invoice List</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Invoice number</th>
+            <th>Invoice date</th>
+            <th>Payment mode</th>
+            <th>total Amount excl tax</th>
+            <th>Discount</th>
+            <th>Total with discount</th>
+            <th>Delivery fee</th>
+            <th>Tax amount</th>
+            <th>Total amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invoice of invoices">
+
+
+           
+
+            <td>{{invoice.id}}</td>
+            <td>{{invoice.invoiceDate}}</td>
+            <td>{{invoice.paymentMode}}</td>
+            <td>{{invoice.totalHT}}</td>
+            <td>{{invoice.discount}}</td>
+            <td>{{invoice.totalDiscount}}</td>
+            <td>{{invoice.deliveryFee}}</td>
+            <td>{{invoice.tva}}</td>
+            <td>{{invoice.total}}</td>
+            
+
+            <td><button (click)="deleteInvoice(invoice.id)" class="btn btn-danger">Delete</button>
+                <button routerLink="/editinvoice/{{invoice.id}}" class="btn btn-info" style="margin-left: 10px">Update</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+
+
