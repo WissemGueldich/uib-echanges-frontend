@@ -1,19 +1,15 @@
 <div class="container">
     <div class="row">
             <form (ngSubmit)="saveInvoice()" #f="ngForm">
-
-
                     <div class="form-group">
                             <input type="text" name="Invoice Date" [(ngModel)]="invoice.invoiceDate" placeholder="Enter Invoice Date" 
                             class="form-control col-md-12" required ngModel #a="ngModel" pattern="^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$" />
                     </div>
-
                     <br/>
                     <div class="alert alert-danger" *ngIf="a.invalid && a.touched">
                          invalid date
                     </div>
                     <br/>
-                    
                     <div class="form-group">
                         <select name="Payment mode" 
                                 [(ngModel)]="invoice.paymentMode" placeholder="Enter Payment mode"

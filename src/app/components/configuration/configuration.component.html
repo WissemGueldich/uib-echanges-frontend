@@ -2,26 +2,31 @@
 <table class="table table-striped" >
     <thead>
         <tr>
-            <th scope="col">libellé</th>
-            <th scope="col">filtre</th>
-            <th scope="col">Serveur source</th>
-            <th scope="col">Serveur destination</th>
-            <th scope="col">Ecrasement</th>
-            <th scope="col">Déplacement</th>
-            <th scope="col">Automatique</th>
-            <th scope="col">Archivage</th>
+            <th class="text-center" scope="col" >ID</th>
+            <th class="text-center" scope="col">libellé</th>
+            <th class="text-center" scope="col">filtre</th>
+            <th class="text-center" scope="col">Serveur source</th>
+            <th class="text-center" scope="col">Serveur destination</th>
+            <th class="text-center" scope="col">Ecrasement</th>
+            <th class="text-center" scope="col">Déplacement</th>
+            <th class="text-center" scope="col">Automatique</th>
+            <th class="text-center" scope="col">Archivage</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let config of configs" >
-            <td>{{config.libelle}}</td>
-            <td>{{config.filter}}</td>
-            <td>{{config.sourceServer.libelle}}</td>
-            <td>{{config.destinationServer.libelle}}</td>
-            <td>{{config.overwrite}}</td>
-            <td>{{config.move}}</td>
-            <td>{{config.automatic}}</td>
-            <td>{{config.archive}}</td>
+            <td class="text-center" >{{config.id}}</td>
+            <td class="text-center" >{{config.libelle}}</td>
+            <td class="text-center" >{{config.filter}}</td>
+            <td class="text-center" >{{config.sourceServer.libelle}}</td>
+            <td class="text-center" >{{config.destinationServer.libelle}}</td>
+            <td class="text-center"  *ngIf="config.overwrite; else auto" >Oui</td>
+            <td class="text-center"  *ngIf="config.move; else auto" >Oui</td>
+            <td class="text-center"  *ngIf="config.automatic; else auto" >Oui</td>
+            <td class="text-center"  *ngIf="config.archive; else auto">Oui</td>
+            <ng-template #auto ><td class="text-center" >Non</td></ng-template>
+
+
         </tr>
     </tbody>
 </table>

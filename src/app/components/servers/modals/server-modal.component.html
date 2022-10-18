@@ -1,0 +1,24 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{this.title}} Serveur</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmit()" #f="ngForm" >
+      <div class="form-group pb-2">
+        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé" [(ngModel)]="this.server.libelle" ngModel>
+      </div>
+      <div class="form-group pb-2">
+        <input type="text" name="address" class="form-control" id="adresse" placeholder="Adresse" [(ngModel)]="this.server.address" ngModel>
+      </div>
+      <div class="form-group pb-2">
+        <input type="number" name="port" class="form-control" id="port" placeholder="port" [(ngModel)]="this.server.port" ngModel>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary float-left">Enregistrer</button>
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<button class="btn btn-outline-primary mb-2 me-2" (click)="openVerticallyCentered(content)">{{this.title}}</button>

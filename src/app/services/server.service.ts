@@ -11,7 +11,7 @@ import { Server } from '../models/server';
   providedIn: 'root'
 })
 export class ServerService {
-  private SERVER_URL = environment.BASE_URL+"servers/";
+  private SERVER_URL = environment.BASE_URL+"servers";
 
   constructor(private _httpClient: HttpClient) { }
   
@@ -23,6 +23,10 @@ export class ServerService {
   }
   saveServer(Server: Server): Observable<Server> {
     return this._httpClient.post<Server>(this.SERVER_URL, Server);
+  }
+
+  updateServer(Server: Server): Observable<Server> {
+    return this._httpClient.put<Server>(this.SERVER_URL, Server);
   }
 
   getServer(id: number): Observable<Server> {

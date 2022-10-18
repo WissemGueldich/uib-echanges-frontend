@@ -20,7 +20,7 @@ export class AddInvoiceComponent implements OnInit {
   ngOnInit(): void {
     const isIdPresent = this._activatedRoute.snapshot.paramMap.has('id');
     if (isIdPresent) {
-        const id = + !this._activatedRoute.snapshot.paramMap.get('id') ;
+        const id = +!this._activatedRoute.snapshot.paramMap.get('id') ;
         this._invoiceService.getInvoice(id).subscribe(
           data => this.invoice = data 
         )

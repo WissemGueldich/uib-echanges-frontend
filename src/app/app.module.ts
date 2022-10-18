@@ -25,6 +25,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { ServersComponent } from './components/servers/servers.component';
+import { ServerModal } from './components/servers/modals/server-modal.component';
 
 
 @NgModule({
@@ -47,7 +48,9 @@ import { ServersComponent } from './components/servers/servers.component';
     CoupensComponent,
     PagesComponent,
     MediaComponent,
-    SettingsComponent
+    SettingsComponent,
+    ServerModal
+    
   ],
   imports: [
     BrowserModule,

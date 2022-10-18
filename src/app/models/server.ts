@@ -3,4 +3,6 @@ export class Server {
     address!: String;
     port!: number;
     libelle!: String;
+    mainAddress!:string;
+    secondaryAddress!:string;
 }
