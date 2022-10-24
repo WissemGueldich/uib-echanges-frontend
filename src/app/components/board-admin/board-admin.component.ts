@@ -2,7 +2,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { timeout } from 'rxjs/operators';
-import { TokenStorageService } from '../../services/token-storage.service';
+import { TokenStorageService } from 'src/app/security/token-storage.service';
 import { UserService } from '../../services/user.service';
 
 @Component({

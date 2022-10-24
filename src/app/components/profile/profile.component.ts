@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TokenStorageService } from '../../services/token-storage.service';
+import { TokenStorageService } from 'src/app/security/token-storage.service';
 import { UserService } from '../../services/user.service';
 
 @Component({

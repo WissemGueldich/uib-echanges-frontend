@@ -1,9 +1,8 @@
-<app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
-<app-body
-    [collapsed]="isSideNavCollapsed"
-    [screenWidth]="screenWidth"
->
-  <router-outlet></router-outlet>
+<div *ngIf="authService.isLoggedIn$ | async" >
+  <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+  
+</div>
+<app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth">
 </app-body>
 
 <!--Main layout-->

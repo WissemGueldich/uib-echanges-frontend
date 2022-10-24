@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
 
 const AUTH_API = environment.BASE_URL + 'auth/';
 
@@ -12,7 +13,8 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class ApiService {
+
   constructor(private http: HttpClient) { }
 
   login(matricule: string, password: string): Observable<any> {
@@ -23,9 +25,7 @@ export class AuthService {
   }
 
   register(matricule: string, email: string, password: string, firstName: string, lastName: string): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', {
-      matricule,
-      email,
+    return this.http.post(AUTH_API + 'signup', {matricule, email,
       password, firstName, lastName
     }, httpOptions);
   }

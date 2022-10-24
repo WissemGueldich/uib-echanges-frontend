@@ -2,7 +2,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddInvoiceComponent } from './components/add-invoice/add-invoice.component';
@@ -11,7 +10,6 @@ import { BoardUserComponent } from './components/board-user/board-user.component
 import { BodyComponent } from './components/body/body.component';
 import { CoupensComponent } from './components/coupens/coupens.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { HomeComponent } from './components/home/home.component';
 import { ListInvoicesComponent } from './components/list-invoices/list-invoices.component';
 import { LoginComponent } from './components/login/login.component';
 import { MediaComponent } from './components/media/media.component';
@@ -26,6 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { ServersComponent } from './components/servers/servers.component';
 import { ServerModal } from './components/servers/modals/server-modal.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthGuard } from './security/auth.guard';
 
 
 @NgModule({
@@ -33,7 +33,6 @@ import { ServerModal } from './components/servers/modals/server-modal.component'
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
     ProfileComponent,
     BoardAdminComponent,
     BoardUserComponent,
@@ -58,10 +57,11 @@ import { ServerModal } from './components/servers/modals/server-modal.component'
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FontAwesomeModule
     
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

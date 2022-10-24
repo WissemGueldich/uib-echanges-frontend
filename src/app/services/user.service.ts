@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TokenStorageService } from './token-storage.service';
 import { environment } from 'src/environments/environment';
+import { TokenStorageService } from '../security/token-storage.service';
 
 const API_URL = environment.BASE_URL+"users/";
 const TOKEN_KEY = 'auth-token';

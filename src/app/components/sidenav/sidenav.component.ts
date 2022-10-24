@@ -1,6 +1,7 @@
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/security/token-storage.service';
 import { navbarData } from './nav-data';
 
 interface SideNavToggle {
@@ -46,7 +47,7 @@ export class SidenavComponent implements OnInit {
   screenWidth = 0;
   navData = navbarData;
   currentUser: any;
-  constructor(private tokenStorage: TokenStorageService) { }
+  constructor(private tokenStorage: TokenStorageService, private router: Router) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -70,5 +71,9 @@ export class SidenavComponent implements OnInit {
   closeSidenav(): void {
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
+  }
+
+  logout(): void {
+    this.tokenStorage.signOut();
   }
 }

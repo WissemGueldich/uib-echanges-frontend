@@ -5,8 +5,13 @@ export const navbarData = [
         label: 'Dashboard'
     },
     {
+        routeLink: 'servers',
+        icon: 'fal fa-server',
+        label: 'Gestion des serveurs'
+    },
+    {
         routeLink: 'configs',
-        icon: 'fal fa-box-open',
+        icon: 'fal fa-cog',
         label: 'Gestion des configurations'
     },
     {
@@ -25,13 +30,8 @@ export const navbarData = [
         label: 'Pages'
     },
     {
-        routeLink: 'servers',
-        icon: 'fal fa-camera',
-        label: 'Gestion des serveurs'
-    },
-    {
         routeLink: 'settings',
-        icon: 'fal fa-cog',
+        icon: 'fal fa-box-open',
         label: 'Settings'
     },
 ];

@@ -1,4 +1,57 @@
-<div class="col-md-12 container-log">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div class="fadeIn first py-3">
+      <img src="assets/images/logo-uib-echanges.png" id="icon" alt="User Icon" />
+    </div>
+    <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <input type="text" id="login" class="fadeIn second" name="matricule" placeholder="Matricule"
+      [(ngModel)]="form.matricule" required #matricule="ngModel">
+      <div
+      class="alert alert-danger"
+      role="alert"
+      *ngIf="matricule.errors && f.submitted"
+    >
+      matricule ne peut pas être vide !
+    </div>
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="Mot de passe"
+      [(ngModel)]="form.password" required minlength="6" #password="ngModel">
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="password.errors && f.submitted"
+      >
+        <div *ngIf="password.errors?.['required']">Mot de passe ne peut pas être vide !</div>
+        <div *ngIf="password.errors?.['minlength']">
+          Password must be at least 6 characters
+        </div>
+      </div>
+      <input type="submit" class="fadeIn fourth" value="Se connecter">
+      <div class="form-group">
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="f.submitted && isLoginFailed"
+        >
+          Matricule ou Mot de passe incorrecte !
+        </div>
+      </div>
+    </form>
+
+    <!-- TODO -->
+    <!--<div id="formFooter">
+      <a class="underlineHover" href="#">Mot de passe oublié?</a>
+    </div>-->
+    <div class="alert alert-success" *ngIf="isLoggedIn">
+      Vous êtes connecté
+    </div>
+
+  </div>
+</div>
+<!--aaaaaaaaaaaaaaaaaa-->
+<!--<div class="col-md-12 container-log">
     <div class="card card-container container-log">
       <img
         id="profile-img"
@@ -72,4 +125,4 @@
         Logged in as {{ role }} .
       </div>
     </div>
-  </div>
+  </div>-->

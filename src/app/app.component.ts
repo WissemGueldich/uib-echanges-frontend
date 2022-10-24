@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from './services/token-storage.service';
+import { AuthService } from './security/auth.service';
+import { TokenStorageService } from './security/token-storage.service';
+
 
 
 interface SideNavToggle {
@@ -28,17 +30,22 @@ export class AppComponent implements OnInit {
   showUserBoard = false;
   username?: string;
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService, public authService: AuthService) { }
 
   ngOnInit(): void {
+    console.log("this is coming from layout")
+    console.log(this.isLoggedIn)
     this.isLoggedIn = !!this.tokenStorageService.getToken();
+    console.log(this.isLoggedIn)
 
     if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.authorities;
-      this.showUserBoard =!this.roles.includes('ROLE_ADMIN');
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.username = user.username;
+      // const user = this.tokenStorageService.getUser();
+      // console.log(user)
+
+      // this.roles = user.authorities;
+      // this.showUserBoard =!this.roles.includes('ROLE_ADMIN');
+      // this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      // this.username = user.username;
     }
   }
 
