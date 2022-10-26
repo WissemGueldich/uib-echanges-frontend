@@ -6,7 +6,8 @@
     top: 0;
     width: 5rem;
     height: 100vh;
-    box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
+    box-shadow: 0.063rem 0 0 0 #8690a3;
+    margin-top: 56px;
 
     .logo-container {
         display: flex;
@@ -102,7 +103,6 @@
 
 .active {
     background-color: #fff;
-
     .sidenav-link-icon,
     .sidenav-link-text {
         color: #000;

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Server } from 'src/app/models/server';
@@ -29,12 +29,6 @@ export class ServerModal {
   server: Server =new Server();
 
   constructor(private modalService: NgbModal, private _serverService: ServerService , private _router: Router) {}
-
-  getServer(id:number){
-    this._serverService.getServer(id).subscribe(
-      data => this.server = data 
-    )
-  }
 
   saveServer() {
     this._serverService.saveServer(this.server).subscribe(

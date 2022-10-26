@@ -1,29 +1,40 @@
+<div class="card text-center">
+    <div class="card-header">
+        <h1>Gestion des Serveurs</h1>
+    </div>
+    <div class="card-body">
+        <div class="container bg-light" >
+            <server-modal title="Ajouter" serverId="" ></server-modal>
 
-<div class="d-flex justify-content-center"><h1>Gestion des Serveurs</h1></div>
+            <div class="d-flex justify-content-center"><h3>Liste des Serveurs</h3></div>
+            <br/>
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th class="text-center align-middle" scope="col">libellé</th>
+                        <th class="text-center align-middle" scope="col">Adresse</th>
+                        <th class="text-center align-middle" scope="col">Port</th>
+                        <th class="text-center align-middle" scope="col">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let server of servers" >
+                        <td class="text-center align-middle" >{{server.libelle}}</td>
+                        <td class="text-center align-middle" >{{server.address}}</td>
+                        <td class="text-center align-middle" >{{server.port}}</td>
+                        <td><server-modal title="Modifier" serverId={{server.id}} ></server-modal>
+                            <button class="btn btn-light mb-2 me-2" (click)="deleteServer(server.id)" >Supprimer</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <!--<div class="card-footer text-muted">
+      2 days ago
+    </div>-->
+  </div>
+<div class="d-flex justify-content-center"></div>
 <br/>
-<server-modal title="Ajouter" serverId="" ></server-modal>
 
-<div class="container bg-light" >
-    <div class="d-flex justify-content-center"><h3>Liste des Serveurs</h3></div>
-    <br/>
-    <table class="table table-striped" >
-        <thead>
-            <tr>
-                <th scope="col">libellé</th>
-                <th scope="col">Adresse</th>
-                <th scope="col">Port</th>
-                <th scope="col">Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let server of servers" >
-                <td>{{server.libelle}}</td>
-                <td>{{server.address}}</td>
-                <td>{{server.port}}</td>
-                <td><server-modal title="Modifier" serverId={{server.id}} ></server-modal>
-                    <button class="btn btn-light mb-2 me-2" (click)="deleteServer(server.id)" >Supprimer</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>

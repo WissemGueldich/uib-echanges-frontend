@@ -1,0 +1,140 @@
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{this.title}} Configuration</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="configForm" (ngSubmit)="onSubmit()" >
+      <div class="form-group pb-2">
+        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé" formControlName="libelle" >
+      </div>
+      <div class="form-group pb-2">
+        <select class="form-select" aria-label="Default select example" formControlName="sourceServer">
+          <option *ngFor="let server of servers" [ngValue]="server" [selected]="this.config.sourceServer!=undefined && server.id==this.config.sourceServer.id">
+            {{ server.libelle }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group pb-2">
+        <select class="form-select" aria-label="Default select example" formControlName="sourceUser">
+          <option *ngFor="let systemUser of systemUsers" [ngValue]="systemUser" [selected]="this.config.sourceUser!=undefined && systemUser.id==this.config.sourceUser.id">
+            {{ systemUser.libelle }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group pb-2">
+        <input type="text" name="sourcePath" class="form-control" id="sourcePath" placeholder="Chemin source" formControlName="sourcePath" >
+      </div>
+      <div class="form-group pb-2">
+        <input type="text" name="sourceArchivingPath" class="form-control" id="sourceArchivingPath" placeholder="Chemin d'archivage source" formControlName="sourceArchivingPath" >
+      </div>
+      <div class="form-group pb-2">
+        <select class="form-select" aria-label="Default select example" formControlName="destinationServer" >
+          <option *ngFor="let server of servers" [ngValue]="server" [selected]="this.config.destinationServer!=undefined && server.id==this.config.destinationServer.id">
+            {{ server.libelle }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group pb-2">
+        <select class="form-select" aria-label="Default select example" formControlName="destinationUser" >
+          <option *ngFor="let systemUser of systemUsers" [ngValue]="systemUser" [selected]="this.config.destinationUser!=undefined && systemUser.id==this.config.destinationUser.id">
+            {{ systemUser.libelle }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group pb-2">
+        <input type="text" name="destinationPath" class="form-control" id="destinationPath" placeholder="Chemin destination" formControlName="destinationPath" >
+      </div>
+      <div class="form-group pb-2">
+        <input type="text" name="destinationArchivingPath" class="form-control" id="destinationArchivingPath" placeholder="Chemin d'archivage destination" formControlName="destinationArchivingPath" >
+      </div>
+      <div class="form-group pb-2">
+        <input class="mx-2 form-check-input" type="checkbox" id="overwrite" formControlName="overwrite"  >
+        <label class="ml-5 form-check-label" for="overwrite">
+          Ecrasement
+        </label>
+      </div>
+      <div class="form-group pb-2">
+        <input class="mx-2 form-check-input" type="checkbox" id="move" formControlName="move" >
+        <label class="ml-5 form-check-label" for="move">
+          Déplacement
+        </label>
+      </div>
+      <div class="form-group pb-2">
+        <input class="mx-2 form-check-input" type="checkbox" id="automatic" formControlName="automatic" >
+        <label class="ml-5 form-check-label" for="automatic">
+          Automatique
+        </label>
+      </div>
+      <div class="form-group pb-2">
+        <input class="mx-2 form-check-input" type="checkbox" id="archive" formControlName="archive" >
+        <label class="ml-5 form-check-label" for="archive">
+          Archivage
+        </label>
+      </div>
+      <div class="form-group pb-2">
+        <input type="text" name="filter" class="form-control" id="filter" placeholder="filtre" formControlName="filter" >
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary float-left">Enregistrer</button>
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<button class="btn btn-outline-primary mb-2 me-2" (click)="openVerticallyCentered(content)">{{this.title}}</button>
+<!--<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{this.title}} Serveur</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmit()" #f="ngForm" >
+      <div class="form-group pb-2">
+        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé" [ ngModel>
+      </div>
+      <div class="form-group pb-2">
+        <input type="text" name="filter" class="form-control" id="adresse" placeholder="filtre" [ ngModel>
+      </div>
+      <div class="form-group pb-2">
+        <select class="form-select" aria-label="Default select example" >
+          <option *ngFor="let server of servers"  = server" ngModel>
+            {{ server.libelle }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group pb-2">
+        <input class="mx-2 form-check-input" type="checkbox" id="overwrite"   ngModel>
+        <label class="ml-5 form-check-label" for="overwrite">
+        libelle}}
+        </label>
+      </div>
+      <div class="form-group pb-2">
+        <input class="mx-2 form-check-input" type="checkbox" id="move"   ngModel>
+        <label class="ml-5 form-check-label" for="move">
+          Déplacement
+        </label>
+      </div>
+      <div class="form-group pb-2">
+        <input class="mx-2 form-check-input" type="checkbox" id="automatic"   ngModel>
+        <label class="ml-5 form-check-label" for="automatic">
+          Automatique
+        </label>
+      </div>
+      <div class="form-group pb-2">
+        <input class="mx-2 form-check-input" type="checkbox" id="archive"   ngModel>
+        <label class="ml-5 form-check-label" for="archive">
+          Archivage
+        </label>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary float-left">Enregistrer</button>
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<button class="btn btn-outline-primary mb-2 me-2" (click)="openVerticallyCentered(content)">{{this.title}}</button>-->

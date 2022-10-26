@@ -1,9 +1,10 @@
+
+<app-navbar></app-navbar>
+
 <div *ngIf="authService.isLoggedIn$ | async" >
   <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
-  
 </div>
-<app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth">
-</app-body>
+<app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
 
 <!--Main layout-->
 <!--<main style="margin-top: 58px;">

@@ -10,24 +10,14 @@ export const navbarData = [
         label: 'Gestion des serveurs'
     },
     {
+        routeLink: 'system-users',
+        icon: 'fal fa-users ',
+        label: 'System Users'
+    },
+    {
         routeLink: 'configs',
         icon: 'fal fa-cog',
         label: 'Gestion des configurations'
-    },
-    {
-        routeLink: 'statistics',
-        icon: 'fal fa-chart-bar',
-        label: 'Statistics'
-    },
-    {
-        routeLink: 'coupens',
-        icon: 'fal fa-tags',
-        label: 'Coupens'
-    },
-    {
-        routeLink: 'pages',
-        icon: 'fal fa-file',
-        label: 'Pages'
     },
     {
         routeLink: 'settings',

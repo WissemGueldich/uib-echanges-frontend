@@ -1,0 +1,42 @@
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">{{this.title}} Utilisateur Système</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="systemUserForm" (ngSubmit)="onSubmit()" >
+        <div class="form-group pb-2">
+          <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé" formControlName="libelle" >
+        </div>
+        <div class="form-group pb-2">
+          <input type="text" name="login" class="form-control" id="login" placeholder="Nom d'utilisateur" formControlName="login" >
+        </div>
+        <div class="form-group pb-2">
+            <input type="text" name="password" class="form-control" id="password" placeholder="Mot de passe" formControlName="password" >
+        </div>
+        <div class="form-group pb-2">
+            <ng-multiselect-dropdown
+            [placeholder]="'Serveurs'"
+            [settings]="dropdownSettings"
+            [data]="dropdownList"
+            formControlName="servers"
+            (onSelect)="onItemSelect($event)"
+            (onSelectAll)="onSelectAll($event)"
+          >
+          </ng-multiselect-dropdown>
+        </div>
+        <div class="form-group pb-2">
+          <input class="mx-2 form-check-input" type="checkbox" id="enabled" formControlName="enabled"  >
+          <label class="ml-5 form-check-label" for="enabled">
+            Actif
+        </label>
+        </div>        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary float-left">Enregistrer</button>
+          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+  <button class="btn btn-outline-primary mb-2 me-2" (click)="openVerticallyCentered(content)">{{this.title}}</button>

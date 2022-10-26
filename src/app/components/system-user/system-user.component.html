@@ -1,0 +1,45 @@
+
+<div class="card text-center">
+    <div class="card-header">
+        <h1>Gestion des Utilisateurs Système</h1>
+    </div>
+    <div class="card-body">
+        <div class="container bg-light" >
+            <system-user-modal title="Ajouter" systemUserId="" ></system-user-modal>
+
+            <div class="d-flex justify-content-center"><h3>Liste des Utilisateurs Système</h3></div>
+            <br/>
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th class="text-center align-middle" scope="col" >ID</th>
+                        <th class="text-center align-middle" scope="col">libellé</th>
+                        <th class="text-center align-middle" scope="col">Login</th>
+                        <th class="text-center align-middle" scope="col">Mot De Passe</th>
+                        <th class="text-center align-middle" scope="col">Actif</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let systemUser of systemUsers" >
+                        <td class="text-center align-middle" >{{systemUser.id}}</td>
+                        <td class="text-center align-middle" >{{systemUser.libelle}}</td>
+                        <td class="text-center align-middle" >{{systemUser.login}}</td>
+                        <td class="text-center align-middle" >{{systemUser.password}}</td>
+                        <td class="text-center align-middle"  *ngIf="systemUser.enabled; else auto" >Oui</td>
+                        <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
+                        <td>
+                            <system-user-modal title="Modifier" systemUserId={{systemUser.id}} ></system-user-modal>
+                            <button class="btn btn-light mb-2 me-2" (click)="deleteSystemUser(systemUser.id)" >Supprimer</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <!--<div class="card-footer text-muted">
+      2 days ago
+    </div>-->
+  </div>
+<div class="d-flex justify-content-center"></div>
+<br/>

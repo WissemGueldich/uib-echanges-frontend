@@ -33,11 +33,7 @@ export class AppComponent implements OnInit {
   constructor(private tokenStorageService: TokenStorageService, public authService: AuthService) { }
 
   ngOnInit(): void {
-    console.log("this is coming from layout")
-    console.log(this.isLoggedIn)
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-    console.log(this.isLoggedIn)
-
     if (this.isLoggedIn) {
       // const user = this.tokenStorageService.getUser();
       // console.log(user)
