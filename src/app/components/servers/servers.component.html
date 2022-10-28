@@ -5,36 +5,38 @@
     <div class="card-body">
         <div class="container bg-light" >
             <server-modal title="Ajouter" serverId="" ></server-modal>
-
-            <div class="d-flex justify-content-center"><h3>Liste des Serveurs</h3></div>
+            <div class="card-header">
+                <div class="d-flex justify-content-center"><h3>Liste des Serveurs</h3></div>
+            </div>
             <br/>
-            <table class="table table-striped" >
-                <thead>
-                    <tr>
-                        <th class="text-center align-middle" scope="col">libellé</th>
-                        <th class="text-center align-middle" scope="col">Adresse</th>
-                        <th class="text-center align-middle" scope="col">Port</th>
-                        <th class="text-center align-middle" scope="col">Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let server of servers" >
-                        <td class="text-center align-middle" >{{server.libelle}}</td>
-                        <td class="text-center align-middle" >{{server.address}}</td>
-                        <td class="text-center align-middle" >{{server.port}}</td>
-                        <td><server-modal title="Modifier" serverId={{server.id}} ></server-modal>
-                            <button class="btn btn-light mb-2 me-2" (click)="deleteServer(server.id)" >Supprimer</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm" >
+                    <thead>
+                        <tr>
+                            <th class="text-center align-middle" scope="col">libellé</th>
+                            <th class="text-center align-middle" scope="col">Adresse</th>
+                            <th class="text-center align-middle" scope="col">Port</th>
+                            <th class="text-center align-middle" scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let server of servers" >
+                            <td class="text-center align-middle" >{{server.libelle}}</td>
+                            <td class="text-center align-middle" >{{server.address}}</td>
+                            <td class="text-center align-middle" >{{server.port}}</td>
+                            <td><server-modal title="Modifier" serverId={{server.id}} ></server-modal>
+                                <button class="btn btn-light mb-2 me-2" (click)="deleteServer(server.id)" >Supprimer</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        
     </div>
     <!--<div class="card-footer text-muted">
       2 days ago
     </div>-->
-  </div>
+</div>
 <div class="d-flex justify-content-center"></div>
 <br/>
 

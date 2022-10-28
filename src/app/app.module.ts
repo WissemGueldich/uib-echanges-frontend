@@ -25,6 +25,10 @@ import { ConfigModal } from './components/configuration/modals/config-modal.comp
 import { SystemUserComponent } from './components/system-user/system-user.component';
 import { SystemUserModalComponent } from './components/system-user/modals/system-user-modal.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { UserComponent } from './components/user/user.component';
+import { ProfileModalComponent } from './components/profile/profile-modal/profile-modal.component';
+import { RoleComponent } from './components/role/role.component';
+import { RoleModalComponent } from './components/role/role-modal/role-modal.component';
 
 
 @NgModule({
@@ -45,7 +49,11 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     NavbarComponent,
     ConfigModal,
     SystemUserComponent,
-    SystemUserModalComponent
+    SystemUserModalComponent,
+    UserComponent,
+    ProfileModalComponent,
+    RoleComponent,
+    RoleModalComponent
     
   ],
   imports: [

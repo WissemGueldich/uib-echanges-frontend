@@ -7,6 +7,11 @@ import { SystemUser } from 'src/app/models/systemUser';
 import { ServerService } from 'src/app/services/server.service';
 import { SystemUserService } from 'src/app/services/system-user.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+ 
+
+//TODO: add labels and check update modal 2nd click
+
+
 
 @Component({
   selector: 'system-user-modal',
@@ -137,6 +142,4 @@ export class SystemUserModalComponent implements OnInit {
     }
     this.modalService.open(content, { centered: true });
   }
-
-
 }

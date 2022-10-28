@@ -6,43 +6,45 @@
     <div class="card-body">
         <div class="container bg-light" >
             <config-modal title="Ajouter" configId="" ></config-modal>
-
-            <div class="d-flex justify-content-center"><h3>Liste des Configurations</h3></div>
+            <div class="card-header">
+                <div class="d-flex justify-content-center"><h3>Liste des Configurations</h3></div>
+            </div>
             <br/>
-            <table class="table table-striped" >
-                <thead>
-                    <tr>
-                        <th class="text-center align-middle" scope="col" >ID</th>
-                        <th class="text-center align-middle" scope="col">libellé</th>
-                        <th class="text-center align-middle" scope="col">filtre</th>
-                        <th class="text-center align-middle" scope="col">Serveur source</th>
-                        <th class="text-center align-middle" scope="col">Serveur destination</th>
-                        <th class="text-center align-middle" scope="col">Ecrasement</th>
-                        <th class="text-center align-middle" scope="col">Déplacement</th>
-                        <th class="text-center align-middle" scope="col">Automatique</th>
-                        <th class="text-center align-middle" scope="col">Archivage</th>
-                        <th class="text-center align-middle" scope="col">Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let config of configs" >
-                        <td class="text-center align-middle" >{{config.id}}</td>
-                        <td class="text-center align-middle" >{{config.libelle}}</td>
-                        <td class="text-center align-middle" >{{config.filter}}</td>
-                        <td class="text-center align-middle" >{{config.sourceServer.libelle}}</td>
-                        <td class="text-center align-middle" >{{config.destinationServer.libelle}}</td>
-                        <td class="text-center align-middle"  *ngIf="config.overwrite; else auto" >Oui</td>
-                        <td class="text-center align-middle"  *ngIf="config.move; else auto" >Oui</td>
-                        <td class="text-center align-middle"  *ngIf="config.automatic; else auto" >Oui</td>
-                        <td class="text-center align-middle"  *ngIf="config.archive; else auto">Oui</td>
-                        <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
-                        <td>
-                            <config-modal title="Modifier" configId={{config.id}} ></config-modal>
-                            <button class="btn btn-light mb-2 me-2" (click)="deleteConfiguration(config.id)" >Supprimer</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm table-responsive-sm" >
+                    <thead>
+                        <tr>
+                            <th class="text-center align-middle" scope="col">libellé</th>
+                            <th class="text-center align-middle" scope="col">filtre</th>
+                            <th class="text-center align-middle" scope="col">Serveur source</th>
+                            <th class="text-center align-middle" scope="col">Serveur destination</th>
+                            <th class="text-center align-middle" scope="col">Ecrasement</th>
+                            <th class="text-center align-middle" scope="col">Déplacement</th>
+                            <th class="text-center align-middle" scope="col">Automatique</th>
+                            <th class="text-center align-middle" scope="col">Archivage</th>
+                            <th class="text-center align-middle" scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let config of configs" >
+                            <td class="text-center align-middle" >{{config.libelle}}</td>
+                            <td class="text-center align-middle" >{{config.filter}}</td>
+                            <td class="text-center align-middle" >{{config.sourceServer.libelle}}</td>
+                            <td class="text-center align-middle" >{{config.destinationServer.libelle}}</td>
+                            <td class="text-center align-middle"  *ngIf="config.overwrite; else auto" >Oui</td>
+                            <td class="text-center align-middle"  *ngIf="config.move; else auto" >Oui</td>
+                            <td class="text-center align-middle"  *ngIf="config.automatic; else auto" >Oui</td>
+                            <td class="text-center align-middle"  *ngIf="config.archive; else auto">Oui</td>
+                            <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
+                            <td>
+                                <config-modal title="Modifier" configId={{config.id}} ></config-modal>
+                                <button class="btn btn-light mb-2 me-2" (click)="deleteConfiguration(config.id)" >Supprimer</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
         
     </div>

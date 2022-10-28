@@ -5,14 +5,29 @@ export const navbarData = [
         label: 'Dashboard'
     },
     {
+        routeLink: 'users',
+        icon: 'fal fa-users',
+        label: 'Gestion des utilisateurs'
+    },
+    {
+        routeLink: 'roles',
+        icon: 'fal fa-user-lock',
+        label: 'Gestion des roles'
+    },
+    {
+        routeLink: 'profiles',
+        icon: 'fal fa-id-card',
+        label: 'Gestion des profiles'
+    },
+    {
         routeLink: 'servers',
         icon: 'fal fa-server',
         label: 'Gestion des serveurs'
     },
     {
         routeLink: 'system-users',
-        icon: 'fal fa-users ',
-        label: 'System Users'
+        icon: 'fal fa-users-cog',
+        label: 'Gestion des utilisateurs système'
     },
     {
         routeLink: 'configs',

@@ -81,6 +81,8 @@ export class ServerModal {
         }
       )
       console.log(this.server)
+    }else{
+      this.server.port=22;
     }
     this.modalService.open(content, { centered: true });
   }

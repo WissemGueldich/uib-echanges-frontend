@@ -11,18 +11,24 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { ServersComponent } from './components/servers/servers.component';
 import { AuthGuard } from './security/auth.guard';
 import { SystemUserComponent } from './components/system-user/system-user.component';
+import { UserComponent } from './components/user/user.component';
+import { RoleComponent } from './components/role/role.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'servers', component: ServersComponent, canActivate: [AuthGuard]},
-  {path: 'profile', component: ProfileComponent},
   {path: 'user', component: BoardUserComponent},
   {path: 'admin', component: BoardAdminComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'configs', component: ConfigurationComponent, canActivate: [AuthGuard]},
   {path: 'settings', component: SettingsComponent},
   {path: 'system-users', component: SystemUserComponent, canActivate: [AuthGuard]},
+  {path: 'users', component: UserComponent, canActivate: [AuthGuard]},
+  {path: 'profiles', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'roles', component: RoleComponent, canActivate: [AuthGuard]},
+
+
 
   {path: '', redirectTo: 'login',pathMatch: 'full' },
 ];
