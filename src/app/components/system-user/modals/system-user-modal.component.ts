@@ -34,6 +34,7 @@ export class SystemUserModalComponent implements OnInit {
   closeResult!: string;
   @Input() title!: string;
   @Input() systemUserId!: string;
+  icon=false;
   systemUser: SystemUser =new SystemUser();
   servers: Server[] = [];
   dropdownList: any = [];
@@ -42,6 +43,7 @@ export class SystemUserModalComponent implements OnInit {
   constructor(  private modalService: NgbModal, private _systemUserService: SystemUserService, 
                 private _serverService: ServerService, private _router: Router) {}
   ngOnInit(): void {
+    if(this.title=="Ajouter") this.icon=true;
     this._serverService.getServers().subscribe(
       data => {
         this.servers=data;

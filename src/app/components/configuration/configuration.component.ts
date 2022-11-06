@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Configuration } from 'src/app/models/configuration';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 
@@ -15,7 +16,7 @@ configs: Configuration[] = [];
     sortBy: 'Name'
   }
 
-  constructor(private _configService: ConfigurationService ) { }
+  constructor(private _configService: ConfigurationService, private _router: Router ) { }
 
   ngOnInit(): void {
     this.listConfigurations();
@@ -32,8 +33,17 @@ configs: Configuration[] = [];
 
   listConfigurations() {
     this._configService.getConfigurations().subscribe(
-      data => this.configs = data
+      data => {
+        console.log("listconf");
+        console.log(data);
+        this.configs = data
+      }
     )
+  }
+
+  listener($event:any){
+    console.log($event);
+    this.listConfigurations();
   }
 
   filterConfigurations(configs: Configuration[]) {

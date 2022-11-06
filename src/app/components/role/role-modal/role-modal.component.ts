@@ -29,6 +29,7 @@ export class RoleModalComponent implements OnInit {
   closeResult!: string;
   @Input() title!: string;
   @Input() roleId!: string;
+  icon=false;
   role: Role =new Role();
   permissions: Permission[] = [];
   dropdownList: any = [];
@@ -37,6 +38,7 @@ export class RoleModalComponent implements OnInit {
   constructor(  private modalService: NgbModal, private _roleService: RoleService, 
                 private _router: Router) {}
   ngOnInit(): void {
+    if(this.title=="Ajouter") this.icon=true;
     this._roleService.getPermissions().subscribe(
       data => {
         data.forEach(permission=>{

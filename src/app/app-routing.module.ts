@@ -13,6 +13,10 @@ import { AuthGuard } from './security/auth.guard';
 import { SystemUserComponent } from './components/system-user/system-user.component';
 import { UserComponent } from './components/user/user.component';
 import { RoleComponent } from './components/role/role.component';
+import { HomeComponent } from './components/home/home.component';
+import { TransferComponent } from './components/transfer/transfer.component';
+import { JobComponent } from './components/job/job.component';
+import { ApplicationComponent } from './components/application/application.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -26,7 +30,12 @@ const routes: Routes = [
   {path: 'system-users', component: SystemUserComponent, canActivate: [AuthGuard]},
   {path: 'users', component: UserComponent, canActivate: [AuthGuard]},
   {path: 'profiles', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'roles', component: RoleComponent, canActivate: [AuthGuard]},
+  {path: 'transfers', component: TransferComponent, canActivate: [AuthGuard]},
+  {path: 'jobs', component: JobComponent, canActivate: [AuthGuard]},
+  {path: 'applications', component: ApplicationComponent, canActivate: [AuthGuard]},
+
 
 
 

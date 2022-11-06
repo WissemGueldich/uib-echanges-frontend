@@ -15,14 +15,14 @@ export class SystemUserComponent implements OnInit {
     sortBy: 'Name'
   }
 
-  constructor(private _configService: SystemUserService ) { }
+  constructor(private _systemUserService: SystemUserService ) { }
 
   ngOnInit(): void {
     this.listSystemUsers();
   }
 
   deleteSystemUser(id: number) {
-    this._configService.deleteSystemUser(id).subscribe(
+    this._systemUserService.deleteSystemUser(id).subscribe(
       data => {
         console.log('deleted response', data);
         this.listSystemUsers();
@@ -31,12 +31,12 @@ export class SystemUserComponent implements OnInit {
   }
 
   listSystemUsers() {
-    this._configService.getSystemUsers().subscribe(
+    this._systemUserService.getSystemUsers().subscribe(
       data => this.systemUsers = data
     )
   }
 
-  filterSystemUsers(configs: SystemUser[]) {
+  filterSystemUsers(systemUsers: SystemUser[]) {
     // return SystemUsers.filter((e) => {
     //   return e.SystemUserDate.toLowerCase().includes(this.filters.keyword.toLowerCase());
     // }).sort((a, b) => {

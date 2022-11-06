@@ -1,8 +1,8 @@
 export const navbarData = [
     {
-        routeLink: 'dashboard',
+        routeLink: 'home',
         icon: 'fal fa-home',
-        label: 'Dashboard'
+        label: 'Acceuil'
     },
     {
         routeLink: 'users',
@@ -35,8 +35,28 @@ export const navbarData = [
         label: 'Gestion des configurations'
     },
     {
-        routeLink: 'settings',
-        icon: 'fal fa-box-open',
-        label: 'Settings'
+        routeLink: 'jobs',
+        icon: 'fal fa-calendar',
+        label: 'Gestion des jobs'
     },
+    {
+        routeLink: 'applications',
+        icon: 'fal fa-browser',
+        label: 'Gestion des applications'
+    },
+    {
+        routeLink: 'transfers',
+        icon: 'fal fa-exchange',
+        label: 'Effectuer un transfert'
+    },
+    {
+        routeLink: 'dashboard',
+        icon: 'fal fa-chart-line',
+        label: 'Tableau de bord'
+    },
+    // {
+    //     routeLink: 'settings',
+    //     icon: 'fal fa-box-open',
+    //     label: 'Settings'
+    // },
 ];

@@ -1,49 +1,39 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { TokenStorageService } from '../security/token-storage.service';
+import { User } from '../models/user';
 
-const API_URL = environment.BASE_URL+"users/";
-const TOKEN_KEY = 'auth-token';
-const USER_KEY = 'auth-user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  httpOption={
-    headers:new HttpHeaders({"Content-Type":"application/json",}),
+  private API_URL=environment.BASE_URL+"users";
+
+  constructor(private _httpClient: HttpClient) { }
+  getUsers(): Observable<User[]> {
+    return this._httpClient.get<User[]>(this.API_URL).pipe(
+      map(response => response)
+    )
   }
-  constructor(private http: HttpClient,private token: TokenStorageService) { }
-
-  getPublicContent(): Observable<any> {
-    return this.http.get(API_URL + 'all', { responseType: 'text' });
-  }
-
-  getUserBoard(): Observable<any> {
-    return this.http.get(API_URL + 'user', { responseType: 'text' });
-  }
-
-
-  getAdminBoard(): Observable<any> {
-    return this.http.get(API_URL + 'admin', { responseType: 'text' });
+  saveUser(User: User): Observable<User> {
+    return this._httpClient.post<User>(this.API_URL, User);
   }
 
-  getUsers():Observable<any> {
-    return this.http.get(API_URL, { responseType: 'json' });
+  updateUser(User: User): Observable<User> {
+    return this._httpClient.put<User>(this.API_URL, User);
   }
 
-  getUser(id: string | number):Observable<any> {
-    return this.http.get(API_URL+id, { responseType: 'json' });
-  }
-  
-  updateUser(user: any):Observable<any> {
-    return this.http.put(API_URL, user );
+  getUser(id: number): Observable<User> {
+    return this._httpClient.get<User>(`${this.API_URL}/${id}`).pipe(
+      map(response => response)
+    )
   }
 
-  deleteUser(id: string | number):Observable<any> {
-    return this.http.delete( API_URL+id, { responseType: 'json' });
+  deleteUser(id: number): Observable<any> {
+    return this._httpClient.delete(`${this.API_URL}/${id}`, {responseType: 'text'});
   }
 }

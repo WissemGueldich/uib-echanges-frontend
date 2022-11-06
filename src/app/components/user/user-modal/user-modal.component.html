@@ -1,0 +1,62 @@
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">{{this.title}} Utilisateur Système</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()" >
+        <div class="form-group pb-2">
+          <input type="text" name="matricule" class="form-control" id="matricule" placeholder="Matricule" formControlName="matricule" >
+        </div>
+        <div class="form-group pb-2">
+          <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Prénom" formControlName="lastName" >
+        </div>
+        <div class="form-group pb-2">
+            <input type="text" name="firstName" class="form-control" id="firstName" placeholder="Nom" formControlName="firstName" >
+        </div>
+        <div class="form-group pb-2">
+            <input type="text" name="email" class="form-control" id="email" placeholder="E-mail" formControlName="email" >
+        </div>
+        <div class="form-group pb-2">
+            <input type="password" name="password" class="form-control" id="password" placeholder="Mot de passe" formControlName="password" >
+        </div>
+        <div class="form-group pb-2">
+            <ng-multiselect-dropdown
+            [placeholder]="'Roles'"
+            [settings]="dropdownSettings"
+            [data]="dropdownList"
+            formControlName="roles"
+            (onSelect)="onItemSelect($event)"
+            (onSelectAll)="onSelectAll($event)"
+          >
+          </ng-multiselect-dropdown>
+        </div>
+        <div class="form-group pb-2">
+            <ng-multiselect-dropdown
+            [placeholder]="'Profils'"
+            [settings]="dropdownSettings2"
+            [data]="dropdownList2"
+            formControlName="profiles"
+            (onSelect)="onItemSelect($event)"
+            (onSelectAll)="onSelectAll($event)"
+          >
+          </ng-multiselect-dropdown>
+        </div>
+        <div class="form-group pb-2">
+          <input class="mx-2 form-check-input" type="checkbox" id="enabled" formControlName="enabled"  >
+          <label class="ml-5 form-check-label" for="enabled">
+            Actif
+        </label>
+        </div>        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-dark float-left">Enregistrer</button>
+          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+  <button class="btn btn-outline-dark mb-2 me-2" (click)="openVerticallyCentered(content)">
+    <i *ngIf="this.icon; else modifier" class="fa fa-plus" aria-hidden="true"></i>
+    <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>  
+  </button>

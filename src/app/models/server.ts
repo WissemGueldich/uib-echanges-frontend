@@ -1,3 +1,4 @@
+
 export class Server {
     id!: number;
     address!: String;

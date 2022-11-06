@@ -21,10 +21,13 @@
           </ng-multiselect-dropdown>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary float-left">Enregistrer</button>
+          <button type="submit" class="btn btn-dark float-left">Enregistrer</button>
           <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
         </div>
       </form>
     </div>
   </ng-template>
-  <button class="btn btn-outline-primary mb-2 me-2" (click)="openVerticallyCentered(content)">{{this.title}}</button>
+  <button class="btn btn-outline-dark mb-2 me-2" (click)="openVerticallyCentered(content)">
+    <i *ngIf="this.icon; else modifier" class="fa fa-plus" aria-hidden="true"></i>
+    <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>  
+  </button>

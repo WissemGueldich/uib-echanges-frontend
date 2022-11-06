@@ -47,7 +47,7 @@ export class SidenavComponent implements OnInit {
   screenWidth = 0;
   navData = navbarData;
   currentUser: any;
-  constructor(private tokenStorage: TokenStorageService, private router: Router) { }
+  constructor(private tokenStorage: TokenStorageService) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -71,9 +71,5 @@ export class SidenavComponent implements OnInit {
   closeSidenav(): void {
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth});
-  }
-
-  logout(): void {
-    this.tokenStorage.signOut();
   }
 }

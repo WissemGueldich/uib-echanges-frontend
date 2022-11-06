@@ -27,6 +27,14 @@
             <li class="nav-item">
                 <a class="nav-link disabled">Disabled</a>
             </li>
+            <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
+                <a href class="nav-link" (click)="logout()">
+                    <i class="sidenav-link-icon fal fa-sign-out" ></i>
+                    <span class="sidenav-link-text">
+                        Se déconnecter
+                    </span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

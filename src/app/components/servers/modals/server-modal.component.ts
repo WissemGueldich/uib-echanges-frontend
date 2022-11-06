@@ -25,7 +25,7 @@ export class ServerModal {
   closeResult!: string;
   @Input() title!:string;
   @Input() serverId!:string;
-
+  icon=false;
   server: Server =new Server();
 
   constructor(private modalService: NgbModal, private _serverService: ServerService , private _router: Router) {}
@@ -40,7 +40,7 @@ export class ServerModal {
   }
 
   onSubmit() {
-    console.log(this.server);
+    if(this.title=="Ajouter") this.icon=true;
     if (this.server.id) {
       this._serverService.updateServer(this.server).subscribe(
         data => {

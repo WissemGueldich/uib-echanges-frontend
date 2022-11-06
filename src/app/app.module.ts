@@ -29,6 +29,14 @@ import { UserComponent } from './components/user/user.component';
 import { ProfileModalComponent } from './components/profile/profile-modal/profile-modal.component';
 import { RoleComponent } from './components/role/role.component';
 import { RoleModalComponent } from './components/role/role-modal/role-modal.component';
+import { UserModalComponent } from './components/user/user-modal/user-modal.component';
+import { TransferComponent } from './components/transfer/transfer.component';
+import { TransferModalComponent } from './components/transfer/transfer-modal/transfer-modal.component';
+import { JobComponent } from './components/job/job.component';
+import { ApplicationComponent } from './components/application/application.component';
+import { HomeComponent } from './components/home/home.component';
+import { JobModalComponent } from './components/job/job-modal/job-modal.component';
+import { ApplicationModalComponent } from './components/application/application-modal/application-modal.component';
 
 
 @NgModule({
@@ -53,7 +61,15 @@ import { RoleModalComponent } from './components/role/role-modal/role-modal.comp
     UserComponent,
     ProfileModalComponent,
     RoleComponent,
-    RoleModalComponent
+    RoleModalComponent,
+    UserModalComponent,
+    TransferComponent,
+    TransferModalComponent,
+    JobComponent,
+    ApplicationComponent,
+    HomeComponent,
+    JobModalComponent,
+    ApplicationModalComponent
     
   ],
   imports: [

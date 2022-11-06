@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
         <div class="container bg-light" >
-            <config-modal title="Ajouter" configId="" ></config-modal>
+            <config-modal (update)="listener($event)" title="Ajouter" configId="" ></config-modal>
             <div class="card-header">
                 <div class="d-flex justify-content-center"><h3>Liste des Configurations</h3></div>
             </div>
@@ -37,8 +37,8 @@
                             <td class="text-center align-middle"  *ngIf="config.archive; else auto">Oui</td>
                             <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
                             <td>
-                                <config-modal title="Modifier" configId={{config.id}} ></config-modal>
-                                <button class="btn btn-light mb-2 me-2" (click)="deleteConfiguration(config.id)" >Supprimer</button>
+                                <config-modal (update)="listConfigurations()" title="Modifier" configId={{config.id}} ></config-modal>
+                                <button class="btn btn-light mb-2 me-2" (click)="deleteConfiguration(config.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     </tbody>

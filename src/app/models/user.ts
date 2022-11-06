@@ -1,7 +1,7 @@
 export class User{
 id!:number;
 password!: string;
-isEnabled!:boolean;
+enabled!:boolean;
 email!:string;
 matricule!:string;
 firstName!:string;

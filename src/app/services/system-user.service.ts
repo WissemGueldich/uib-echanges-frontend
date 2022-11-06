@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Server } from '../models/server';
 import { SystemUser } from '../models/systemUser';
 
 @Injectable({
@@ -18,6 +19,13 @@ export class SystemUserService {
       map(response => response)
     )
   }
+
+  getSystemUsersByServer(serverId:number): Observable<any> {
+    return this._httpClient.get<SystemUser[]>(`${this.API_URL}/server/${serverId}`).pipe(
+      map(response => response)
+    )
+  }
+
   saveSystemUser(SystemUser: SystemUser): Observable<SystemUser> {
     return this._httpClient.post<SystemUser>(this.API_URL, SystemUser);
   }

@@ -1,13 +1,13 @@
 
 <div class="card text-center">
     <div class="card-header">
-        <h1>Gestion des Profiles</h1>
+        <h1>Gestion des Profils</h1>
     </div>
     <div class="card-body">
         <div class="container bg-light" >
             <app-profile-modal title="Ajouter" profileId="" ></app-profile-modal>
             <div class="card-header">
-                <div class="d-flex justify-content-center"><h3>Liste des Profiles</h3></div>
+                <div class="d-flex justify-content-center"><h3>Liste des Profils</h3></div>
             </div>
             <br/>
             <div class="table-responsive">
@@ -23,7 +23,7 @@
                             <td class="text-center align-middle" >{{profile.libelle}}</td>
                             <td>
                                 <app-profile-modal title="Modifier" profileId={{profile.id}} ></app-profile-modal>
-                                <button class="btn btn-light mb-2 me-2" (click)="deleteProfile(profile.id)" >Supprimer</button>
+                                <button class="btn btn-light mb-2 me-2" (click)="deleteProfile(profile.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     </tbody>

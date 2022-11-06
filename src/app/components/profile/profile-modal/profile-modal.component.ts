@@ -29,6 +29,7 @@ export class ProfileModalComponent implements OnInit {
   closeResult!: string;
   @Input() title!: string;
   @Input() profileId!: string;
+  icon=false;
   profile: Profile =new Profile();
   configurations: Configuration[] = [];
   dropdownList: any = [];
@@ -37,6 +38,7 @@ export class ProfileModalComponent implements OnInit {
   constructor(  private modalService: NgbModal, private _profileService: ProfileService, 
                 private _configurationService: ConfigurationService, private _router: Router) {}
   ngOnInit(): void {
+    if(this.title=="Ajouter") this.icon=true;
     this._configurationService.getConfigurations().subscribe(
       data => {
         this.configurations=data;
