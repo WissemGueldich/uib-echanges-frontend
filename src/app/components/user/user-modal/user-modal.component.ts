@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -31,6 +31,7 @@ export class UserModalComponent implements OnInit {
   closeResult!: string;
   @Input() title!: string;
   @Input() userId!: string;
+  @Output() update = new EventEmitter();
   icon=false;
   user: User =new User();
   roles: Role[] = [];
@@ -59,7 +60,7 @@ export class UserModalComponent implements OnInit {
       data => {
         this.profiles=data;
         data.forEach(profile=>{
-          this.dropdownList2.push({ id: profile.id, name: profile.libelle})
+          this.dropdownList2.push({ id: profile.id, libelle: profile.libelle})
         });
       }      
     );
@@ -77,7 +78,7 @@ export class UserModalComponent implements OnInit {
     this.dropdownSettings2 = {
       singleSelection: false,
       idField: 'id',
-      textField: 'name',
+      textField: 'libelle',
       selectAllText: 'Selectionner tout',
       unSelectAllText: 'Désélectionner tout',
       itemsShowLimit: 10,
@@ -85,6 +86,8 @@ export class UserModalComponent implements OnInit {
     };
   }
   onItemSelect(item: any) {
+    console.log(item);
+    
   }
   onSelectAll(items: any) {
   }
@@ -117,6 +120,7 @@ export class UserModalComponent implements OnInit {
     this.user.lastName=this.userForm.value.lastName!;
     this.user.id=this.userForm.value.id!;
     this.user.roles=this.userForm.value.roles!;
+    this.user.profiles=this.userForm.value.profiles!;
     this.user.password=this.userForm.value.password!;
     this.user.matricule=this.userForm.value.matricule!;
 
@@ -124,18 +128,17 @@ export class UserModalComponent implements OnInit {
       this._userService.updateUser(this.user).subscribe(
         data => {
           console.log('response', data);
-          this._router.navigateByUrl('/users');
+          this.update.emit();
         }
       )
     }else{
       this._userService.saveUser(this.user).subscribe(
         data => {
           console.log('response', data);
-          this._router.navigateByUrl('/users');
+          this.update.emit();
         }
       )
     }
-    window.location.reload()
   }
 
   deleteUser(id: number) {

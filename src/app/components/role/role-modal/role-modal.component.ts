@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -29,12 +29,14 @@ export class RoleModalComponent implements OnInit {
   closeResult!: string;
   @Input() title!: string;
   @Input() roleId!: string;
+  @Output() update = new EventEmitter();
   icon=false;
   role: Role =new Role();
   permissions: Permission[] = [];
   dropdownList: any = [];
   selectedItems: Permission[] = [];
   dropdownSettings: IDropdownSettings = {};
+  
   constructor(  private modalService: NgbModal, private _roleService: RoleService, 
                 private _router: Router) {}
   ngOnInit(): void {
@@ -89,18 +91,17 @@ export class RoleModalComponent implements OnInit {
       this._roleService.updateRole(this.role).subscribe(
         data => {
           console.log('response', data);
-          this._router.navigateByUrl('/Roles');
+          this.update.emit();
         }
       )
     }else{
       this._roleService.saveRole(this.role).subscribe(
         data => {
           console.log('response', data);
-          this._router.navigateByUrl('/Roles');
+          this.update.emit();
         }
       )
     }
-    window.location.reload()
   }
 
   deleteRole(id: number) {

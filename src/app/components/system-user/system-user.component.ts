@@ -36,6 +36,10 @@ export class SystemUserComponent implements OnInit {
     )
   }
 
+  listener(){
+    this.listSystemUsers();
+  }
+
   filterSystemUsers(systemUsers: SystemUser[]) {
     // return SystemUsers.filter((e) => {
     //   return e.SystemUserDate.toLowerCase().includes(this.filters.keyword.toLowerCase());

@@ -36,6 +36,10 @@ export class RoleComponent implements OnInit {
     )
   }
 
+  listener(){
+    this.listRoles();
+  }
+
   filterRoles(configs: Role[]) {
     // return Roles.filter((e) => {
     //   return e.RoleDate.toLowerCase().includes(this.filters.keyword.toLowerCase());

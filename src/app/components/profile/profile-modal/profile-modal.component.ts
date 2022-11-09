@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -29,6 +29,7 @@ export class ProfileModalComponent implements OnInit {
   closeResult!: string;
   @Input() title!: string;
   @Input() profileId!: string;
+  @Output() update = new EventEmitter();
   icon=false;
   profile: Profile =new Profile();
   configurations: Configuration[] = [];
@@ -87,18 +88,17 @@ export class ProfileModalComponent implements OnInit {
       this._profileService.updateProfile(this.profile).subscribe(
         data => {
           console.log('response', data);
-          this._router.navigateByUrl('/profiles');
+          this.update.emit();
         }
       )
     }else{
       this._profileService.saveProfile(this.profile).subscribe(
         data => {
           console.log('response', data);
-          this._router.navigateByUrl('/profiles');
+          this.update.emit();
         }
       )
     }
-    window.location.reload()
   }
 
   deleteProfile(id: number) {

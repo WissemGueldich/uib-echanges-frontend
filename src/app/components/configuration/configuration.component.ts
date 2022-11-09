@@ -41,8 +41,7 @@ configs: Configuration[] = [];
     )
   }
 
-  listener($event:any){
-    console.log($event);
+  listener(){
     this.listConfigurations();
   }
 

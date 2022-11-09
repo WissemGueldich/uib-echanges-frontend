@@ -33,6 +33,12 @@ export class UserService {
     )
   }
 
+  getUserByMatricule(matricule: string): Observable<User> {
+    return this._httpClient.get<User>(`${this.API_URL}/m/${matricule}`).pipe(
+      map(response => response)
+    )
+  }
+
   deleteUser(id: number): Observable<any> {
     return this._httpClient.delete(`${this.API_URL}/${id}`, {responseType: 'text'});
   }

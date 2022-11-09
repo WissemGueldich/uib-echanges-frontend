@@ -102,6 +102,9 @@ export class ConfigModal implements OnInit {
   }
 
   onSubmit() {
+    console.log("submitted source user");
+    console.log(this.configForm.value.sourceUser);
+    
     this.config.id = this.configForm.value.id!;
     this.config.libelle = this.configForm.value.libelle!;
     this.config.sourceServer = this.configForm.value.sourceServer!;
@@ -119,7 +122,9 @@ export class ConfigModal implements OnInit {
     this.config.automatic = this.configForm.value.automatic!;
     this.config.archive = this.configForm.value.archive!;
     this.config.filter = this.configForm.value.filter!;
-
+    console.log("this.config");
+    console.log(this.config);
+    
     if (this.config.id != 0) {
       console.log('updating');
       console.log(this.config);
@@ -128,16 +133,14 @@ export class ConfigModal implements OnInit {
         .updateConfiguration(this.config)
         .subscribe((data) => {
           console.log('response', data);
-          this.update.emit(this.config);
-          this._router.navigateByUrl('/configs');
+          this.update.emit();
         });
     } else {
       this._configurationService
         .saveConfiguration(this.config)
         .subscribe((data) => {
           console.log('response', data);
-          this.update.emit(this.config);
-          this._router.navigateByUrl('/configs');
+          this.update.emit();
         });
     }
     this.configForm.reset();
@@ -154,6 +157,10 @@ export class ConfigModal implements OnInit {
           this.sourceSystemUsers.forEach((c) => {
             if (c.id === this.config.sourceUser.id) {
               this.configForm.controls['sourceUser'].setValue(c);
+              console.log("on select source");
+              console.log(this.configForm.controls['sourceUser']);
+              console.log(c);
+              
             }
           });
         });

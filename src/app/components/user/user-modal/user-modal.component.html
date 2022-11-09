@@ -50,7 +50,7 @@
         </label>
         </div>        
         <div class="modal-footer">
-          <button type="submit" class="btn btn-dark float-left">Enregistrer</button>
+          <button type="submit" class="btn btn-dark float-left" (click)="modal.close('Close click')">Enregistrer</button>
           <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
         </div>
       </form>

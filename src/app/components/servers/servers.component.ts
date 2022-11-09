@@ -37,6 +37,10 @@ export class ServersComponent implements OnInit {
     )
   }
 
+  listener(){
+    this.listServers();
+  }
+
   filterServers(Servers: Server[]) {
     // return Servers.filter((e) => {
     //   return e.ServerDate.toLowerCase().includes(this.filters.keyword.toLowerCase());

@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Server } from 'src/app/models/server';
@@ -25,6 +25,7 @@ export class ServerModal {
   closeResult!: string;
   @Input() title!:string;
   @Input() serverId!:string;
+  @Output() update = new EventEmitter();
   icon=false;
   server: Server =new Server();
 
@@ -45,18 +46,17 @@ export class ServerModal {
       this._serverService.updateServer(this.server).subscribe(
         data => {
           console.log('response', data);
-          this._router.navigateByUrl('/servers');
+          this.update.emit();
         }
       )
     }else{
       this._serverService.saveServer(this.server).subscribe(
         data => {
           console.log('response', data);
-          this._router.navigateByUrl('/servers');
+          this.update.emit();
         }
       )
     }
-    window.location.reload()
   }
 
   deleteServer(id: number) {

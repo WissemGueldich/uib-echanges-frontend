@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -34,6 +34,7 @@ export class SystemUserModalComponent implements OnInit {
   closeResult!: string;
   @Input() title!: string;
   @Input() systemUserId!: string;
+  @Output() update = new EventEmitter();
   icon=false;
   systemUser: SystemUser =new SystemUser();
   servers: Server[] = [];
@@ -98,18 +99,17 @@ export class SystemUserModalComponent implements OnInit {
       this._systemUserService.updateSystemUser(this.systemUser).subscribe(
         data => {
           console.log('response', data);
-          this._router.navigateByUrl('/systemUsers');
+          this.update.emit();
         }
       )
     }else{
       this._systemUserService.saveSystemUser(this.systemUser).subscribe(
         data => {
           console.log('response', data);
-          this._router.navigateByUrl('/systemUsers');
+          this.update.emit();
         }
       )
     }
-    window.location.reload()
   }
 
   deleteSystemUser(id: number) {

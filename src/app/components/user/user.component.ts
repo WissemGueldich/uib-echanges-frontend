@@ -36,6 +36,10 @@ export class UserComponent implements OnInit {
     )
   }
 
+  listener(){
+    this.listUsers();
+  }
+
   filterUsers(users: User[]) {
     // return users.filter((e) => {
     //   return e.UserDate.toLowerCase().includes(this.filters.keyword.toLowerCase());

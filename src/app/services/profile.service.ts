@@ -18,6 +18,13 @@ export class ProfileService {
       map(response => response)
     )
   }
+
+  getProfilesByUserId(id: number): Observable<Profile[]> {
+    return this._httpClient.get<Profile[]>(this.API_URL+"/user/"+id).pipe(
+      map(response => response)
+    )
+  }
+
   saveProfile(Profile: Profile): Observable<Profile> {
     return this._httpClient.post<Profile>(this.API_URL, Profile);
   }

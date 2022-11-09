@@ -36,6 +36,10 @@ export class ProfileComponent implements OnInit {
     )
   }
 
+  listener(){
+    this.listProfiles();
+  }
+
   filterProfiles(configs: Profile[]) {
     // return Profiles.filter((e) => {
     //   return e.ProfileDate.toLowerCase().includes(this.filters.keyword.toLowerCase());

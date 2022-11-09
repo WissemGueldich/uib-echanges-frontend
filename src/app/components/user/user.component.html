@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
         <div class="container bg-light" >
-            <app-user-modal title="Ajouter" userId="" ></app-user-modal>
+            <app-user-modal (update)="listener()" title="Ajouter" userId="" ></app-user-modal>
             <div class="card-header">
                 <div class="d-flex justify-content-center"><h3>Liste des Utilisateurs</h3></div>
             </div>
@@ -31,7 +31,7 @@
                             <td class="text-center align-middle"  *ngIf="user.enabled; else auto" >Oui</td>
                             <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
                             <td>
-                                <app-user-modal title="Modifier" userId={{user.id}} ></app-user-modal>
+                                <app-user-modal (update)="listener()" title="Modifier" userId={{user.id}} ></app-user-modal>
                                 <button class="btn btn-light mb-2 me-2" (click)="deleteUser(user.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>

@@ -1,1 +1,33 @@
-<p>transfer works!</p>
+
+<div class="card text-center">
+    <div class="card-header">
+        <h1>Effectuer des transferts</h1>
+    </div>
+    <div class="card-body">
+        <div class="container bg-light" >
+            <div class="card-header">
+                <div class="d-flex justify-content-center"><h3>Liste des Transferts</h3></div>
+            </div>
+            <br/>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm table-responsive-sm" >
+                    <thead>
+                        <tr>
+                            <th class="text-center align-middle" scope="col">Libelle</th>
+                            <th class="text-center align-middle" scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let config of configs" >
+                            <td class="text-center align-middle" >{{config.libelle}}</td>
+                            <td class="text-center align-middle" ><button class="btn btn-light mb-2 me-2" (click)="transfer(config)" >Envoi</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h1 class="text-success" *ngIf="this.status" >Transfert effectué <i class="fal fa-check"></i></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center"></div>
+<br/>
