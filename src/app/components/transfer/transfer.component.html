@@ -24,7 +24,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <h1 class="text-success" *ngIf="this.status" >Transfert effectué <i class="fal fa-check"></i></h1>
+                <h3 class="text-success" *ngIf="this.show && this.error==false" >{{this.message}} <i class="fal fa-check"></i></h3>
+                <h3 class="text-danger" *ngIf="this.show && this.error" >{{this.message}} <i class="fal fa-exclamation"></i></h3>
             </div>
         </div>
     </div>

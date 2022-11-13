@@ -53,6 +53,7 @@ export class ConfigModal implements OnInit {
     });
     this.updateForm();
   }
+  //TODO: update doesn't update system users correctly
   configForm = new FormGroup({
     libelle: new FormControl(''),
     filter: new FormControl(''),
