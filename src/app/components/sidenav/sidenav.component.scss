@@ -63,7 +63,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: calc(100% - 3.65rem);
+    height: calc(100% - 5.85rem);
     cursor: pointer;
 
     .sidenav-nav-item {
@@ -108,3 +108,13 @@
         color: #000;
     }
 }
+
+.hide-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .hide-scroll {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }

@@ -54,9 +54,9 @@ export const navbarData = [
         icon: 'fal fa-chart-line',
         label: 'Tableau de bord'
     },
-    // {
-    //     routeLink: 'settings',
-    //     icon: 'fal fa-box-open',
-    //     label: 'Settings'
-    // },
+    {
+        routeLink: 'settings',
+        icon: 'fal fa-box-open',
+        label: 'Settings'
+    },
 ];
