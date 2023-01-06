@@ -9,11 +9,11 @@ export const navbarData = [
         icon: 'fal fa-users',
         label: 'Gestion des utilisateurs'
     },
-    {
+/*    {
         routeLink: 'roles',
         icon: 'fal fa-user-lock',
         label: 'Gestion des roles'
-    },
+    },*/
     {
         routeLink: 'profiles',
         icon: 'fal fa-id-card',

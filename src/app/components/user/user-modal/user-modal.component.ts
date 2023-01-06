@@ -52,7 +52,7 @@ export class UserModalComponent implements OnInit {
       data => {
         this.roles=data;
         data.forEach(role=>{
-          this.dropdownList.push({ id: role.id, name: role.name})
+          this.dropdownList.push({ id: role.id, name: role.name.split("_")[1].toLowerCase()})
         });
       }      
     );
@@ -162,10 +162,14 @@ export class UserModalComponent implements OnInit {
           this.user.firstName = data.firstName;
           this.user.email = data.email;
           this.user.password = data.password;
-          this.user.roles = data.roles;
           this.user.profiles = data.profiles;
           this.user.enabled = data.enabled;
-
+          this.user.roles = data.roles;
+          data.roles.forEach((role: Role)=> {
+            role.name=role.name.split("_")[1].toLowerCase();
+            console.log(role.name);
+            
+          });
           this.userForm.setValue({
             id:this.user.id,
             matricule:this.user.matricule,

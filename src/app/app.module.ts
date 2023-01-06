@@ -37,6 +37,7 @@ import { ApplicationComponent } from './components/application/application.compo
 import { HomeComponent } from './components/home/home.component';
 import { JobModalComponent } from './components/job/job-modal/job-modal.component';
 import { ApplicationModalComponent } from './components/application/application-modal/application-modal.component';
+import { SimpleModalComponent } from './components/simple-modal/simple-modal.component';
 
 
 @NgModule({
@@ -69,8 +70,8 @@ import { ApplicationModalComponent } from './components/application/application-
     ApplicationComponent,
     HomeComponent,
     JobModalComponent,
-    ApplicationModalComponent
-    
+    ApplicationModalComponent,
+    SimpleModalComponent    
   ],
   imports: [
     BrowserModule,

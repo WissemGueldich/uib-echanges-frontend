@@ -15,15 +15,17 @@
                     <thead>
                         <tr>
                             <th class="text-center align-middle" scope="col">libellé</th>
+                            <th class="text-center align-middle" scope="col">Utilisateurs</th>
                             <th class="text-center align-middle" scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let profile of profiles" >
                             <td class="text-center align-middle" >{{profile.libelle}}</td>
+                            <td class="text-center align-middle" ><simple-modal profileId={{profile.id}} profileName={{profile.libelle}} ></simple-modal></td>
                             <td>
                                 <app-profile-modal (update)="listener()" title="Modifier" profileId={{profile.id}} ></app-profile-modal>
-                                <button class="btn btn-light mb-2 me-2" (click)="deleteProfile(profile.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button class="btn btn-light mb-2 me-2" (click)="delete(profile)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     </tbody>

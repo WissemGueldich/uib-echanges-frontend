@@ -31,7 +31,7 @@ const routes: Routes = [
   {path: 'users', component: UserComponent, canActivate: [AuthGuard]},
   {path: 'profiles', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'roles', component: RoleComponent, canActivate: [AuthGuard]},
+  //{path: 'roles', component: RoleComponent, canActivate: [AuthGuard]},
   {path: 'transfers', component: TransferComponent, canActivate: [AuthGuard]},
   {path: 'jobs', component: JobComponent, canActivate: [AuthGuard]},
   {path: 'applications', component: ApplicationComponent, canActivate: [AuthGuard]},

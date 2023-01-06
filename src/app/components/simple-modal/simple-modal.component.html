@@ -1,0 +1,18 @@
+<ng-template #content let-c="close" let-d="dismiss">
+	<div class="modal-header">
+        <h5 class="text-center align-middle" >Utilisateurs du profil <b>"{{profileName}}"</b></h5>
+		<button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+	</div>
+    <div class="modal-body">
+        <ul>
+            <li *ngFor="let user of users" >
+                <p >{{user.matricule}}</p>
+            </li>
+        </ul>
+    </div>
+    
+    
+            
+</ng-template>
+
+<button class="btn btn-lg btn-outline-dark" (click)="open(content)"><i class="fa fa-eye" aria-hidden="true"></i></button>

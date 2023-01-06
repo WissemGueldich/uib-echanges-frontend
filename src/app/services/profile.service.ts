@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Profile } from '../models/profile';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,12 @@ export class ProfileService {
 
   getProfilesByUserId(id: number): Observable<Profile[]> {
     return this._httpClient.get<Profile[]>(this.API_URL+"/user/"+id).pipe(
+      map(response => response)
+    )
+  }
+
+  getUsersByProfileId(id: number): Observable<User[]> {
+    return this._httpClient.get<User[]>(this.API_URL+"/"+id+"/users").pipe(
       map(response => response)
     )
   }
