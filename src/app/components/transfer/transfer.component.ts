@@ -38,12 +38,17 @@ export class TransferComponent implements OnInit {
         this.error=false;
         this.show=true ;
         this.message="Transfert éffectué avec succès"
+        console.log("resp");
+        console.log(data);
+        
       },
-      error =>{
-        this.error=true;
-        this.show=true ;
-        this.message = error.error;
-      }
+      // error =>{
+      //   this.error=true;
+      //   this.show=true ;
+      //   this.message = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : error.error ? error.error : 'Problème serveur';
+      //   console.log("resp");
+      //   console.log(error);
+      // }
     )
   }
 

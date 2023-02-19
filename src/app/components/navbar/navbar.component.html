@@ -7,7 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <!--<li class="nav-item active">
                 <a class="nav-link">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -26,7 +26,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled">Disabled</a>
-            </li>
+            </li>-->
             <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
                 <a href class="nav-link" (click)="logout()">
                     <i class="sidenav-link-icon fal fa-sign-out" ></i>

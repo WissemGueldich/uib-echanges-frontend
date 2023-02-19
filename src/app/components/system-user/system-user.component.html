@@ -28,7 +28,7 @@
                             <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
                             <td>
                                 <system-user-modal (update)="listener()" title="Modifier" systemUserId={{systemUser.id}} ></system-user-modal>
-                                <button class="btn btn-light mb-2 me-2" (click)="deleteSystemUser(systemUser.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteSystemUser(systemUser.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     </tbody>

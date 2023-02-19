@@ -1,3 +1,59 @@
-<p>job works!</p>
 
+<div class="card text-center">
+    <div class="card-header">
+        <h1>Gestion des Jobs</h1>
+    </div>
+    <div class="card-body">
+        <div class="container bg-light" >
+            <app-job-modal (update)="listener()" title="Ajouter" jobId="" ></app-job-modal>
+            <div class="card-header">
+                <div class="d-flex justify-content-center"><h3>Liste des Jobs</h3></div>
+            </div>
+            <br/>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm table-responsive-sm" >
+                    <thead>
+                        <tr>
+                            <th class="text-center align-middle" scope="col"></th>
+                            <th class="text-center align-middle" scope="col">Libellé</th>
+                            <th class="text-center align-middle" scope="col">Heure début</th>
+                            <th class="text-center align-middle" scope="col">Heure fin</th>
+                            <th class="text-center align-middle" scope="col">Fréquence</th>
+                            <th class="text-center align-middle" scope="col">Jours</th>
+                            <th class="text-center align-middle" scope="col">Etat</th>
+                            <th class="text-center align-middle" scope="col">En cours d'éxecution</th>
+                            <th class="text-center align-middle" scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let job of jobs" >
+                            <td class="text-center align-middle" ><button class="btn btn-outline-dark mb-2 me-2"  ><i class="fa fa-play" aria-hidden="true"></i></button></td>
+                            <td class="text-center align-middle" >{{job.libelle}}</td>
+                            <td class="text-center align-middle" >{{job.startHour}}</td>
+                            <td class="text-center align-middle" >{{job.endHour}}</td>
+                            <td class="text-center align-middle" >{{job.frequency}}</td>
+                            <td class="text-center align-middle" ><ul><li *ngFor="let day of job.days"><div class="text-center align-middle">{{dayToDayFr(day.day)}}</div></li></ul></td>
+                            <td class="text-center align-middle"  *ngIf="job.state; else auto" >Oui</td>
+                            <td class="text-center align-middle"  *ngIf="job.state; else auto" >Oui</td>
+                            <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
+                            <td class="text-center align-middle">
+                                <app-job-modal (update)="listener()" title="Modifier" jobId={{job.id}} ></app-job-modal>
+                                <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteJob(job.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        
+    </div>
+    <!--<div class="card-footer text-muted">
+      2 days ago
+    </div>-->
+  </div>
+<div class="d-flex justify-content-center"></div>
+<br/>
+
+<!--remove this-->
 <button (click)="schedule()" class="btn btn-danger" >Schedule</button>

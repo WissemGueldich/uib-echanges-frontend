@@ -23,7 +23,7 @@
                             <td class="text-center align-middle" >{{role.name.toLowerCase().split('_')[1]}}</td>
                             <td>
                                 <app-role-modal (update)="listener()" title="Modifier" roleId={{role.id}} ></app-role-modal>
-                                <button class="btn btn-light mb-2 me-2" (click)="deleteRole(role.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteRole(role.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     </tbody>

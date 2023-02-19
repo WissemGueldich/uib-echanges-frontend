@@ -49,14 +49,14 @@ export const navbarData = [
         icon: 'fal fa-exchange',
         label: 'Effectuer un transfert'
     },
-    {
+    /*{
         routeLink: 'dashboard',
         icon: 'fal fa-chart-line',
         label: 'Tableau de bord'
-    },
+    },*/
     {
         routeLink: 'settings',
         icon: 'fal fa-box-open',
-        label: 'Settings'
+        label: 'Paramètres'
     },
 ];

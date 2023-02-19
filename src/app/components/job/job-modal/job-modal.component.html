@@ -1,1 +1,53 @@
-<p>job-modal works!</p>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{this.title}} Job</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" >
+      <div class="form-group pb-2">
+        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé" formControlName="libelle" >
+      </div>
+      <div class="form-group pb-2">
+        <input type="text" name="startHour" class="form-control" id="startHour" placeholder="Heure début" formControlName="startHour" >
+      </div>
+      <div class="form-group pb-2">
+        <input type="text" name="endHour" class="form-control" id="endHour" placeholder="Heure fin" formControlName="endHour" >
+      </div>
+      <div class="form-group pb-2">
+        <input type="text" name="frequency" class="form-control" id="frequency" placeholder="fréquence" formControlName="frequency" >
+      </div>
+      <div class="form-group pb-2">
+        <ng-multiselect-dropdown
+        [placeholder]="'Jours'"
+        [settings]="dropdownSettings1"
+        [data]="dropdownList1"
+        formControlName="days"
+        (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+      >
+      </ng-multiselect-dropdown>
+    </div>
+      <div class="form-group pb-2">
+          <ng-multiselect-dropdown
+          [placeholder]="'Configurations'"
+          [settings]="dropdownSettings"
+          [data]="dropdownList"
+          formControlName="configurations"
+          (onSelect)="onItemSelect($event)"
+          (onSelectAll)="onSelectAll($event)"
+        >
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-dark float-left" (click)="modal.close('Close click')">Enregistrer</button>
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<button class="btn btn-outline-dark mb-2 me-2" (click)="openVerticallyCentered(content)">
+  <i *ngIf="this.icon; else modifier" class="fa fa-plus" aria-hidden="true"></i>
+  <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>  
+</button>

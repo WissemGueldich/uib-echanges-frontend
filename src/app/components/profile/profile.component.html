@@ -25,7 +25,7 @@
                             <td class="text-center align-middle" ><simple-modal profileId={{profile.id}} profileName={{profile.libelle}} ></simple-modal></td>
                             <td>
                                 <app-profile-modal (update)="listener()" title="Modifier" profileId={{profile.id}} ></app-profile-modal>
-                                <button class="btn btn-light mb-2 me-2" (click)="delete(profile)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button class="btn btn-outline-danger mb-2 me-2" (click)="delete(profile)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     </tbody>

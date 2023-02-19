@@ -43,8 +43,8 @@ export class ProfileModalComponent implements OnInit {
     this._configurationService.getConfigurations().subscribe(
       data => {
         this.configurations=data;
-        data.forEach(Configuration=>{
-          this.dropdownList.push({ id: Configuration.id, libelle: Configuration.libelle})
+        data.forEach(configuration=>{
+          this.dropdownList.push({ id: configuration.id, libelle: configuration.libelle})
         });
       }      
     );

@@ -25,7 +25,7 @@
                             <td class="text-center align-middle" >{{server.address}}</td>
                             <td class="text-center align-middle" >{{server.port}}</td>
                             <td><server-modal (update)="listener()" title="Modifier" serverId={{server.id}} ></server-modal>
-                                <button class="btn btn-light mb-2 me-2" (click)="deleteServer(server.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteServer(server.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     </tbody>

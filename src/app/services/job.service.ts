@@ -1,18 +1,43 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Job } from '../models/job';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
 
-  private API_URL=environment.BASE_URL+"jobs/";
+  private API_URL=environment.BASE_URL+"jobs";
 
   constructor(private _httpClient: HttpClient) { }
 
+  getJobs(): Observable<Job[]> {
+    return this._httpClient.get<Job[]>(this.API_URL).pipe(
+      map(response => response)
+    )
+  }
+  saveJob(Job: Job): Observable<Job> {
+    return this._httpClient.post<Job>(this.API_URL, Job);
+  }
+
+  updateJob(Job: Job): Observable<Job> {
+    return this._httpClient.put<Job>(this.API_URL, Job);
+  }
+
+  getJob(id: number): Observable<Job> {
+    return this._httpClient.get<Job>(`${this.API_URL}/${id}`).pipe(
+      map(response => response)
+    )
+  }
+
+  deleteJob(id: number): Observable<any> {
+    return this._httpClient.delete(`${this.API_URL}/${id}`, {responseType: 'text'});
+  }
+
+
   schedule(): Observable<any> {
-    return this._httpClient.post<any>(this.API_URL+"schedule",3);
+    return this._httpClient.post<any>(this.API_URL+"/schedule/1",1);
   }
 }
