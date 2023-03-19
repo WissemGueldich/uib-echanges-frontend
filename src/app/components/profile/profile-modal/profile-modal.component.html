@@ -8,6 +8,16 @@
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" >
         <div class="form-group pb-2">
           <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé" formControlName="libelle" >
+          <div
+          *ngIf="profileForm.controls.libelle.invalid && (profileForm.controls.libelle.dirty || profileForm.controls.libelle.touched)"
+          class="alert alert-danger">
+          <div *ngIf="profileForm.controls.libelle.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="profileForm.controls.libelle.errors?.['maxlength']">
+            Longeur ne doit pas dépasser 40.
+          </div>
+        </div>
         </div>
         <div class="form-group pb-2">
             <ng-multiselect-dropdown
@@ -19,9 +29,15 @@
             (onSelectAll)="onSelectAll($event)"
           >
           </ng-multiselect-dropdown>
+          <div *ngIf="profileForm.controls.configurations.invalid && (profileForm.controls.configurations.dirty || profileForm.controls.configurations.touched)"
+          class="alert alert-danger">
+          <div *ngIf="profileForm.controls.configurations.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+        </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-dark float-left" (click)="modal.close('Close click')">Enregistrer</button>
+          <button type="submit" class="btn btn-dark float-left" [disabled]="!this.profileForm.valid" (click)="modal.close('Close click')">Enregistrer</button>
           <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
         </div>
       </form>

@@ -28,12 +28,11 @@
                 <a class="nav-link disabled">Disabled</a>
             </li>-->
             <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
-                <a href class="nav-link" (click)="logout()">
-                    <i class="sidenav-link-icon fal fa-sign-out" ></i>
+                <div class="nav-link"   >
                     <span class="sidenav-link-text">
-                        Se déconnecter
+                       UIB Echanges
                     </span>
-                </a>
+                </div>
             </li>
         </ul>
     </div>

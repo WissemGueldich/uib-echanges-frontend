@@ -1,53 +1,97 @@
-
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title">{{this.title}} Job</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" >
+    <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
       <div class="form-group pb-2">
-        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé" formControlName="libelle" >
+        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé"
+          formControlName="libelle">
+        <div
+          *ngIf="jobForm.controls.libelle.invalid && (jobForm.controls.libelle.dirty || jobForm.controls.libelle.touched)"
+          class="alert alert-danger">
+          <div *ngIf="jobForm.controls.libelle.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="jobForm.controls.libelle.errors?.['maxlength']">
+            Longeur ne doit pas dépasser 40.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <input type="text" name="startHour" class="form-control" id="startHour" placeholder="Heure début" formControlName="startHour" >
+        <input type="text" name="startHour" class="form-control" minlength="5" maxlength="5" id="startHour" placeholder="Heure début (HH:MM)"
+          formControlName="startHour">
+        <div
+          *ngIf="jobForm.controls.startHour.invalid && (jobForm.controls.startHour.dirty || jobForm.controls.startHour.touched)"
+          class="alert alert-danger">
+          <div *ngIf="jobForm.controls.startHour.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="jobForm.controls.startHour.errors?.['pattern']">
+            Valeur invalide.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <input type="text" name="endHour" class="form-control" id="endHour" placeholder="Heure fin" formControlName="endHour" >
+        <input type="text" name="endHour" class="form-control" minlength="5" maxlength="5" id="endHour" placeholder="Heure fin (HH:MM)"
+          formControlName="endHour">
+        <div
+          *ngIf="jobForm.controls.endHour.invalid && (jobForm.controls.endHour.dirty || jobForm.controls.endHour.touched)"
+          class="alert alert-danger">
+          <div *ngIf="jobForm.controls.endHour.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="jobForm.controls.endHour.errors?.['pattern']">
+            Valeur invalide.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <input type="text" name="frequency" class="form-control" id="frequency" placeholder="fréquence" formControlName="frequency" >
+        <input type="text" name="frequency" class="form-control" id="frequency" placeholder="fréquence"
+          formControlName="frequency">
+        <div
+          *ngIf="jobForm.controls.frequency.invalid && (jobForm.controls.frequency.dirty || jobForm.controls.frequency.touched)"
+          class="alert alert-danger">
+          <div *ngIf="jobForm.controls.frequency.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="jobForm.controls.frequency.errors?.['pattern']">
+            Valeur invalide.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <ng-multiselect-dropdown
-        [placeholder]="'Jours'"
-        [settings]="dropdownSettings1"
-        [data]="dropdownList1"
-        formControlName="days"
-        (onSelect)="onItemSelect($event)"
-        (onSelectAll)="onSelectAll($event)"
-      >
-      </ng-multiselect-dropdown>
-    </div>
-      <div class="form-group pb-2">
-          <ng-multiselect-dropdown
-          [placeholder]="'Configurations'"
-          [settings]="dropdownSettings"
-          [data]="dropdownList"
-          formControlName="configurations"
-          (onSelect)="onItemSelect($event)"
-          (onSelectAll)="onSelectAll($event)"
-        >
+        <ng-multiselect-dropdown [placeholder]="'Jours'" [settings]="dropdownSettings1" [data]="dropdownList1"
+          formControlName="days" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
         </ng-multiselect-dropdown>
+        <div *ngIf="jobForm.controls.days.invalid && (jobForm.controls.days.dirty || jobForm.controls.days.touched)"
+          class="alert alert-danger">
+          <div *ngIf="jobForm.controls.days.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+        </div>
+      </div>
+      <div class="form-group pb-2">
+        <ng-multiselect-dropdown [placeholder]="'Configurations'" [settings]="dropdownSettings" [data]="dropdownList"
+          formControlName="configurations" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+        <div
+          *ngIf="jobForm.controls.configurations.invalid && (jobForm.controls.configurations.dirty || jobForm.controls.configurations.touched)"
+          class="alert alert-danger">
+          <div *ngIf="jobForm.controls.configurations.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-dark float-left" (click)="modal.close('Close click')">Enregistrer</button>
-        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
+        <button type="submit" class="btn btn-dark float-left" [disabled]="!this.jobForm.valid" (click)="modal.close('Close click')">Enregistrer</button>
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button> 
       </div>
     </form>
   </div>
 </ng-template>
 <button class="btn btn-outline-dark mb-2 me-2" (click)="openVerticallyCentered(content)">
   <i *ngIf="this.icon; else modifier" class="fa fa-plus" aria-hidden="true"></i>
-  <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>  
+  <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>
 </button>

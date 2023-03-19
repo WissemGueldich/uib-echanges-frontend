@@ -1,20 +1,38 @@
-
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title">{{this.title}} Configuration</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="configForm" (ngSubmit)="onSubmit()" >
+    <form [formGroup]="configForm" (ngSubmit)="onSubmit()">
       <div class="form-group pb-2">
-        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé" formControlName="libelle" >
+        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé"
+          formControlName="libelle">
+        <div
+          *ngIf="configForm.controls.libelle.invalid && (configForm.controls.libelle.dirty || configForm.controls.libelle.touched)"
+          class="alert alert-danger">
+          <div *ngIf="configForm.controls.libelle.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="configForm.controls.libelle.errors?.['maxlength']">
+            Longeur ne doit pas dépasser 40.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <select class="form-select" aria-label="Default select example" formControlName="sourceServer" (change)="onSelectSource()">
+        <select class="form-select" aria-label="Default select example" formControlName="sourceServer"
+          (change)="onSelectSource()">
           <option *ngFor="let server of servers" [ngValue]="server">
             {{ server.libelle }}
           </option>
         </select>
+        <div
+          *ngIf="configForm.controls.sourceServer.invalid && (configForm.controls.sourceServer.dirty || configForm.controls.sourceServer.touched)"
+          class="alert alert-danger">
+          <div *ngIf="configForm.controls.sourceServer.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
         <select class="form-select" aria-label="Default select example" formControlName="sourceUser">
@@ -22,64 +40,140 @@
             {{ systemUser.libelle }}
           </option>
         </select>
+        <div
+          *ngIf="configForm.controls.sourceUser.invalid && (configForm.controls.sourceUser.dirty || configForm.controls.sourceUser.touched)"
+          class="alert alert-danger">
+          <div *ngIf="configForm.controls.sourceUser.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <input type="text" name="sourcePath" class="form-control" id="sourcePath" placeholder="Chemin source" formControlName="sourcePath" >
+        <input type="text" name="sourcePath" class="form-control" id="sourcePath" placeholder="Chemin source"
+          formControlName="sourcePath">
+        <div
+          *ngIf="configForm.controls.sourcePath.invalid && (configForm.controls.sourcePath.dirty || configForm.controls.sourcePath.touched)"
+          class="alert alert-danger">
+          <div *ngIf="configForm.controls.sourcePath.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="configForm.controls.sourcePath.errors?.['maxlength']">
+            Longeur ne doit pas dépasser 60.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <input type="text" name="sourceArchivingPath" class="form-control" id="sourceArchivingPath" placeholder="Chemin d'archivage source" formControlName="sourceArchivingPath" >
+        <input type="text" name="sourceArchivingPath" class="form-control" id="sourceArchivingPath"
+          placeholder="Chemin d'archivage source" formControlName="sourceArchivingPath">
+        <div
+          *ngIf="configForm.controls.sourceArchivingPath.invalid && (configForm.controls.sourceArchivingPath.dirty || configForm.controls.sourceArchivingPath.touched)"
+          class="alert alert-danger">
+          <div *ngIf="configForm.controls.sourceArchivingPath.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="configForm.controls.sourceArchivingPath.errors?.['maxlength']">
+            Longeur ne doit pas dépasser 60.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <select class="form-select" aria-label="Default select example" formControlName="destinationServer" (change)="onSelectDestination()">
-          <option *ngFor="let server of servers" [ngValue]="server" >
+        <select class="form-select" aria-label="Default select example" formControlName="destinationServer"
+          (change)="onSelectDestination()">
+          <option *ngFor="let server of servers" [ngValue]="server">
             {{ server.libelle }}
           </option>
         </select>
+        <div
+          *ngIf="configForm.controls.destinationServer.invalid && (configForm.controls.destinationServer.dirty || configForm.controls.destinationServer.touched)"
+          class="alert alert-danger">
+          <div *ngIf="configForm.controls.destinationServer.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <select class="form-select" aria-label="Default select example" formControlName="destinationUser" >
-          <option *ngFor="let systemUser of destinationSystemUsers" [ngValue]="systemUser" >
+        <select class="form-select" aria-label="Default select example" formControlName="destinationUser">
+          <option *ngFor="let systemUser of destinationSystemUsers" [ngValue]="systemUser">
             {{ systemUser.libelle }}
           </option>
         </select>
+        <div
+          *ngIf="configForm.controls.destinationUser.invalid && (configForm.controls.destinationUser.dirty || configForm.controls.destinationUser.touched)"
+          class="alert alert-danger">
+          <div *ngIf="configForm.controls.destinationUser.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <input type="text" name="destinationPath" class="form-control" id="destinationPath" placeholder="Chemin destination" formControlName="destinationPath" >
+        <input type="text" name="destinationPath" class="form-control" id="destinationPath"
+          placeholder="Chemin destination" formControlName="destinationPath">
+        <div
+          *ngIf="configForm.controls.destinationPath.invalid && (configForm.controls.destinationPath.dirty || configForm.controls.destinationPath.touched)"
+          class="alert alert-danger">
+          <div *ngIf="configForm.controls.destinationPath.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="configForm.controls.destinationPath.errors?.['maxlength']">
+            Longeur ne doit pas dépasser 60.
+          </div>
+        </div>
       </div>
-      
       <div class="form-group pb-2">
-        <input class="mx-2 form-check-input" type="checkbox" id="overwrite" formControlName="overwrite"  >
+        <input class="mx-2 form-check-input" type="checkbox" id="overwrite" formControlName="overwrite">
         <label class="ml-5 form-check-label" for="overwrite">
           Ecrasement
         </label>
       </div>
       <div class="form-group pb-2">
-        <input class="mx-2 form-check-input" type="checkbox" id="move" formControlName="move" >
+        <input class="mx-2 form-check-input" type="checkbox" id="move" formControlName="move">
         <label class="ml-5 form-check-label" for="move">
           Déplacement
         </label>
       </div>
       <div class="form-group pb-2">
-        <input class="mx-2 form-check-input" type="checkbox" id="automatic" formControlName="automatic" >
+        <input class="mx-2 form-check-input" type="checkbox" id="automatic" formControlName="automatic">
         <label class="ml-5 form-check-label" for="automatic">
           Automatique
         </label>
       </div>
       <div class="form-group pb-2">
-        <input class="mx-2 form-check-input" type="checkbox" id="archive" formControlName="archive" >
+        <input class="mx-2 form-check-input" type="checkbox" id="archive" formControlName="archive">
         <label class="ml-5 form-check-label" for="archive">
           Archivage
         </label>
       </div>
       <div class="form-group pb-2">
-        <input type="text" name="destinationArchivingPath" class="form-control" id="destinationArchivingPath" placeholder="Chemin d'archivage destination" formControlName="destinationArchivingPath" >
+        <input type="text" name="destinationArchivingPath" class="form-control" id="destinationArchivingPath"
+          placeholder="Chemin d'archivage destination" formControlName="destinationArchivingPath">
+        <div
+          *ngIf="configForm.controls.destinationArchivingPath.invalid && (configForm.controls.destinationArchivingPath.dirty || configForm.controls.destinationArchivingPath.touched)"
+          class="alert alert-danger">
+          <div *ngIf="configForm.controls.destinationArchivingPath.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="configForm.controls.destinationArchivingPath.errors?.['maxlength']">
+            Longeur ne doit pas dépasser 60.
+          </div>
+        </div>
       </div>
       <div class="form-group pb-2">
-        <input type="text" name="filter" class="form-control" id="filter" placeholder="filtre" formControlName="filter" >
+        <input type="text" name="filter" class="form-control" id="filter" placeholder="filtre" formControlName="filter">
+        <div
+          *ngIf="configForm.controls.filter.invalid && (configForm.controls.filter.dirty || configForm.controls.filter.touched)"
+          class="alert alert-danger">
+          <div *ngIf="configForm.controls.filter.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="configForm.controls.filter.errors?.['maxlength']">
+            Longeur ne doit pas dépasser 30.
+          </div>
+        </div>
       </div>
-      
+
       <div class="modal-footer">
-        <button type="submit" class="btn btn-dark float-left" (click)="modal.close('Close click')">Enregistrer</button>
+        <button type="submit" class="btn btn-dark float-left" [disabled]="!this.configForm.valid"
+          (click)="modal.close('Close click')">Enregistrer</button>
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
       </div>
     </form>

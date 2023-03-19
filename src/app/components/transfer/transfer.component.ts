@@ -18,37 +18,41 @@ export class TransferComponent implements OnInit {
   show:boolean = false;
   user:User=new User;
   configs:Configuration[] = [];
-  message!:string;
+  message:string = "Inactif";
   error:boolean = false;
+  disable:boolean = false;
   ngOnInit(): void {
     this._userService.getUserByMatricule(this._tokenService.getUser().username).subscribe(
       data => {
         console.log(data);
         this.user=data
         data.profiles.forEach((profile: Profile )=>{
-          this.configs = profile.configurations;
+          this.configs=this.configs.concat(profile.configurations);
         })     
       }
     );
   }
 
   transfer(config:Configuration) {
+    config.message = "En Cours ..."
+    config.show = false;
+    config.error = false ;
+    config.disable = true ;
     this._transferService.transfer(config).subscribe(
       data => {
-        this.error=false;
-        this.show=true ;
-        this.message="Transfert éffectué avec succès"
+        config.error=false;
+        config.show = true;
+        config.message="Transfert éffectué avec succès"
+        config.disable = false;
         console.log("resp");
         console.log(data);
-        
       },
-      // error =>{
-      //   this.error=true;
-      //   this.show=true ;
-      //   this.message = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : error.error ? error.error : 'Problème serveur';
-      //   console.log("resp");
-      //   console.log(error);
-      // }
+      error =>{
+        config.error=true;
+        config.show=true ;
+        config.message = error.error.text ? error.error.text.split('/')[0] : "Problème serveur."
+        config.disable = false;
+      }
     )
   }
 

@@ -58,21 +58,21 @@ export class JobComponent implements OnInit {
     });
   }
 
-  dayToDayFr(day: string) {
+  idToDay(day: number) {
     switch (day) {
-      case 'MON':
+      case 1:
         return 'Lundi';
-      case 'TUE':
+      case 2:
         return 'Mardi';
-      case 'WED':
+      case 3:
         return 'Mercredi';
-      case 'THU':
+      case 4:
         return 'Jeudi';
-      case 'FRI':
+      case 5:
         return 'Vendredi';
-      case 'SAT':
+      case 6:
         return 'Samedi';
-      case 'SUN':
+      case 7:
         return 'Dimanche';
       default:
         return '';

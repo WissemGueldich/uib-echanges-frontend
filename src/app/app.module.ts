@@ -4,10 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BoardAdminComponent } from './components/board-admin/board-admin.component';
 import { BoardUserComponent } from './components/board-user/board-user.component';
 import { BodyComponent } from './components/body/body.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -46,12 +44,10 @@ import { SimpleModalComponent } from './components/simple-modal/simple-modal.com
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    BoardAdminComponent,
     BoardUserComponent,
     ServersComponent,
     BodyComponent,
     SidenavComponent,
-    DashboardComponent,
     ConfigurationComponent,
     SettingsComponent,
     ServerModal,

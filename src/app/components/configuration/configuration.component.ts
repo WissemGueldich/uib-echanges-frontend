@@ -25,7 +25,6 @@ configs: Configuration[] = [];
   deleteConfiguration(id: number) {
     this._configService.deleteConfiguration(id).subscribe(
       data => {
-        console.log('deleted response', data);
         this.listConfigurations();
       }
     )
@@ -34,8 +33,6 @@ configs: Configuration[] = [];
   listConfigurations() {
     this._configService.getConfigurations().subscribe(
       data => {
-        console.log("listconf");
-        console.log(data);
         this.configs = data
       }
     )

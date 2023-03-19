@@ -1,19 +1,9 @@
 export const navbarData = [
     {
-        routeLink: 'home',
-        icon: 'fal fa-home',
-        label: 'Acceuil'
-    },
-    {
         routeLink: 'users',
         icon: 'fal fa-users',
         label: 'Gestion des utilisateurs'
     },
-/*    {
-        routeLink: 'roles',
-        icon: 'fal fa-user-lock',
-        label: 'Gestion des roles'
-    },*/
     {
         routeLink: 'profiles',
         icon: 'fal fa-id-card',
@@ -49,11 +39,6 @@ export const navbarData = [
         icon: 'fal fa-exchange',
         label: 'Effectuer un transfert'
     },
-    /*{
-        routeLink: 'dashboard',
-        icon: 'fal fa-chart-line',
-        label: 'Tableau de bord'
-    },*/
     {
         routeLink: 'settings',
         icon: 'fal fa-box-open',

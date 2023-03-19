@@ -17,4 +17,10 @@ export class Configuration{
     sourceServer!:Server;
     sourceUser!:SystemUser;
     destinationUser!:SystemUser;
+    message!:String;
+    error!:boolean;
+    disable!:boolean;
+    show!:boolean;
+
+
 }

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -7,52 +14,53 @@ import { SystemUser } from 'src/app/models/systemUser';
 import { ServerService } from 'src/app/services/server.service';
 import { SystemUserService } from 'src/app/services/system-user.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
- 
 
-//TODO: add labels and check update modal 2nd click
-
-
+//TODO: add labels
 
 @Component({
   selector: 'system-user-modal',
   templateUrl: './system-user-modal.component.html',
   encapsulation: ViewEncapsulation.None,
-  styles: [`
-    .dark-modal .modal-content {
-      background-color: #292b2c;
-      color: white;
-    }
-    .dark-modal .close {
-      color: white;
-    }
-    .light-blue-backdrop {
-      background-color: #5cb3fd;
-    }
-  `]
+  styles: [
+    `
+      .dark-modal .modal-content {
+        background-color: #292b2c;
+        color: white;
+      }
+      .dark-modal .close {
+        color: white;
+      }
+      .light-blue-backdrop {
+        background-color: #5cb3fd;
+      }
+    `,
+  ],
 })
 export class SystemUserModalComponent implements OnInit {
   closeResult!: string;
   @Input() title!: string;
   @Input() systemUserId!: string;
   @Output() update = new EventEmitter();
-  icon=false;
-  systemUser: SystemUser =new SystemUser();
+  icon = false;
+  systemUser: SystemUser = new SystemUser();
   servers: Server[] = [];
   dropdownList: any = [];
   selectedItems: Server[] = [];
   dropdownSettings: IDropdownSettings = {};
-  constructor(  private modalService: NgbModal, private _systemUserService: SystemUserService, 
-                private _serverService: ServerService, private _router: Router) {}
+  constructor(
+    private modalService: NgbModal,
+    private _systemUserService: SystemUserService,
+    private _serverService: ServerService,
+    private _router: Router
+  ) {}
   ngOnInit(): void {
-    if(this.title=="Ajouter") this.icon=true;
-    this._serverService.getServers().subscribe(
-      data => {
-        this.servers=data;
-        data.forEach(server=>{
-          this.dropdownList.push({ id: server.id, libelle: server.libelle})
-        });
-      }      
-    );
+    if (this.title == 'Ajouter') this.icon = true;
+    this._serverService.getServers().subscribe((data) => {
+      this.servers = data;
+      data.forEach((server) => {
+        this.dropdownList.push({ id: server.id, libelle: server.libelle });
+      });
+    });
     this.selectedItems = [];
     this.dropdownSettings = {
       singleSelection: false,
@@ -61,70 +69,72 @@ export class SystemUserModalComponent implements OnInit {
       selectAllText: 'Selectionner tout',
       unSelectAllText: 'Désélectionner tout',
       itemsShowLimit: 10,
-      allowSearchFilter: true
+      allowSearchFilter: true,
     };
   }
-  onItemSelect(item: any) {
-  }
-  onSelectAll(items: any) {
-  }
-  
-  systemUserForm=new FormGroup({
-    id: new FormControl(0,Validators.required),
-    libelle: new FormControl('',Validators.required),
-    login: new FormControl('',Validators.required),
-    password: new FormControl('',Validators.required),
-    enabled: new FormControl(false,Validators.required),
-    servers: new FormControl()
-  })
+  onItemSelect(item: any) {}
+  onSelectAll(items: any) {}
+
+  systemUserForm = new FormGroup({
+    id: new FormControl(0),
+    libelle: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(40),
+    ]),
+    login: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(20),
+    ]),
+    enabled: new FormControl(false),
+    servers: new FormControl(this.systemUser.servers, [Validators.required]),
+  });
 
   saveSystemUser() {
-    this._systemUserService.saveSystemUser(this.systemUser).subscribe(
-      data => {
-        console.log('response', data);
-        this._router.navigateByUrl("/systemUsers");
-      }
-    )
+    this._systemUserService
+      .saveSystemUser(this.systemUser)
+      .subscribe((data) => {
+        this._router.navigateByUrl('/systemUsers');
+      });
   }
 
   onSubmit() {
-    this.systemUser.enabled=this.systemUserForm.value.enabled!;
-    this.systemUser.login=this.systemUserForm.value.login!;
-    this.systemUser.password=this.systemUserForm.value.password!;
-    this.systemUser.libelle=this.systemUserForm.value.libelle!;
-    this.systemUser.id=this.systemUserForm.value.id!;
-    this.systemUser.servers=this.systemUserForm.value.servers!;
+    if (this.systemUserForm.valid) {
+      this.systemUser.enabled = this.systemUserForm.value.enabled!;
+      this.systemUser.login = this.systemUserForm.value.login!;
+      this.systemUser.password = this.systemUserForm.value.password!;
+      this.systemUser.libelle = this.systemUserForm.value.libelle!;
+      this.systemUser.id = this.systemUserForm.value.id!;
+      this.systemUser.servers = this.systemUserForm.value.servers!;
 
-    if (this.systemUser.id!=0) {
-      this._systemUserService.updateSystemUser(this.systemUser).subscribe(
-        data => {
-          console.log('response', data);
-          this.update.emit();
-        }
-      )
-    }else{
-      this._systemUserService.saveSystemUser(this.systemUser).subscribe(
-        data => {
-          console.log('response', data);
-          this.update.emit();
-        }
-      )
+      if (this.systemUser.id != 0) {
+        this._systemUserService
+          .updateSystemUser(this.systemUser)
+          .subscribe((data) => {
+            this.update.emit();
+          });
+      } else {
+        this._systemUserService
+          .saveSystemUser(this.systemUser)
+          .subscribe((data) => {
+            this.update.emit();
+          });
+      }
+      this.systemUserForm.reset();
     }
   }
 
   deleteSystemUser(id: number) {
-    this._systemUserService.deleteSystemUser(id).subscribe(
-      data => {
-        console.log('deleted response', data);
-        this._router.navigateByUrl('/systemUsers');
-      }
-    )
+    this._systemUserService.deleteSystemUser(id).subscribe((data) => {
+      this._router.navigateByUrl('/systemUsers');
+    });
   }
 
   openVerticallyCentered(content: any) {
-    if (this.systemUserId!="") {
-      this._systemUserService.getSystemUser(+this.systemUserId).subscribe(
-        data => {
+    if (this.systemUserId != '') {
+      this._systemUserService
+        .getSystemUser(+this.systemUserId)
+        .subscribe((data) => {
           this.systemUser.id = data.id;
           this.systemUser.libelle = data.libelle;
           this.systemUser.login = data.login;
@@ -132,15 +142,14 @@ export class SystemUserModalComponent implements OnInit {
           this.systemUser.enabled = data.enabled;
           this.systemUser.servers = data.servers;
           this.systemUserForm.setValue({
-            enabled:this.systemUser.enabled,
-            id:this.systemUser.id,
-            libelle:this.systemUser.libelle,
-            login:this.systemUser.login,
-            password:this.systemUser.password,
-            servers:this.systemUser.servers,
-          }); 
-        }
-      )
+            enabled: this.systemUser.enabled,
+            id: this.systemUser.id,
+            libelle: this.systemUser.libelle,
+            login: this.systemUser.login,
+            password: this.systemUser.password,
+            servers: this.systemUser.servers,
+          });
+        });
     }
     this.modalService.open(content, { centered: true });
   }
