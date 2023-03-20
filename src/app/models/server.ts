@@ -1,9 +1,9 @@
 
 export class Server {
     id!: number;
-    address!: String;
+    address!: string;
     port!: number;
-    libelle!: String;
+    libelle!: string;
     mainAddress!:string;
     secondaryAddress!:string;
 }

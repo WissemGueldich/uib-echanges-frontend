@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Server } from 'src/app/models/server';
 import { ServerService } from 'src/app/services/server.service';
-import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
   selector: 'app-servers',

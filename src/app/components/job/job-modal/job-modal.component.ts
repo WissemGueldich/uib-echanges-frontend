@@ -188,6 +188,7 @@ export class JobModalComponent implements OnInit {
     }
     this.modalService.open(content, { centered: true });
   }
+  
   idToDay(day: number) {
     switch (day) {
       case 1:

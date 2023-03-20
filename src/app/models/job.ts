@@ -1,6 +1,4 @@
 import { Configuration } from "./configuration";
-import { Server } from "./server"
-import { SystemUser } from "./systemUser";
 
 export class Job{
     id!:number;
