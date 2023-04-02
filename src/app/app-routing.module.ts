@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BoardUserComponent } from './components/board-user/board-user.component';
 import { LoginComponent } from './components/login/login.component';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -10,33 +9,86 @@ import { ServersComponent } from './components/servers/servers.component';
 import { AuthGuard } from './security/auth.guard';
 import { SystemUserComponent } from './components/system-user/system-user.component';
 import { UserComponent } from './components/user/user.component';
-import { HomeComponent } from './components/home/home.component';
 import { TransferComponent } from './components/transfer/transfer.component';
 import { JobComponent } from './components/job/job.component';
 import { ApplicationComponent } from './components/application/application.component';
+import { HasRoleGuard } from './security/has-role.guard';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'servers', component: ServersComponent, canActivate: [AuthGuard]},
-  //{path: 'user', component: BoardUserComponent},
-  {path: 'configs', component: ConfigurationComponent, canActivate: [AuthGuard]},
-  {path: 'settings', component: SettingsComponent},
-  {path: 'system-users', component: SystemUserComponent, canActivate: [AuthGuard]},
-  {path: 'users', component: UserComponent, canActivate: [AuthGuard]},
-  {path: 'profiles', component: ProfileComponent, canActivate: [AuthGuard]},
-  //{path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'transfers', component: TransferComponent, canActivate: [AuthGuard]},
-  {path: 'jobs', component: JobComponent, canActivate: [AuthGuard]},
-  {path: 'applications', component: ApplicationComponent, canActivate: [AuthGuard]},
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'servers',
+    component: ServersComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      authorities: ['ROLE_ADMIN'],
+    },
+  },
+  {
+    path: 'configs',
+    component: ConfigurationComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      authorities: ['ROLE_ADMIN'],
+    },
+  },
+  { path: 'settings', component: SettingsComponent },
+  {
+    path: 'system-users',
+    component: SystemUserComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      authorities: ['ROLE_ADMIN'],
+    },
+  },
+  {
+    path: 'users',
+    component: UserComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      authorities: ['ROLE_ADMIN','ROLE_GDHB'],
+    },
+  },
+  {
+    path: 'profiles',
+    component: ProfileComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      authorities: ['ROLE_ADMIN'],
+    },
+  },
+  {
+    path: 'transfers',
+    component: TransferComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      authorities: ['ROLE_ADMIN','ROLE_TRANSFER','ROLE_SUPERVISION'],
+    },
+  },
+  {
+    path: 'jobs',
+    component: JobComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      authorities: ['ROLE_ADMIN'],
+    },
+  },
+  {
+    path: 'applications',
+    component: ApplicationComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      authorities: ['ROLE_ADMIN'],
+    },
+  },
 
-
-  {path: '', redirectTo: 'login',pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers:[AuthGuard]
+  providers: [AuthGuard],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

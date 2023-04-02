@@ -1,14 +1,15 @@
-
 <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title">{{this.title}} Profil</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" >
-        <div class="form-group pb-2">
-          <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé" formControlName="libelle" >
-          <div
+  <div class="modal-header">
+    <h4 class="modal-title">{{this.title}} Profil</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <div class="form-group pb-2">
+        <label *ngIf="!this.icon" class="pb-2" for="libelle">Libellé :</label>
+        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé"
+          formControlName="libelle">
+        <div
           *ngIf="profileForm.controls.libelle.invalid && (profileForm.controls.libelle.dirty || profileForm.controls.libelle.touched)"
           class="alert alert-danger">
           <div *ngIf="profileForm.controls.libelle.errors?.['required']">
@@ -18,32 +19,29 @@
             Longeur ne doit pas dépasser 40.
           </div>
         </div>
-        </div>
-        <div class="form-group pb-2">
-            <ng-multiselect-dropdown
-            [placeholder]="'Configurations'"
-            [settings]="dropdownSettings"
-            [data]="dropdownList"
-            formControlName="configurations"
-            (onSelect)="onItemSelect($event)"
-            (onSelectAll)="onSelectAll($event)"
-          >
-          </ng-multiselect-dropdown>
-          <div *ngIf="profileForm.controls.configurations.invalid && (profileForm.controls.configurations.dirty || profileForm.controls.configurations.touched)"
+      </div>
+      <div class="form-group pb-2">
+        <label *ngIf="!this.icon" class="pb-2" for="configurations">Configurations :</label>
+        <ng-multiselect-dropdown [placeholder]="'Configurations'" [settings]="dropdownSettings" [data]="dropdownList"
+          formControlName="configurations" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+        <div
+          *ngIf="profileForm.controls.configurations.invalid && (profileForm.controls.configurations.dirty || profileForm.controls.configurations.touched)"
           class="alert alert-danger">
           <div *ngIf="profileForm.controls.configurations.errors?.['required']">
             Ce champ est obligatoire.
           </div>
         </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-dark float-left" [disabled]="!this.profileForm.valid" (click)="modal.close('Close click')">Enregistrer</button>
-          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
-        </div>
-      </form>
-    </div>
-  </ng-template>
-  <button class="btn btn-outline-dark mb-2 me-2" (click)="openVerticallyCentered(content)">
-    <i *ngIf="this.icon; else modifier" class="fa fa-plus" aria-hidden="true"></i>
-    <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>  
-  </button>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-dark float-left" [disabled]="!this.profileForm.valid"
+          (click)="modal.close('Close click')">Enregistrer</button>
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<button class="btn btn-outline-dark mb-2 me-2" (click)="openVerticallyCentered(content)">
+  <div *ngIf="this.icon; else modifier"> <i class="fa fa-plus" aria-hidden="true"></i> Ajouter
+  </div> <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>
+</button>

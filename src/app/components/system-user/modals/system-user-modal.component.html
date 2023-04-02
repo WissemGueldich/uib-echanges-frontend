@@ -6,6 +6,7 @@
   <div class="modal-body">
     <form [formGroup]="systemUserForm" (ngSubmit)="onSubmit()">
       <div class="form-group pb-2">
+        <label *ngIf="!this.icon" class="pb-2" for="libelle">Libellé :</label>
         <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé"
           formControlName="libelle">
         <div
@@ -20,9 +21,10 @@
         </div>
       </div>
       <div class="form-group pb-2">
+        <label *ngIf="!this.icon" class="pb-2" for="login">Nom d'utilisateur :</label>
         <input type="text" name="login" class="form-control" id="login" placeholder="Nom d'utilisateur"
           formControlName="login">
-          <div
+        <div
           *ngIf="systemUserForm.controls.login.invalid && (systemUserForm.controls.login.dirty || systemUserForm.controls.login.touched)"
           class="alert alert-danger">
           <div *ngIf="systemUserForm.controls.login.errors?.['required']">
@@ -34,9 +36,10 @@
         </div>
       </div>
       <div class="form-group pb-2">
+        <label *ngIf="!this.icon" class="pb-2" for="password">Mot de passe :</label>
         <input type="password" name="password" class="form-control" id="password" placeholder="Mot de passe"
           formControlName="password">
-          <div
+        <div
           *ngIf="systemUserForm.controls.password.invalid && (systemUserForm.controls.password.dirty || systemUserForm.controls.password.touched)"
           class="alert alert-danger">
           <div *ngIf="systemUserForm.controls.password.errors?.['required']">
@@ -48,16 +51,17 @@
         </div>
       </div>
       <div class="form-group pb-2">
+        <label *ngIf="!this.icon" class="pb-2" for="servers">Serverus :</label>
         <ng-multiselect-dropdown [placeholder]="'Serveurs'" [settings]="dropdownSettings" [data]="dropdownList"
           formControlName="servers" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
         </ng-multiselect-dropdown>
         <div
-        *ngIf="systemUserForm.controls.servers.invalid && (systemUserForm.controls.servers.dirty || systemUserForm.controls.servers.touched)"
-        class="alert alert-danger">
-        <div *ngIf="systemUserForm.controls.servers.errors?.['required']">
-          Ce champ est obligatoire.
+          *ngIf="systemUserForm.controls.servers.invalid && (systemUserForm.controls.servers.dirty || systemUserForm.controls.servers.touched)"
+          class="alert alert-danger">
+          <div *ngIf="systemUserForm.controls.servers.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
         </div>
-      </div>
       </div>
       <div class="form-group pb-2">
         <input class="mx-2 form-check-input" type="checkbox" id="enabled" formControlName="enabled">
@@ -66,13 +70,14 @@
         </label>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-dark float-left" [disabled]="!this.systemUserForm.valid" (click)="modal.close('Close click')">Enregistrer</button>
+        <button type="submit" class="btn btn-dark float-left" [disabled]="!this.systemUserForm.valid"
+          (click)="modal.close('Close click')">Enregistrer</button>
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
       </div>
     </form>
   </div>
 </ng-template>
 <button class="btn btn-outline-dark mb-2 me-2" (click)="openVerticallyCentered(content)">
-  <i *ngIf="this.icon; else modifier" class="fa fa-plus" aria-hidden="true"></i>
-  <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>
+  <div *ngIf="this.icon; else modifier"> <i class="fa fa-plus" aria-hidden="true"></i> Ajouter
+  </div> <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>
 </button>

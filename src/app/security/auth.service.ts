@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { UserModel } from '../models/user.model';
 import { ApiService } from './api.service';
 import { TokenStorageService } from './token-storage.service';
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +10,14 @@ import { TokenStorageService } from './token-storage.service';
 export class AuthService {
 private _isLoggedIn$ = new BehaviorSubject<boolean>(false);
 isLoggedIn$ = this._isLoggedIn$.asObservable();
+  user!: UserModel;
 
   constructor(private apiService : ApiService, private tokenStorageService: TokenStorageService) {
     const token = tokenStorageService.getToken();
     this._isLoggedIn$.next(!!token);
+    if (token!=null) {
+      this.user = this.getUser(token);
+    }
    }
 
   login(matricule: string, password: string){
@@ -22,7 +25,7 @@ isLoggedIn$ = this._isLoggedIn$.asObservable();
         tap((response: any)=>{
           this._isLoggedIn$.next(true);
           this.tokenStorageService.saveToken(response.token);
-          this.tokenStorageService.saveUser(response);
+          this.user = this.getUser(response.token);
         })
     );
   }
@@ -32,6 +35,16 @@ isLoggedIn$ = this._isLoggedIn$.asObservable();
       tap((response: any)=>{
       })
     );
+  }
+
+  verifyToken():Observable<any[]> {
+    return this.apiService.verifyToken().pipe(
+      map(response => response)
+    )
+  }
+
+  getUser(token:string):UserModel{
+    return JSON.parse(atob(token.split('.')[1])) as UserModel;
   }
 
 }

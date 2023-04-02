@@ -59,7 +59,11 @@ export class UserModalComponent implements OnInit {
     private _profileService: ProfileService
   ) {}
   ngOnInit(): void {
-    if (this.title == 'Ajouter') this.icon = true;
+    if (this.title == 'Ajouter'){
+      this.icon = true;
+    } else {
+      this.userForm.get('password')?.disable();
+    }
     this._roleService.getRoles().subscribe((data) => {
       this.roles = data;
       data.forEach((role) => {
@@ -97,7 +101,6 @@ export class UserModalComponent implements OnInit {
     };
   }
   onItemSelect(item: any) {
-    console.log(item);
   }
   onSelectAll(items: any) {}
 
@@ -131,7 +134,6 @@ export class UserModalComponent implements OnInit {
 
   saveUser() {
     this._userService.saveUser(this.user).subscribe((data) => {
-      console.log('response', data);
       this._router.navigateByUrl('/users');
     });
   }
@@ -149,13 +151,12 @@ export class UserModalComponent implements OnInit {
       this.user.matricule = this.userForm.value.matricule!;
 
       if (this.user.id != 0) {
+        this.user.password="";
         this._userService.updateUser(this.user).subscribe((data) => {
-          console.log('response', data);
           this.update.emit();
         });
       } else {
         this._userService.saveUser(this.user).subscribe((data) => {
-          console.log('response', data);
           this.update.emit();
         });
       }
@@ -165,7 +166,6 @@ export class UserModalComponent implements OnInit {
 
   deleteUser(id: number) {
     this._userService.deleteUser(id).subscribe((data) => {
-      console.log('deleted response', data);
       this._router.navigateByUrl('/users');
     });
   }
@@ -173,20 +173,18 @@ export class UserModalComponent implements OnInit {
   openVerticallyCentered(content: any) {
     if (this.userId != '') {
       this._userService.getUser(+this.userId).subscribe((data) => {
-        console.log(data);
 
         this.user.id = data.id;
         this.user.matricule = data.matricule;
         this.user.lastName = data.lastName;
         this.user.firstName = data.firstName;
         this.user.email = data.email;
-        this.user.password = data.password;
+        this.user.password = "************";
         this.user.profiles = data.profiles;
         this.user.enabled = data.enabled;
         this.user.roles = data.roles;
         data.roles.forEach((role: Role) => {
           role.name = role.name.split('_')[1].toLowerCase();
-          console.log(role.name);
         });
         this.userForm.setValue({
           id: this.user.id,

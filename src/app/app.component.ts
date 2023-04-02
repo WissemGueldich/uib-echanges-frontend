@@ -26,8 +26,6 @@ export class AppComponent implements OnInit {
   }
   private roles: string[] = [];
   isLoggedIn = false;
-  showAdminBoard = false;
-  showUserBoard = false;
   username?: string;
 
   constructor(private tokenStorageService: TokenStorageService, public authService: AuthService) { }
@@ -35,13 +33,17 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
-      // const user = this.tokenStorageService.getUser();
-      // console.log(user)
-
-      // this.roles = user.authorities;
-      // this.showUserBoard =!this.roles.includes('ROLE_ADMIN');
-      // this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      // this.username = user.username;
+      this.authService.verifyToken().subscribe(
+        data=>{console.log("Token is valid");},
+        error=>{
+          if (error.status==401) {
+            console.log(error)
+            console.log("Token expired");
+            this.tokenStorageService.signOut();
+            this.isLoggedIn=false;
+          }
+        }
+      )
     }
   }
 

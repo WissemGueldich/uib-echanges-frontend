@@ -1,6 +1,7 @@
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/security/auth.service';
 import { TokenStorageService } from 'src/app/security/token-storage.service';
 import { navbarData } from './nav-data';
 
@@ -47,7 +48,9 @@ export class SidenavComponent implements OnInit {
   screenWidth = 0;
   navData = navbarData;
   currentUser: any;
-  constructor(private tokenStorage: TokenStorageService) { }
+  constructor(private tokenStorage: TokenStorageService,private _authService: AuthService) { 
+
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -59,7 +62,14 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUser = this.tokenStorage.getUser();
+    let i=0;
+    while(this.isUnauthorized(this.navData)!=null){
+      this.navData.splice(this.navData.indexOf(this.isUnauthorized(this.navData)),1);
+      console.log("navdata after removing unauthorized elemnt : ");
+      
+      console.log(this.navData);
+      
+    }
     this.screenWidth = window.innerWidth;
   }
 
@@ -75,5 +85,25 @@ export class SidenavComponent implements OnInit {
 
   logout(): void {
     this.tokenStorage.signOut();
+  }
+
+  private hasAny(authorities:any[]):boolean{
+    for (let i = 0; i < this._authService.user.authorities.length; i++) {
+        if(authorities.includes(Object.values(this._authService.user.authorities[i])[0])){
+            return true;
+        }
+    }
+    return false;
+  }
+  private isUnauthorized(navData:any[]){
+    for (let i = 0; i < navData.length; i++) {
+      if(!this.hasAny(navData[i].auth)){
+        console.log("unauthorized element found in navdata");
+        console.log(navData[i]);
+        return navData[i];
+      }
+    }
+    console.log("all element inside navdata are authorized");
+    return null;
   }
 }

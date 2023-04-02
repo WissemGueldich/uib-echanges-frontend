@@ -36,6 +36,7 @@ import { HomeComponent } from './components/home/home.component';
 import { JobModalComponent } from './components/job/job-modal/job-modal.component';
 import { ApplicationModalComponent } from './components/application/application-modal/application-modal.component';
 import { SimpleModalComponent } from './components/simple-modal/simple-modal.component';
+import { HasRoleGuard } from './security/has-role.guard';
 
 
 @NgModule({
@@ -80,7 +81,7 @@ import { SimpleModalComponent } from './components/simple-modal/simple-modal.com
     NgMultiSelectDropDownModule.forRoot()
     
   ],
-  providers: [authInterceptorProviders, AuthGuard],
+  providers: [authInterceptorProviders, AuthGuard,HasRoleGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,9 +4,11 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="serverForm" (ngSubmit)="onSubmit()" >
+    <form [formGroup]="serverForm" (ngSubmit)="onSubmit()">
       <div class="form-group pb-2">
-        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé" formControlName="libelle">
+        <label *ngIf="!this.icon" class="pb-2" for="libelle">Libellé :</label>
+        <input type="text" name="libelle" class="form-control" id="libelle" placeholder="Libellé"
+          formControlName="libelle">
         <div
           *ngIf="serverForm.controls.libelle.invalid && (serverForm.controls.libelle.dirty || serverForm.controls.libelle.touched)"
           class="alert alert-danger">
@@ -19,7 +21,9 @@
         </div>
       </div>
       <div class="form-group pb-2">
-        <input type="text" name="address" class="form-control" id="adresse" placeholder="Adresse" formControlName="address" >
+        <label *ngIf="!this.icon" class="pb-2" for="address">Adresse :</label>
+        <input type="text" name="address" class="form-control" id="address" placeholder="Adresse"
+          formControlName="address">
         <div
           *ngIf="serverForm.controls.address.invalid && (serverForm.controls.address.dirty || serverForm.controls.address.touched)"
           class="alert alert-danger">
@@ -32,26 +36,29 @@
         </div>
       </div>
       <div class="form-group pb-2">
-        <input type="number" name="port" class="form-control" id="port" placeholder="Port" formControlName="port" >
+        <label *ngIf="!this.icon" class="pb-2" for="port">Port :</label>
+        <input type="number" name="port" class="form-control" id="port" placeholder="Port" formControlName="port">
         <div
-        *ngIf="serverForm.controls.port.invalid && (serverForm.controls.port.dirty || serverForm.controls.port.touched)"
-        class="alert alert-danger">
-        <div *ngIf="serverForm.controls.port.errors?.['required']">
-          Ce champ est obligatoire.
+          *ngIf="serverForm.controls.port.invalid && (serverForm.controls.port.dirty || serverForm.controls.port.touched)"
+          class="alert alert-danger">
+          <div *ngIf="serverForm.controls.port.errors?.['required']">
+            Ce champ est obligatoire.
+          </div>
+          <div *ngIf="serverForm.controls.port.errors?.['pattern']">
+            Valeur invalide.
+          </div>
         </div>
-        <div *ngIf="serverForm.controls.port.errors?.['pattern']">
-          Valeur invalide.
-        </div>
-      </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-dark float-left" [disabled]="!this.serverForm.valid" (click)="modal.close('Close click')">Enregistrer</button>
+        <button type="submit" class="btn btn-dark float-left" [disabled]="!this.serverForm.valid"
+          (click)="modal.close('Close click')">Enregistrer</button>
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Annuler</button>
       </div>
     </form>
   </div>
 </ng-template>
 <button class="btn btn-outline-dark mb-2 me-2" (click)="openVerticallyCentered(content)">
-  <i *ngIf="this.icon; else modifier" class="fa fa-plus" aria-hidden="true"></i>
-  <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>  
+  <div *ngIf="this.icon; else modifier"> <i class="fa fa-plus" aria-hidden="true"></i> Ajouter
+  </div>
+  <ng-template #modifier><i class="fa fa-edit" aria-hidden="true"></i></ng-template>
 </button>

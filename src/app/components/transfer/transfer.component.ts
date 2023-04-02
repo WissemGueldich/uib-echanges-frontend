@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Configuration } from 'src/app/models/configuration';
 import { Profile } from 'src/app/models/profile';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/security/auth.service';
 import { TokenStorageService } from 'src/app/security/token-storage.service';
 import { TransferService } from 'src/app/services/transfer.service';
 import { UserService } from 'src/app/services/user.service';
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class TransferComponent implements OnInit {
 
-  constructor(private _transferService: TransferService, private _tokenService: TokenStorageService, private _userService: UserService) { }
+  constructor(private _transferService: TransferService, private _tokenService: TokenStorageService, private _userService: UserService, private _authService: AuthService) { }
 
   show:boolean = false;
   user:User=new User;
@@ -22,15 +23,19 @@ export class TransferComponent implements OnInit {
   error:boolean = false;
   disable:boolean = false;
   ngOnInit(): void {
-    this._userService.getUserByMatricule(this._tokenService.getUser().username).subscribe(
-      data => {
-        console.log(data);
-        this.user=data
-        data.profiles.forEach((profile: Profile )=>{
-          this.configs=this.configs.concat(profile.configurations);
-        })     
-      }
-    );
+    const token = this._tokenService.getToken();
+    if (token!=null) {
+        this._userService.getUserByMatricule(this._authService.getUser(token).sub).subscribe(
+        data => {     
+          console.log(data);
+          this.user=data
+          data.profiles.forEach((profile: Profile )=>{
+            this.configs=this.configs.concat(profile.configurations);
+          })     
+        }
+      );
+    }
+    
   }
 
   transfer(config:Configuration) {
