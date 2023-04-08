@@ -7,15 +7,8 @@ import { TokenStorageService } from 'src/app/security/token-storage.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent  {
 
-  constructor(private tokenStorage: TokenStorageService, public authService: AuthService) { }
-
-  ngOnInit(): void {
-  }
-
-  logout(): void {
-    this.tokenStorage.signOut();
-  }
+  constructor(public authService: AuthService) { }
 
 }
