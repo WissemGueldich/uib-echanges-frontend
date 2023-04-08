@@ -36,21 +36,22 @@ export const navbarData = [
         auth:['ROLE_ADMIN']
     },
     {
+        routeLink: 'transfers',
+        icon: 'fal fa-box-open',
+        label: 'Transferts',
+        auth:['ROLE_ADMIN','ROLE_SUPERVISION']
+    },  
+    {
+        routeLink: 'transfer',
+        icon: 'fal fa-exchange',
+        label: 'Effectuer un transfert',
+        auth:['ROLE_ADMIN','ROLE_TRANSFER']
+    },
+    {
         routeLink: 'applications',
         icon: 'fal fa-browser',
         label: 'Gestion des applications',
         auth:['ROLE_ADMIN']
-    },
-    {
-        routeLink: 'transfers',
-        icon: 'fal fa-exchange',
-        label: 'Effectuer un transfert',
-        auth:['ROLE_ADMIN','ROLE_SUPERVISION','ROLE_TRANSFER']
-    },
-    {
-        routeLink: 'settings',
-        icon: 'fal fa-box-open',
-        label: 'Paramètres',
-        auth:['ROLE_ADMIN']
-    },
+    }
+
 ];

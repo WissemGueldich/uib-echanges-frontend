@@ -4,7 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { TransferSupervisionComponent } from './components/transfer-supervision/transfer-supervision.component';
 import { ServersComponent } from './components/servers/servers.component';
 import { AuthGuard } from './security/auth.guard';
 import { SystemUserComponent } from './components/system-user/system-user.component';
@@ -33,7 +33,14 @@ const routes: Routes = [
       authorities: ['ROLE_ADMIN'],
     },
   },
-  { path: 'settings', component: SettingsComponent },
+  {
+    path: 'transfers',
+    component: TransferSupervisionComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      authorities: ['ROLE_ADMIN','ROLE_SUPERVISION'],
+    },
+  },
   {
     path: 'system-users',
     component: SystemUserComponent,
@@ -47,7 +54,7 @@ const routes: Routes = [
     component: UserComponent,
     canActivate: [AuthGuard, HasRoleGuard],
     data: {
-      authorities: ['ROLE_ADMIN','ROLE_GDHB'],
+      authorities: ['ROLE_ADMIN', 'ROLE_GDHB'],
     },
   },
   {
@@ -59,11 +66,11 @@ const routes: Routes = [
     },
   },
   {
-    path: 'transfers',
+    path: 'transfer',
     component: TransferComponent,
     canActivate: [AuthGuard, HasRoleGuard],
     data: {
-      authorities: ['ROLE_ADMIN','ROLE_TRANSFER','ROLE_SUPERVISION'],
+      authorities: ['ROLE_ADMIN', 'ROLE_TRANSFER'],
     },
   },
   {

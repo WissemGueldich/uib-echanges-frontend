@@ -10,7 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { TransferSupervisionComponent } from './components/transfer-supervision/transfer-supervision.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
@@ -50,7 +50,7 @@ import { HasRoleGuard } from './security/has-role.guard';
     BodyComponent,
     SidenavComponent,
     ConfigurationComponent,
-    SettingsComponent,
+    TransferSupervisionComponent,
     ServerModal,
     NavbarComponent,
     ConfigModal,
