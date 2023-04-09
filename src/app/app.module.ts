@@ -37,6 +37,7 @@ import { JobModalComponent } from './components/job/job-modal/job-modal.componen
 import { ApplicationModalComponent } from './components/application/application-modal/application-modal.component';
 import { SimpleModalComponent } from './components/simple-modal/simple-modal.component';
 import { HasRoleGuard } from './security/has-role.guard';
+import { TransferSupervisionModalComponent } from './components/transfer-supervision/transfer-supervision-modal/transfer-supervision-modal.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { HasRoleGuard } from './security/has-role.guard';
     HomeComponent,
     JobModalComponent,
     ApplicationModalComponent,
-    SimpleModalComponent    
+    SimpleModalComponent,
+    TransferSupervisionModalComponent    
   ],
   imports: [
     BrowserModule,

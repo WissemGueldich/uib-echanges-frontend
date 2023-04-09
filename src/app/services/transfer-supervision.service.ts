@@ -36,4 +36,9 @@ export class TransferSupervisionService {
   deleteTransfer(id: number): Observable<any> {
     return this._httpClient.delete(`${this.TRANSFER_URL}/${id}`, {responseType: 'text'});
   }
+
+  deleteTransfersBetween(from: Date, to: Date){
+    let dateBetween={startDate:from,endDate:to};
+    return this._httpClient.delete(`${this.TRANSFER_URL}`, {body:dateBetween});
+  }
 }
