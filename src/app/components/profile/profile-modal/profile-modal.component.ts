@@ -77,7 +77,7 @@ export class ProfileModalComponent implements OnInit {
   onSelectAll(items: any) {}
 
   profileForm = new FormGroup({
-    id: new FormControl(0),
+    id: new FormControl(0,{nonNullable: true}),
     libelle: new FormControl('', [
       Validators.required,
       Validators.maxLength(40),

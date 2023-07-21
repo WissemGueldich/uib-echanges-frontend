@@ -1,12 +1,14 @@
-<nav class="navbar sticky-top custom-nav navbar-expand-lg navbar-dark">
-    <!--<a class="navbar-brand" href="#">
-        <img src="assets\images\UIB.png" width="140" height="40" class="d-inline-block align-top" alt="">
-    </a>-->
-    <div class="navbar-collapse" id="navbarSupportedContent">
+<nav *ngIf="authService.isLoggedIn$ | async" class="navbar sticky-top custom-nav navbar-expand-lg navbar-dark">
+    <div *ngIf="authService.isLoggedIn$ | async">
+        <a class="navbar-brand" href="#">
+            <img src="assets\images\uib-nav-logo.jpg" width="200" height="50" class="d-inline-block align-top" alt="">
+        </a>
+    </div>
+    <div class="" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="" *ngIf="authService.isLoggedIn$ | async">
                 <div class="nav-link"   >
-                    <span class="sidenav-link-text">
+                    <span class="sidenav-link-text text-light">
                        UIB Echanges
                     </span>
                 </div>

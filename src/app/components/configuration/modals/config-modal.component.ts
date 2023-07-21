@@ -84,7 +84,7 @@ export class ConfigModal implements OnInit {
     move: new FormControl(false),
     automatic: new FormControl(false),
     archive: new FormControl(false),
-    id: new FormControl(0),
+    id: new FormControl(0,{nonNullable: true}),
     sourcePath: new FormControl('', [
       Validators.required,
       Validators.minLength(1), Validators.maxLength(60)

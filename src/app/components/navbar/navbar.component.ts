@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/security/auth.service';
-import { TokenStorageService } from 'src/app/security/token-storage.service';
 
 @Component({
   selector: 'app-navbar',

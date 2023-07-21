@@ -34,11 +34,9 @@ export class AppComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       this.authService.verifyToken().subscribe(
-        data=>{console.log("Token is valid");},
+        data=>{},
         error=>{
           if (error.status==401) {
-            console.log(error)
-            console.log("Token expired");
             this.tokenStorageService.signOut();
             this.isLoggedIn=false;
           }

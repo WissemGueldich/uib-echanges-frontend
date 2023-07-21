@@ -15,7 +15,6 @@ export class JobComponent implements OnInit {
     keyword: '',
     sortBy: 'Name',
   };
-
   constructor(private _jobService: JobService, private _router: Router) {}
 
   ngOnInit(): void {
@@ -24,16 +23,22 @@ export class JobComponent implements OnInit {
 
   deleteJob(id: number) {
     this._jobService.deleteJob(id).subscribe((data) => {
-      console.log('deleted response', data);
       this.listJobs();
     });
   }
 
   listJobs() {
     this._jobService.getJobs().subscribe((data) => {
-      console.log(data);
       this.jobs = data;
+      console.log(data);
+      
+      this.jobs.forEach(job=>{
+        job.days.sort((a, b) => a.id - b.id); 
+      });
+      console.log(this.jobs);
+      
     });
+    
   }
 
   listener() {
@@ -52,27 +57,27 @@ export class JobComponent implements OnInit {
     // })
   }
 
-  schedule() {
-    this._jobService.schedule().subscribe((data) => {
+  schedule(jobId:number) {
+    this._jobService.schedule(jobId).subscribe((data) => {
       console.log('data from schedule service : ', data);
     });
   }
 
   idToDay(day: number) {
     switch (day) {
-      case 1:
-        return 'Lundi';
       case 2:
-        return 'Mardi';
+        return 'Lundi';
       case 3:
-        return 'Mercredi';
+        return 'Mardi';
       case 4:
-        return 'Jeudi';
+        return 'Mercredi';
       case 5:
-        return 'Vendredi';
+        return 'Jeudi';
       case 6:
-        return 'Samedi';
+        return 'Vendredi';
       case 7:
+        return 'Samedi';
+      case 1:
         return 'Dimanche';
       default:
         return '';

@@ -20,21 +20,19 @@
                             <th class="text-center align-middle" scope="col">Fréquence</th>
                             <th class="text-center align-middle" scope="col">Jours</th>
                             <th class="text-center align-middle" scope="col">Etat</th>
-                            <th class="text-center align-middle" scope="col">En cours d'éxecution</th>
                             <th class="text-center align-middle" scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let job of jobs" >
-                            <td class="text-center align-middle" ><button class="btn btn-outline-dark mb-2 me-2"  ><i class="fa fa-play" aria-hidden="true"></i></button></td>
+                            <td class="text-center align-middle" ><button class="btn btn-outline-dark mb-2 me-2" (click)="schedule(job.id)" ><i class="fa fa-play" aria-hidden="true"></i></button></td>
                             <td class="text-center align-middle" >{{job.libelle}}</td>
                             <td class="text-center align-middle" >{{job.startHour}}</td>
                             <td class="text-center align-middle" >{{job.endHour}}</td>
                             <td class="text-center align-middle" >{{job.frequency}}</td>
-                            <td class="text-center align-middle" ><ul><li *ngFor="let day of job.days"><div class="text-center align-middle">{{idToDay(day.id)}}</div></li></ul></td>
-                            <td class="text-center align-middle"  *ngIf="job.state; else auto" >Oui</td>
-                            <td class="text-center align-middle"  *ngIf="job.state; else auto" >Oui</td>
-                            <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
+                            <td class="text-center align-middle" ><ul><li *ngFor="let day of job.days.sort()"><div class="text-center align-middle">{{idToDay(day.id)}}</div></li></ul></td>
+                            <td class="text-center align-middle"  *ngIf="job.state; else auto" >Actif</td>
+                            <ng-template #auto ><td class="text-center align-middle" >Inactif</td></ng-template>
                             <td class="text-center align-middle">
                                 <app-job-modal (update)="listener()" title="Modifier" jobId={{job.id}} ></app-job-modal>
                                 <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteJob(job.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>

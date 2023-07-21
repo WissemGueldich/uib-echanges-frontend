@@ -50,7 +50,7 @@ export class ServerModal implements OnInit {
   }
 
   serverForm = new FormGroup({
-    id: new FormControl(0),
+    id: new FormControl(0,{nonNullable: true}),
     libelle: new FormControl(this.server.libelle, [
       Validators.required,
       Validators.maxLength(40),

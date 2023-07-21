@@ -105,7 +105,7 @@ export class UserModalComponent implements OnInit {
   onSelectAll(items: any) {}
 
   userForm = new FormGroup({
-    id: new FormControl(0),
+    id: new FormControl(0,{nonNullable: true}),
     matricule: new FormControl('', [
       Validators.required,
       Validators.maxLength(20),

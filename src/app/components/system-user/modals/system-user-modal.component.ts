@@ -76,7 +76,7 @@ export class SystemUserModalComponent implements OnInit {
   onSelectAll(items: any) {}
 
   systemUserForm = new FormGroup({
-    id: new FormControl(0),
+    id: new FormControl(0,{nonNullable: true}),
     libelle: new FormControl('', [
       Validators.required,
       Validators.maxLength(40),
