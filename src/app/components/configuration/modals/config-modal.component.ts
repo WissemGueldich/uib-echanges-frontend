@@ -62,7 +62,6 @@ export class ConfigModal implements OnInit {
     this.updateForm();
   }
 
-  //TODO: update doesn't update system users correctly
   configForm = new FormGroup({
     libelle: new FormControl('', [
       Validators.required,
@@ -110,7 +109,7 @@ export class ConfigModal implements OnInit {
   saveConfiguration() {
     this._configurationService
       .saveConfiguration(this.config)
-      .subscribe((data) => {
+      .subscribe(() => {
         this._router.navigateByUrl('/configs');
       });
   }
@@ -122,14 +121,17 @@ export class ConfigModal implements OnInit {
         .subscribe((data) => {
           this.config = data;
           this.configForm.setValue(this.config);
-          this.servers.forEach((c) => {
-            if (c.id === this.config.sourceServer.id) {
-              this.configForm.controls['sourceServer'].setValue(c);
-            }
-            if (c.id === this.config.destinationServer.id) {
-              this.configForm.controls['destinationServer'].setValue(c);
-            }
-          });
+          if(this.servers!=null && this .servers.length>0){
+            this.servers.forEach((server) => {
+              if (this.config.sourceServer && server.id === this.config.sourceServer.id) {
+                this.configForm.controls['sourceServer'].setValue(server);
+              }
+              if (this.config.destinationServer && server.id === this.config.destinationServer.id) {
+                this.configForm.controls['destinationServer'].setValue(server);
+              }
+            });
+          }
+          
           this.onSelectSource();
           this.onSelectDestination();
         });
@@ -159,13 +161,13 @@ export class ConfigModal implements OnInit {
       if (this.config.id != 0) {
         this._configurationService
           .updateConfiguration(this.config)
-          .subscribe((data) => {
+          .subscribe(() => {
             this.update.emit();
           });
       } else {
         this._configurationService
           .saveConfiguration(this.config)
-          .subscribe((data) => {
+          .subscribe(() => {
             this.update.emit();
           });
       }
@@ -181,9 +183,9 @@ export class ConfigModal implements OnInit {
         )
         .subscribe((data) => {
           this.sourceSystemUsers = data;
-          this.sourceSystemUsers.forEach((c) => {
-            if (c.id === this.config.sourceUser.id) {
-              this.configForm.controls['sourceUser'].setValue(c);
+          this.sourceSystemUsers.forEach((sUser) => {
+            if (this.config.destinationUser && sUser.id === this.config.sourceUser.id) {
+              this.configForm.controls['sourceUser'].setValue(sUser);
             }
           });
         });
@@ -198,9 +200,9 @@ export class ConfigModal implements OnInit {
         )
         .subscribe((data) => {
           this.destinationSystemUsers = data;
-          this.destinationSystemUsers.forEach((c) => {
-            if (c.id === this.config.destinationUser.id) {
-              this.configForm.controls['destinationUser'].setValue(c);
+          this.destinationSystemUsers.forEach((sUser) => {
+            if (this.config.destinationUser && sUser.id === this.config.destinationUser.id) {
+              this.configForm.controls['destinationUser'].setValue(sUser);
             }
           });
         });

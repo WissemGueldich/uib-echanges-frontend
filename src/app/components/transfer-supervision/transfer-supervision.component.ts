@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Transfer } from 'src/app/models/transfer';
 import { TransferSupervisionService } from 'src/app/services/transfer-supervision.service';
 
@@ -7,7 +8,9 @@ import { TransferSupervisionService } from 'src/app/services/transfer-supervisio
   templateUrl: './transfer-supervision.component.html',
   styleUrls: ['./transfer-supervision.component.scss']
 })
-export class TransferSupervisionComponent implements OnInit {
+export class TransferSupervisionComponent implements OnInit, OnDestroy {
+  subscribe : Subject<boolean> = new Subject();
+
 
   constructor(private _transferSupervisionService: TransferSupervisionService ) { };
 
@@ -23,16 +26,18 @@ export class TransferSupervisionComponent implements OnInit {
   }
 
   deleteTransfer(id: number) {
-    this._transferSupervisionService.deleteTransfer(id).subscribe(
-      data => {
-        console.log('deleted response', data);
-        this.listTransfers();
-      }
-    )
+    if (confirm('êtes vous sure de vouloir supprimer ?\n cette action est irreversible')) {
+      this._transferSupervisionService.deleteTransfer(id).pipe(takeUntil(this.subscribe)).subscribe(
+        data => {
+          console.log('deleted response', data);
+          this.listTransfers();
+        }
+      )
+    }
   }
 
   listTransfers() {
-    this._transferSupervisionService.getTransfers().subscribe(
+    this._transferSupervisionService.getTransfers().pipe(takeUntil(this.subscribe)).subscribe(
       data => this.transfers = data
     )
   }
@@ -51,6 +56,9 @@ export class TransferSupervisionComponent implements OnInit {
     //     return a.id > b.id ? -1: 1;
     //   }
     // })
+  }
+  ngOnDestroy() {
+    this.subscribe.next(true);
   }
 }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './security/auth.service';
 import { TokenStorageService } from './security/token-storage.service';
+import { Subject, takeUntil } from 'rxjs';
 
 
 
@@ -30,10 +31,13 @@ export class AppComponent implements OnInit {
 
   constructor(private tokenStorageService: TokenStorageService, public authService: AuthService) { }
 
+  subscribe : Subject<boolean> = new Subject();
+
+
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
-      this.authService.verifyToken().subscribe(
+      this.authService.verifyToken().pipe(takeUntil(this.subscribe)).subscribe(
         data=>{},
         error=>{
           if (error.status==401) {
@@ -48,5 +52,8 @@ export class AppComponent implements OnInit {
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
+  }
+  ngOnDestroy() {
+    this.subscribe.next(true);
   }
 }

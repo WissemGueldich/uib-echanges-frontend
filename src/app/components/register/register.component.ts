@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/security/auth.service';
 
 @Component({
@@ -6,7 +7,9 @@ import { AuthService } from 'src/app/security/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
+  subscribe : Subject<boolean> = new Subject();
+
   form: any = {
     matricule: null,
     email: null,
@@ -27,7 +30,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     const { matricule, email, password, firstName, lastName} = this.form;
 
-    this.authService.register(matricule, email, password, firstName, lastName).subscribe(
+    this.authService.register(matricule, email, password, firstName, lastName).pipe(takeUntil(this.subscribe)).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;
@@ -38,5 +41,8 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = true;
       }
     );
+  }
+  ngOnDestroy() {
+    this.subscribe.next(true);
   }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Role } from 'src/app/models/role';
 import { RoleService } from 'src/app/services/role.service';
 
@@ -7,7 +8,9 @@ import { RoleService } from 'src/app/services/role.service';
   templateUrl: './role.component.html',
   styleUrls: ['./role.component.scss']
 })
-export class RoleComponent implements OnInit {
+export class RoleComponent implements OnInit, OnDestroy {
+  subscribe : Subject<boolean> = new Subject();
+
 
   roles: Role[] = [];
   filters = {
@@ -22,16 +25,18 @@ export class RoleComponent implements OnInit {
   }
 
   deleteRole(id: number) {
-    this._roleService.deleteRole(id).subscribe(
-      data => {
-        console.log('deleted response', data);
-        this.listRoles();
-      }
-    )
+    if (confirm('êtes vous sure de vouloir supprimer ?\n cette action est irreversible')) {
+      this._roleService.deleteRole(id).pipe(takeUntil(this.subscribe)).subscribe(
+        data => {
+          console.log('deleted response', data);
+          this.listRoles();
+        }
+      )
+    }
   }
 
   listRoles() {
-    this._roleService.getRoles().subscribe(
+    this._roleService.getRoles().pipe(takeUntil(this.subscribe)).subscribe(
       data => this.roles = data
     )
   }
@@ -50,6 +55,9 @@ export class RoleComponent implements OnInit {
     //     return a.id > b.id ? -1: 1;
     //   }
     // })
+  }
+  ngOnDestroy() {
+    this.subscribe.next(true);
   }
 
 }

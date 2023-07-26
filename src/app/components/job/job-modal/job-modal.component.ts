@@ -15,9 +15,7 @@ import { Job } from 'src/app/models/job';
 import { JobConfigs } from 'src/app/models/jobConfig';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { JobService } from 'src/app/services/job.service';
-/*
-figure out how to retrieve job configurations to populate update form
-*/
+
 @Component({
   selector: 'app-job-modal',
   templateUrl: './job-modal.component.html',
@@ -172,11 +170,7 @@ export class JobModalComponent implements OnInit {
   openVerticallyCentered(content: any) {
     if (this.jobId != '') {
       this._jobService.getJob(+this.jobId).subscribe((jobConfigs) => {
-        console.log("jobbb");
-        console.log(jobConfigs);
         let data:Job = jobConfigs.job;
-        console.log(data);
-        
         this.job.id = data.id;
         this.job.libelle = data.libelle;
         this.job.startHour = data.startHour;
@@ -188,7 +182,7 @@ export class JobModalComponent implements OnInit {
           day.day = this.idToDay(day.id);
           this.job.days.push(day);
         });
-        this.job.configurations = []; //check this to link configs from jobConfigs
+        this.job.configurations = [];
         const confs = new Map(Object.entries(jobConfigs.configurationsMap));
         confs.forEach((libelle:string, id:string)=>{
           let conf:Configuration = new Configuration();

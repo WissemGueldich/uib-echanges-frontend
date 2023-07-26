@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Configuration } from 'src/app/models/configuration';
 import { Profile } from 'src/app/models/profile';
 import { User } from 'src/app/models/user';
@@ -12,7 +13,9 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './transfer.component.html',
   styleUrls: ['./transfer.component.scss']
 })
-export class TransferComponent implements OnInit {
+export class TransferComponent implements OnInit, OnDestroy {
+
+  subscribe : Subject<boolean> = new Subject();
 
   constructor(private _transferService: TransferService, private _tokenService: TokenStorageService, private _userService: UserService, private _authService: AuthService) { }
 
@@ -25,7 +28,7 @@ export class TransferComponent implements OnInit {
   ngOnInit(): void {
     const token = this._tokenService.getToken();
     if (token!=null) {
-        this._userService.getUserByMatricule(this._authService.getUser(token).sub).subscribe(
+        this._userService.getUserByMatricule(this._authService.getUser(token).sub).pipe(takeUntil(this.subscribe)).subscribe(
         data => {     
           console.log(data);
           this.user=data
@@ -49,8 +52,6 @@ export class TransferComponent implements OnInit {
         config.show = true;
         config.message="Transfert éffectué avec succès"
         config.disable = false;
-        console.log("resp");
-        console.log(data);
       },
       error =>{
         config.error=true;
@@ -59,6 +60,9 @@ export class TransferComponent implements OnInit {
         config.disable = false;
       }
     )
+  }
+  ngOnDestroy() {
+    this.subscribe.next(true);
   }
 
 }

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/security/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -7,7 +9,9 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
+
+  subscribe : Subject<boolean> = new Subject();
 
   users: User[] = [];
   filters = {
@@ -15,23 +19,25 @@ export class UserComponent implements OnInit {
     sortBy: 'Name'
   }
 
-  constructor(private _userService: UserService ) { }
+  constructor(private authService: AuthService, private _userService: UserService ) { }
 
   ngOnInit(): void {
     this.listUsers();
   }
 
   deleteUser(id: number) {
-    this._userService.deleteUser(id).subscribe(
-      data => {
-        console.log('deleted response', data);
-        this.listUsers();
-      }
-    )
+    if (confirm('êtes vous sure de vouloir supprimer ?\n cette action est irreversible')) {
+      this._userService.deleteUser(id).pipe(takeUntil(this.subscribe)).subscribe(
+        data => {
+          console.log('deleted response', data);
+          this.listUsers();
+        }
+      )
+    }
   }
 
   listUsers() {
-    this._userService.getUsers().subscribe(
+    this._userService.getUsers().pipe(takeUntil(this.subscribe)).subscribe(
       data => this.users = data
     )
   }
@@ -50,6 +56,12 @@ export class UserComponent implements OnInit {
     //     return a.id > b.id ? -1: 1;
     //   }
     // })
+  }
+  isCurrentUser(matricule : string){
+    return this.authService.user.sub==matricule;
+  }
+  ngOnDestroy() {
+    this.subscribe.next(true);
   }
 
 }

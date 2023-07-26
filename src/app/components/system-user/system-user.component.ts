@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { SystemUser } from 'src/app/models/systemUser';
 import { SystemUserService } from 'src/app/services/system-user.service';
 
@@ -7,7 +8,9 @@ import { SystemUserService } from 'src/app/services/system-user.service';
   templateUrl: './system-user.component.html',
   styleUrls: ['./system-user.component.scss']
 })
-export class SystemUserComponent implements OnInit {
+export class SystemUserComponent implements OnInit, OnDestroy {
+  subscribe : Subject<boolean> = new Subject();
+
 
   systemUsers: SystemUser[] = [];
   filters = {
@@ -22,16 +25,18 @@ export class SystemUserComponent implements OnInit {
   }
 
   deleteSystemUser(id: number) {
-    this._systemUserService.deleteSystemUser(id).subscribe(
-      data => {
-        console.log('deleted response', data);
-        this.listSystemUsers();
-      }
-    )
+    if (confirm('êtes vous sure de vouloir supprimer ?\n cette action est irreversible')) {
+      this._systemUserService.deleteSystemUser(id).pipe(takeUntil(this.subscribe)).subscribe(
+        data => {
+          console.log('deleted response', data);
+          this.listSystemUsers();
+        }
+      )
+    }
   }
 
   listSystemUsers() {
-    this._systemUserService.getSystemUsers().subscribe(
+    this._systemUserService.getSystemUsers().pipe(takeUntil(this.subscribe)).subscribe(
       data => this.systemUsers = data
     )
   }
@@ -50,5 +55,8 @@ export class SystemUserComponent implements OnInit {
     //     return a.id > b.id ? -1: 1;
     //   }
     // })
+  }
+  ngOnDestroy() {
+    this.subscribe.next(true);
   }
 }

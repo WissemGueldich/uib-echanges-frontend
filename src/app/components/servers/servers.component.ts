@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Server } from 'src/app/models/server';
 import { ServerService } from 'src/app/services/server.service';
 
@@ -7,7 +8,9 @@ import { ServerService } from 'src/app/services/server.service';
   templateUrl: './servers.component.html',
   styleUrls: ['./servers.component.css']
 })
-export class ServersComponent implements OnInit {
+export class ServersComponent implements OnInit, OnDestroy {
+  subscribe : Subject<boolean> = new Subject();
+
   servers: Server[] = [];
   
   filters = {
@@ -22,16 +25,18 @@ export class ServersComponent implements OnInit {
   }
 
   deleteServer(id: number) {
-    this._serverService.deleteServer(id).subscribe(
-      data => {
-        console.log('deleted response', data);
-        this.listServers();
-      }
-    )
+    if (confirm('êtes vous sure de vouloir supprimer ?\n cette action est irreversible')) {
+      this._serverService.deleteServer(id).pipe(takeUntil(this.subscribe)).subscribe(
+        data => {
+          console.log('deleted response', data);
+          this.listServers();
+        }
+      )
+    }
   }
 
   listServers() {
-    this._serverService.getServers().subscribe(
+    this._serverService.getServers().pipe(takeUntil(this.subscribe)).subscribe(
       data => this.servers = data
     )
   }
@@ -50,6 +55,9 @@ export class ServersComponent implements OnInit {
     //     return a.id > b.id ? -1: 1;
     //   }
     // })
+  }
+  ngOnDestroy() {
+    this.subscribe.next(true);
   }
 
 }

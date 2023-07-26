@@ -29,8 +29,8 @@
                         <tr *ngFor="let config of configs" >
                             <td class="text-center align-middle" >{{config.libelle}}</td>
                             <td class="text-center align-middle" >{{config.filter}}</td>
-                            <td class="text-center align-middle" >{{config.sourceServer.libelle}}</td>
-                            <td class="text-center align-middle" >{{config.destinationServer.libelle}}</td>
+                            <td class="text-center align-middle" >{{config.sourceServer ? config.sourceServer.libelle : "non défini"}}</td>
+                            <td class="text-center align-middle" >{{config.destinationServer ? config.destinationServer.libelle : "non défini"}}</td>
                             <td class="text-center align-middle"  *ngIf="config.overwrite; else auto" >Oui</td>
                             <td class="text-center align-middle"  *ngIf="config.move; else auto" >Oui</td>
                             <td class="text-center align-middle"  *ngIf="config.automatic; else auto" >Oui</td>
@@ -44,13 +44,8 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
-        
     </div>
-    <!--<div class="card-footer text-muted">
-      2 days ago
-    </div>-->
   </div>
 <div class="d-flex justify-content-center"></div>
 <br/>

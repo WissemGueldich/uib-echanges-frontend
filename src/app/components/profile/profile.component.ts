@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Profile } from 'src/app/models/profile';
 import { User } from 'src/app/models/user';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -8,7 +9,9 @@ import { ProfileService } from 'src/app/services/profile.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
+  subscribe : Subject<boolean> = new Subject();
+
   profiles: Profile[] = [];
   filters = {
     keyword: '',
@@ -22,16 +25,14 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteProfile(id: number) {
-    this._profileService.deleteProfile(id).subscribe((data) => {
-      console.log('deleted response', data);
+    this._profileService.deleteProfile(id).pipe(takeUntil(this.subscribe)).subscribe((data) => {
       this.listProfiles();
     });
   }
 
   listProfiles() {
     this._profileService
-      .getProfiles()
-      .subscribe((data) => (this.profiles = data));
+      .getProfiles().pipe(takeUntil(this.subscribe)).subscribe((data) => (this.profiles = data));
   }
 
   listener() {
@@ -51,7 +52,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getUsersByProfileId(id:number){
-    this._profileService.getUsersByProfileId(id).subscribe(
+    this._profileService.getUsersByProfileId(id).pipe(takeUntil(this.subscribe)).subscribe(
       data => {
         console.log(data);
         return data;
@@ -60,14 +61,13 @@ export class ProfileComponent implements OnInit {
   }
 
   delete(profile: Profile) {
-    this._profileService.getUsersByProfileId(profile.id).subscribe(
+    this._profileService.getUsersByProfileId(profile.id).pipe(takeUntil(this.subscribe)).subscribe(
       data => {
         if (data.length==0){
           if (confirm('êtes vous sure de vouloir supprimer le profile "'+profile.libelle+'" ?')) {
             this.deleteProfile(profile.id);
           }
         }else{
-          console.log(data);
           let s="";
           for (let d in data){
             s=s+"\n"+data[d].matricule;
@@ -79,5 +79,7 @@ export class ProfileComponent implements OnInit {
       }
     )
   }
-
+  ngOnDestroy() {
+    this.subscribe.next(true);
+  }
 }

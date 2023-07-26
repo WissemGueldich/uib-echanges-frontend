@@ -30,7 +30,7 @@
                             <td class="text-center align-middle" >{{job.startHour}}</td>
                             <td class="text-center align-middle" >{{job.endHour}}</td>
                             <td class="text-center align-middle" >{{job.frequency}}</td>
-                            <td class="text-center align-middle" ><ul><li *ngFor="let day of job.days.sort()"><div class="text-center align-middle">{{idToDay(day.id)}}</div></li></ul></td>
+                            <td class="text-left align-left" ><ul><li class="text-left align-left" *ngFor="let day of job.days.sort()"><div class="text-left align-left">{{idToDay(day.id)}}</div></li></ul></td>
                             <td class="text-center align-middle"  *ngIf="job.state; else auto" >Actif</td>
                             <ng-template #auto ><td class="text-center align-middle" >Inactif</td></ng-template>
                             <td class="text-center align-middle">

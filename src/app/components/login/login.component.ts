@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/security/auth.service';
 import { TokenStorageService } from 'src/app/security/token-storage.service';
 
@@ -9,7 +10,9 @@ import { TokenStorageService } from 'src/app/security/token-storage.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+  subscribe : Subject<boolean> = new Subject();
+
   form: any = {
     matricule: null,
     password: null
@@ -29,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     const { matricule, password } = this.form;
-    this.authService.login(matricule, password).subscribe(
+    this.authService.login(matricule, password).pipe(takeUntil(this.subscribe)).subscribe(
       data => {
         console.log(data);
         this.isLoginFailed = false;
@@ -42,6 +45,10 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = true;
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.subscribe.next(true);
   }
 
 }

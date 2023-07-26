@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Job } from 'src/app/models/job';
 import { JobService } from 'src/app/services/job.service';
 
@@ -8,29 +8,31 @@ import { JobService } from 'src/app/services/job.service';
   templateUrl: './job.component.html',
   styleUrls: ['./job.component.scss'],
 })
-export class JobComponent implements OnInit {
+export class JobComponent implements OnInit, OnDestroy {
+  subscribe : Subject<boolean> = new Subject();
   jobs: Job[] = [];
   days: string[] = [];
   filters = {
     keyword: '',
     sortBy: 'Name',
   };
-  constructor(private _jobService: JobService, private _router: Router) {}
+  constructor(private _jobService: JobService) {}
 
   ngOnInit(): void {
     this.listJobs();
   }
 
   deleteJob(id: number) {
-    this._jobService.deleteJob(id).subscribe((data) => {
-      this.listJobs();
-    });
+    if (confirm('êtes vous sure de voiloir supprimer ?\n cette action est irreversible')) {
+      this._jobService.deleteJob(id).pipe(takeUntil(this.subscribe)).subscribe((data) => {
+        this.listJobs();    
+      });
+    }
   }
 
   listJobs() {
-    this._jobService.getJobs().subscribe((data) => {
+    this._jobService.getJobs().pipe(takeUntil(this.subscribe)).subscribe((data) => {
       this.jobs = data;
-      console.log(data);
       
       this.jobs.forEach(job=>{
         job.days.sort((a, b) => a.id - b.id); 
@@ -58,7 +60,7 @@ export class JobComponent implements OnInit {
   }
 
   schedule(jobId:number) {
-    this._jobService.schedule(jobId).subscribe((data) => {
+    this._jobService.schedule(jobId).pipe(takeUntil(this.subscribe)).subscribe((data) => {
       console.log('data from schedule service : ', data);
     });
   }
@@ -82,5 +84,8 @@ export class JobComponent implements OnInit {
       default:
         return '';
     }
+  }
+  ngOnDestroy() {
+    this.subscribe.next(true);
   }
 }
