@@ -28,7 +28,6 @@ import { RoleComponent } from './components/role/role.component';
 import { RoleModalComponent } from './components/role/role-modal/role-modal.component';
 import { UserModalComponent } from './components/user/user-modal/user-modal.component';
 import { TransferComponent } from './components/transfer/transfer.component';
-import { TransferModalComponent } from './components/transfer/transfer-modal/transfer-modal.component';
 import { JobComponent } from './components/job/job.component';
 import { ApplicationComponent } from './components/application/application.component';
 import { HomeComponent } from './components/home/home.component';
@@ -61,7 +60,6 @@ import { TransferSupervisionModalComponent } from './components/transfer-supervi
     RoleModalComponent,
     UserModalComponent,
     TransferComponent,
-    TransferModalComponent,
     JobComponent,
     ApplicationComponent,
     HomeComponent,

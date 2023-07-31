@@ -13,7 +13,8 @@
                 <table class="table table-striped table-sm table-responsive-sm" >
                     <thead>
                         <tr>
-                            <th class="text-center align-middle" scope="col"></th>
+                            <th class="text-center align-middle" scope="col">Prog.</th>
+                            <th class="text-center align-middle" scope="col">Deprog.</th>
                             <th class="text-center align-middle" scope="col">Libellé</th>
                             <th class="text-center align-middle" scope="col">Heure début</th>
                             <th class="text-center align-middle" scope="col">Heure fin</th>
@@ -26,6 +27,7 @@
                     <tbody>
                         <tr *ngFor="let job of jobs" >
                             <td class="text-center align-middle" ><button class="btn btn-outline-dark mb-2 me-2" (click)="schedule(job.id)" ><i class="fa fa-play" aria-hidden="true"></i></button></td>
+                            <td class="text-center align-middle" ><button class="btn btn-outline-dark mb-2 me-2" (click)="unschedule(job.id)" ><i class="fa fa-times" aria-hidden="true"></i></button></td>
                             <td class="text-center align-middle" >{{job.libelle}}</td>
                             <td class="text-center align-middle" >{{job.startHour}}</td>
                             <td class="text-center align-middle" >{{job.endHour}}</td>

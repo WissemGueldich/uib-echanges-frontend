@@ -42,4 +42,8 @@ export class JobService {
     return this._httpClient.post<any>(this.API_URL+"/schedule/"+jobId,null);
   }
 
+  unschedule(jobId:number): Observable<any> {
+    return this._httpClient.post<any>(this.API_URL+"/unschedule/"+jobId,null);
+  }
+
 }

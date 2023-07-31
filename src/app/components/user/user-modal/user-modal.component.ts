@@ -16,6 +16,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 import { Profile } from 'src/app/models/profile';
 import { Role } from 'src/app/models/role';
 import { RoleService } from 'src/app/services/role.service';
+import { AuthService } from 'src/app/security/auth.service';
 @Component({
   selector: 'app-user-modal',
   templateUrl: './user-modal.component.html',
@@ -42,6 +43,8 @@ export class UserModalComponent implements OnInit {
   @Output() update = new EventEmitter();
   icon = false;
   user: User = new User();
+  admin:boolean = false;
+  gdhb:boolean = false;
   roles: Role[] = [];
   profiles: Profile[] = [];
   dropdownList: any = [];
@@ -56,7 +59,8 @@ export class UserModalComponent implements OnInit {
     private _userService: UserService,
     private _roleService: RoleService,
     private _router: Router,
-    private _profileService: ProfileService
+    private _profileService: ProfileService,
+    private authService: AuthService,
   ) {}
   ngOnInit(): void {
     if (this.title == 'Ajouter'){
@@ -64,9 +68,19 @@ export class UserModalComponent implements OnInit {
     } else {
       this.userForm.get('password')?.disable();
     }
+
     this._roleService.getRoles().subscribe((data) => {
       this.roles = data;
+      
+
+      this.authService.user.authorities.forEach(auth=>{
+        if(Object.values(auth)[0]==="ROLE_GDHB"){
+          this.gdhb=true;
+        }
+      });
+
       data.forEach((role) => {
+        if(!this.gdhb || role.name!="ROLE_ADMIN")
         this.dropdownList.push({
           id: role.id,
           name: role.name.split('_')[1].toLowerCase(),
@@ -183,6 +197,11 @@ export class UserModalComponent implements OnInit {
         this.user.profiles = data.profiles;
         this.user.enabled = data.enabled;
         this.user.roles = data.roles;
+        this.user.roles.forEach((role: Role) => {
+          if(role.id==1){
+           this.admin=true
+          }
+        });
         data.roles.forEach((role: Role) => {
           role.name = role.name.split('_')[1].toLowerCase();
         });
@@ -201,4 +220,5 @@ export class UserModalComponent implements OnInit {
     }
     this.modalService.open(content, { centered: true });
   }
+
 }

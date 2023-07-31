@@ -65,6 +65,12 @@ export class JobComponent implements OnInit, OnDestroy {
     });
   }
 
+  unschedule(jobId:number) {
+    this._jobService.unschedule(jobId).pipe(takeUntil(this.subscribe)).subscribe((data) => {
+      console.log('data from unschedule service : ', data);
+    });
+  }
+
   idToDay(day: number) {
     switch (day) {
       case 2:

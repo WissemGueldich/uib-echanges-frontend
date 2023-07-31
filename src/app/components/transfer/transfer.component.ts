@@ -30,7 +30,6 @@ export class TransferComponent implements OnInit, OnDestroy {
     if (token!=null) {
         this._userService.getUserByMatricule(this._authService.getUser(token).sub).pipe(takeUntil(this.subscribe)).subscribe(
         data => {     
-          console.log(data);
           this.user=data
           data.profiles.forEach((profile: Profile )=>{
             this.configs=this.configs.concat(profile.configurations);
@@ -47,7 +46,7 @@ export class TransferComponent implements OnInit, OnDestroy {
     config.error = false ;
     config.disable = true ;
     this._transferService.transfer(config).subscribe(
-      data => {
+      () => {
         config.error=false;
         config.show = true;
         config.message="Transfert éffectué avec succès"

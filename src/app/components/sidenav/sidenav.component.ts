@@ -65,10 +65,6 @@ export class SidenavComponent implements OnInit {
     let i=0;
     while(this.isUnauthorized(this.navData)!=null){
       this.navData.splice(this.navData.indexOf(this.isUnauthorized(this.navData)),1);
-      console.log("navdata after removing unauthorized elemnt : ");
-      
-      console.log(this.navData);
-      
     }
     this.screenWidth = window.innerWidth;
   }
@@ -98,12 +94,9 @@ export class SidenavComponent implements OnInit {
   private isUnauthorized(navData:any[]){
     for (let i = 0; i < navData.length; i++) {
       if(!this.hasAny(navData[i].auth)){
-        console.log("unauthorized element found in navdata");
-        console.log(navData[i]);
         return navData[i];
       }
     }
-    console.log("all element inside navdata are authorized");
     return null;
   }
 }

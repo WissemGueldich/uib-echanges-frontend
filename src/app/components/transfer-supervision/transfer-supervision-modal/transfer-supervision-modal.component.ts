@@ -47,7 +47,7 @@ export class TransferSupervisionModalComponent {
     if (this.deleteTransfersForm.valid ) {
         this._transferSupervisionService
           .deleteTransfersBetween(this.deleteTransfersForm.value.from!,this.deleteTransfersForm.value.to!)
-          .subscribe((data) => {
+          .subscribe(() => {
             this.update.emit();
           });
       this.deleteTransfersForm.reset();

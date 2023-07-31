@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transfer } from '../models/transfer';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Page } from '../models/page';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,14 @@ export class TransferSupervisionService {
     return this._httpClient.get<Transfer[]>(this.TRANSFER_URL).pipe(
       map(response => response)
     )
+  }
+
+  getPaginatedTransfers(pageNumber: number, pageSize: number): Observable<Page<Transfer>> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this._httpClient.get<Page<Transfer>>(this.TRANSFER_URL, { params });
   }
   
   saveTransfer(Transfer: Transfer): Observable<Transfer> {

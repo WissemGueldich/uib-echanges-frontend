@@ -21,6 +21,7 @@
                             <th class="text-center align-middle" scope="col">Date</th>
                             <th class="text-center align-middle" scope="col">Résultat</th>
                             <th class="text-center align-middle" scope="col">Erreur</th>
+                            <th class="text-center align-middle" scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,11 +35,31 @@
                             <td class="text-center align-middle" >{{transfer.result?"Succès":"Échec"}}</td>
                             <td class="text-center align-middle" >{{transfer.error}}</td>
                             <td>
-                                <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteTransfer(transfer.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button [disabled]="calculateDateDifferenceInDays(transfer.date)<=60" class="btn btn-outline-danger mb-2 me-2" [ngClass]="{
+                                    'btn-outline-secondary': calculateDateDifferenceInDays(transfer.date)<=60,
+                                    'btn-outline-danger': calculateDateDifferenceInDays(transfer.date)>60
+                                  }" (click)="deleteTransfer(transfer.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="justify-content-center">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item" [class.disabled]="this.first">
+                        <a class="page-link" (click)="prevPage()" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">Précédent</span>
+                        </a>
+                      </li>
+                      <li  *ngFor="let i of this.totalPages" [class.disabled]="this.pageNumber+1==i" class="page-item"><a (click)="this.getPage(i)" class="page-link">{{i}}</a></li>
+                      <li class="page-item" [class.disabled]="this.last">
+                        <a class="page-link" aria-label="Next" (click)="nextPage()">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Suivant</span>
+                        </a>
+                      </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

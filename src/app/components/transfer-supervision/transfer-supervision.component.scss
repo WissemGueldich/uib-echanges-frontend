@@ -1,0 +1,17 @@
+.pagination {
+    color:  rgba(176, 0, 0, 0.804); 
+      & ul {
+        color:  rgba(176, 0, 0, 0.804); 
+    }
+    & li {
+        color:  rgba(176, 0, 0, 0.804); 
+    }
+    & a {
+        color: rgba(176, 0, 0, 0.804); 
+    }
+  
+  }
+.disabled{
+    color: gray;
+    outline-color: gray;
+}

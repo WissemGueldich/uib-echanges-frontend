@@ -28,8 +28,7 @@ export class UserComponent implements OnInit, OnDestroy {
   deleteUser(id: number) {
     if (confirm('êtes vous sure de vouloir supprimer ?\n cette action est irreversible')) {
       this._userService.deleteUser(id).pipe(takeUntil(this.subscribe)).subscribe(
-        data => {
-          console.log('deleted response', data);
+        () => {
           this.listUsers();
         }
       )

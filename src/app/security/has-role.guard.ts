@@ -15,7 +15,6 @@ export class HasRoleGuard implements CanActivate{
     hasAny(authorities:any[]):boolean{
         for (let i = 0; i < this.authService.user.authorities.length; i++) {
             if(authorities.includes(Object.values(this.authService.user.authorities[i])[0])){
-                console.log('Authorized.');
                 return true
             }
         }
