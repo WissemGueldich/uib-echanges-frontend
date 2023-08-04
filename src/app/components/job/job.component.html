@@ -33,8 +33,8 @@
                             <td class="text-center align-middle" >{{job.endHour}}</td>
                             <td class="text-center align-middle" >{{job.frequency}}</td>
                             <td class="text-left align-left" ><ul><li class="text-left align-left" *ngFor="let day of job.days.sort()"><div class="text-left align-left">{{idToDay(day.id)}}</div></li></ul></td>
-                            <td class="text-center align-middle"  *ngIf="job.state; else auto" ><i class="fas fa-dot-circle text-success"></i></td>
-                            <ng-template #auto ><td class="text-center align-middle" ><i class="fas fa-dot-circle text-danger"></i></td></ng-template>
+                            <td class="text-center align-middle"  *ngIf="job.state; else auto" ><i class="fa fa-circle text-success"></i></td>
+                            <ng-template #auto ><td class="text-center align-middle" ><i class="fa fa-circle text-danger"></i></td></ng-template>
                             <td class="text-center align-middle">
                                 <app-job-modal (update)="listener()" title="Modifier" jobId={{job.id}} ></app-job-modal>
                                 <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteJob(job.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
