@@ -20,7 +20,6 @@
                             <th class="text-center align-middle" scope="col">Serveur destination</th>
                             <th class="text-center align-middle" scope="col">Ecrasement</th>
                             <th class="text-center align-middle" scope="col">Déplacement</th>
-                            <th class="text-center align-middle" scope="col">Automatique</th>
                             <th class="text-center align-middle" scope="col">Archivage</th>
                             <th class="text-center align-middle" scope="col">Options</th>
                         </tr>
@@ -31,11 +30,10 @@
                             <td class="text-center align-middle" >{{config.filter}}</td>
                             <td class="text-center align-middle" >{{config.sourceServer ? config.sourceServer.libelle : "non défini"}}</td>
                             <td class="text-center align-middle" >{{config.destinationServer ? config.destinationServer.libelle : "non défini"}}</td>
-                            <td class="text-center align-middle"  *ngIf="config.overwrite; else auto" >Oui</td>
-                            <td class="text-center align-middle"  *ngIf="config.move; else auto" >Oui</td>
-                            <td class="text-center align-middle"  *ngIf="config.automatic; else auto" >Oui</td>
-                            <td class="text-center align-middle"  *ngIf="config.archive; else auto">Oui</td>
-                            <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
+                            <td class="text-center align-middle"  *ngIf="config.overwrite; else auto" ><i class="text-success fa fa-check"></i></td>
+                            <td class="text-center align-middle"  *ngIf="config.move; else auto" ><i class="text-success fa fa-check"></i></td>
+                            <td class="text-center align-middle"  *ngIf="config.archive; else auto"><i class="text-success fa fa-check"></i></td>
+                            <ng-template #auto ><td class="text-center align-middle" ><i class="text-danger fa fa-times"></i></td></ng-template>
                             <td>
                                 <config-modal (update)="listener()" title="Modifier" configId={{config.id}} ></config-modal>
                                 <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteConfiguration(config.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>

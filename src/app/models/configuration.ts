@@ -7,7 +7,6 @@ export class Configuration{
     overwrite!:boolean;
     libelle!:string;
     move!:boolean;
-    automatic!:boolean;
     archive!:boolean;
     sourcePath!:string;
     sourceArchivingPath!:string;

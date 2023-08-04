@@ -26,15 +26,15 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let job of jobs" >
-                            <td class="text-center align-middle" ><button class="btn btn-outline-dark mb-2 me-2" (click)="schedule(job.id)" ><i class="fa fa-play" aria-hidden="true"></i></button></td>
-                            <td class="text-center align-middle" ><button class="btn btn-outline-dark mb-2 me-2" (click)="unschedule(job.id)" ><i class="fa fa-times" aria-hidden="true"></i></button></td>
+                            <td class="text-center align-middle" ><button class="btn mb-2 me-2" [ngClass]="job.state ? 'btn-outline-secondary':'btn-outline-dark'" [disabled]="job.state" (click)="schedule(job.id)" ><i class="fa fa-play" aria-hidden="true"></i></button></td>
+                            <td class="text-center align-middle" ><button class="btn mb-2 me-2" [ngClass]="job.state ? 'btn-outline-dark':'btn-outline-secondary'" [disabled]="!job.state" (click)="unschedule(job.id)" ><i class="fa fa-pause" aria-hidden="true"></i></button></td>
                             <td class="text-center align-middle" >{{job.libelle}}</td>
                             <td class="text-center align-middle" >{{job.startHour}}</td>
                             <td class="text-center align-middle" >{{job.endHour}}</td>
                             <td class="text-center align-middle" >{{job.frequency}}</td>
                             <td class="text-left align-left" ><ul><li class="text-left align-left" *ngFor="let day of job.days.sort()"><div class="text-left align-left">{{idToDay(day.id)}}</div></li></ul></td>
-                            <td class="text-center align-middle"  *ngIf="job.state; else auto" >Actif</td>
-                            <ng-template #auto ><td class="text-center align-middle" >Inactif</td></ng-template>
+                            <td class="text-center align-middle"  *ngIf="job.state; else auto" ><i class="fas fa-dot-circle text-success"></i></td>
+                            <ng-template #auto ><td class="text-center align-middle" ><i class="fas fa-dot-circle text-danger"></i></td></ng-template>
                             <td class="text-center align-middle">
                                 <app-job-modal (update)="listener()" title="Modifier" jobId={{job.id}} ></app-job-modal>
                                 <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteJob(job.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>

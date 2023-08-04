@@ -24,7 +24,7 @@
                             <td class="text-center align-middle">{{config.libelle}}</td>
                             <td class="text-center align-middle"><button class="btn btn-outline-dark mb-2 me-2" [ngClass]="{'notallowed' : config.disable}"
                                     [disabled]="config.disable||false" (click)="transfer(config)"><i
-                                        class="fal fa-play"></i></button></td>
+                                        class="fa fa-play"></i></button></td>
                             <td class="text-center align-middle">
                                 <h6 *ngIf="(config.show==false && config.error==false) || config.show == undefined">
                                     {{config.message||"Inactif"}}

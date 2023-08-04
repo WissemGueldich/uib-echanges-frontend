@@ -28,8 +28,8 @@
                             <td class="text-center align-middle" >{{user.lastName}}</td>
                             <td class="text-center align-middle" >{{user.firstName}}</td>
                             <td class="text-center align-middle" >{{user.email}}</td>
-                            <td class="text-center align-middle"  *ngIf="user.enabled; else auto" >Oui</td>
-                            <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
+                            <td class="text-center align-middle"  *ngIf="user.enabled; else auto" ><i class="text-success fa fa-check"></i></td>
+                            <ng-template #auto ><td class="text-center align-middle" ><i class="text-danger fa fa-times"></i></td></ng-template>
                             <td>
                                 <app-user-modal (update)="listener()" title="Modifier" userId={{user.id}} ></app-user-modal>
                                 <button *ngIf="!isCurrentUser(user.matricule)" class="btn btn-outline-danger mb-2 me-2" (click)="deleteUser(user.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>

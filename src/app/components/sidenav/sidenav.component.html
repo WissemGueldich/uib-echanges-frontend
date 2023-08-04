@@ -1,9 +1,9 @@
 <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
     <div class="logo-container">
-        <button class="logo" (click)="toggleCollapse()"><i class="fal fa-bars"></i></button>
+        <button class="logo" (click)="toggleCollapse()"><i class="fa fa-bars"></i></button>
         <div class="logo-text" @fadeInOut *ngIf="collapsed">MENU</div>
         <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
-            <i class="fal fa-times close-icon"></i>
+            <i class="fa fa-times close-icon"></i>
         </button>
     </div>
     <ul class="sidenav-nav overflow-auto hide-scroll">
@@ -23,7 +23,7 @@
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}"
             >
-                <i class="sidenav-link-icon" class="sidenav-link-icon fal fa-sign-out"></i>
+                <i class="sidenav-link-icon" class="sidenav-link-icon fa fa-sign-out"></i>
                 <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
                     Se déconnecter
                 </span>

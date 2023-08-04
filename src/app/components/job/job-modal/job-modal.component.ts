@@ -119,7 +119,6 @@ export class JobModalComponent implements OnInit {
       Validators.required,
       Validators.pattern('^[1-9]*$'),
     ]),
-    state: new FormControl(false),
     days: new FormControl(this.job.days, [Validators.required]),
     configurations: new FormControl(this.job.configurations, [
       Validators.required,
@@ -139,7 +138,7 @@ export class JobModalComponent implements OnInit {
       this.job.startHour = this.jobForm.value.startHour!;
       this.job.endHour = this.jobForm.value.endHour!;
       this.job.frequency = +this.jobForm.value.frequency!;
-      this.job.state = this.jobForm.value.state!;
+      this.job.state = false;
       this.job.days = this.jobForm.value.days!;
 
       this.jobConfigs.job=this.job;
@@ -196,7 +195,6 @@ export class JobModalComponent implements OnInit {
           startHour: this.job.startHour,
           endHour: this.job.endHour,
           frequency: this.job.frequency,
-          state: this.job.state,
           days: this.job.days,
           configurations: this.job.configurations,
         });

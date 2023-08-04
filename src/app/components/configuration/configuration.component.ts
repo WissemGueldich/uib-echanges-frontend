@@ -16,7 +16,7 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
     keyword: '',
     sortBy: 'Name'
   }
-  constructor(private _configService: ConfigurationService, private _router: Router ) { }
+  constructor(private _configService: ConfigurationService ) { }
 
   ngOnInit(): void {
     this.listConfigurations();

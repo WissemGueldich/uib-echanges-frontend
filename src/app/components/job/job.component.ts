@@ -1,3 +1,4 @@
+import { ReturnStatement } from '@angular/compiler';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { Job } from 'src/app/models/job';
@@ -35,9 +36,8 @@ export class JobComponent implements OnInit, OnDestroy {
       this.jobs = data;
       
       this.jobs.forEach(job=>{
-        job.days.sort((a, b) => a.id - b.id); 
+        job.days.sort((a, b) => a.id - b.id);
       });
-      console.log(this.jobs);
       
     });
     
@@ -60,14 +60,18 @@ export class JobComponent implements OnInit, OnDestroy {
   }
 
   schedule(jobId:number) {
-    this._jobService.schedule(jobId).pipe(takeUntil(this.subscribe)).subscribe((data) => {
-      console.log('data from schedule service : ', data);
-    });
+    this._jobService.schedule(jobId).pipe(takeUntil(this.subscribe)).subscribe();
+    this.listJobs();
   }
 
   unschedule(jobId:number) {
+    this._jobService.unschedule(jobId).pipe(takeUntil(this.subscribe)).subscribe();
+    this.listJobs();
+  }
+
+  isRunning(jobId:number) {
     this._jobService.unschedule(jobId).pipe(takeUntil(this.subscribe)).subscribe((data) => {
-      console.log('data from unschedule service : ', data);
+      return data.isScheduled;
     });
   }
 

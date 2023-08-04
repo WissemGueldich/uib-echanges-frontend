@@ -1,57 +1,57 @@
 export const navbarData = [
     {
         routeLink: 'users',
-        icon: 'fal fa-users',
+        icon: 'fa fa-users',
         label: 'Gestion des utilisateurs',
         auth:['ROLE_ADMIN','ROLE_GDHB']
     },
     {
         routeLink: 'profiles',
-        icon: 'fal fa-id-card',
+        icon: 'fa fa-id-card',
         label: 'Gestion des profiles',
         auth:['ROLE_ADMIN']
     },
     {
         routeLink: 'servers',
-        icon: 'fal fa-server',
+        icon: 'fa fa-server',
         label: 'Gestion des serveurs',
         auth:['ROLE_ADMIN']
     },
     {
         routeLink: 'system-users',
-        icon: 'fal fa-users-cog',
+        icon: 'fa fa-id-badge',
         label: 'Gestion des utilisateurs système',
         auth:['ROLE_ADMIN']
     },
     {
         routeLink: 'configs',
-        icon: 'fal fa-cog',
+        icon: 'fa fa-cog',
         label: 'Gestion des configurations',
         auth:['ROLE_ADMIN']
     },
     {
         routeLink: 'jobs',
-        icon: 'fal fa-calendar',
+        icon: 'fa fa-calendar',
         label: 'Gestion des jobs',
         auth:['ROLE_ADMIN']
     },
     {
-        routeLink: 'transfers',
-        icon: 'fal fa-box-open',
-        label: 'Transferts',
-        auth:['ROLE_ADMIN','ROLE_SUPERVISION']
-    },  
-    {
         routeLink: 'transfer',
-        icon: 'fal fa-exchange',
+        icon: 'fa fa-exchange',
         label: 'Effectuer un transfert',
         auth:['ROLE_ADMIN','ROLE_TRANSFER']
     },
     {
+        routeLink: 'transfers',
+        icon: 'fa fa-history',
+        label: 'Historique des transferts',
+        auth:['ROLE_ADMIN','ROLE_SUPERVISION']
+    }, 
+    /*{
         routeLink: 'applications',
-        icon: 'fal fa-browser',
+        icon: 'fa fa-browser',
         label: 'Gestion des applications',
         auth:['ROLE_ADMIN']
-    }
+    }*/
 
 ];

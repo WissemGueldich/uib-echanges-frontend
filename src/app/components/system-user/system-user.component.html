@@ -24,8 +24,8 @@
                         <tr *ngFor="let systemUser of systemUsers" >
                             <td class="text-center align-middle" >{{systemUser.libelle}}</td>
                             <td class="text-center align-middle" >{{systemUser.login}}</td>
-                            <td class="text-center align-middle"  *ngIf="systemUser.enabled; else auto" >Oui</td>
-                            <ng-template #auto ><td class="text-center align-middle" >Non</td></ng-template>
+                            <td class="text-center align-middle"  *ngIf="systemUser.enabled; else auto" ><i class="text-success fa fa-check"></i></td>
+                            <ng-template #auto ><td class="text-center align-middle" ><i class="text-danger fa fa-times"></i></td></ng-template>
                             <td>
                                 <system-user-modal (update)="listener()" title="Modifier" systemUserId={{systemUser.id}} ></system-user-modal>
                                 <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteSystemUser(systemUser.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>

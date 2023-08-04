@@ -81,7 +81,6 @@ export class ConfigModal implements OnInit {
     ]),
     overwrite: new FormControl(false),
     move: new FormControl(false),
-    automatic: new FormControl(false),
     archive: new FormControl(false),
     id: new FormControl(0,{nonNullable: true}),
     sourcePath: new FormControl('', [
@@ -119,6 +118,8 @@ export class ConfigModal implements OnInit {
       this._configurationService
         .getConfiguration(+this.configId)
         .subscribe((data) => {
+          console.log(data);
+          
           this.config = data;
           this.configForm.setValue(this.config);
           if(this.servers!=null && this .servers.length>0){
@@ -154,7 +155,6 @@ export class ConfigModal implements OnInit {
         this.configForm.value.destinationArchivingPath!;
       this.config.overwrite = this.configForm.value.overwrite!;
       this.config.move = this.configForm.value.move!;
-      this.config.automatic = this.configForm.value.automatic!;
       this.config.archive = this.configForm.value.archive!;
       this.config.filter = this.configForm.value.filter!;
 

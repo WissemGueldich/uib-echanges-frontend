@@ -32,7 +32,8 @@
                             <td class="text-center align-middle" >{{transfer.configuration.filter}}</td>
                             <td class="text-center align-middle" >{{transfer.type==0?"tranfert":"job"}}</td>
                             <td class="text-center align-middle" >{{transfer.date}}</td>
-                            <td class="text-center align-middle" >{{transfer.result?"Succès":"Échec"}}</td>
+                            <td class="text-center align-middle"  *ngIf="transfer.result; else auto"><i class="text-success fa fa-check"></i></td>
+                            <ng-template #auto ><td class="text-center align-middle" ><i class="text-danger fa fa-times"></i></td></ng-template>
                             <td class="text-center align-middle" >{{transfer.error}}</td>
                             <td>
                                 <button [disabled]="calculateDateDifferenceInDays(transfer.date)<=60" class="btn btn-outline-danger mb-2 me-2" [ngClass]="{

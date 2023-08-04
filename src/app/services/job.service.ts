@@ -46,4 +46,8 @@ export class JobService {
     return this._httpClient.post<any>(this.API_URL+"/unschedule/"+jobId,null);
   }
 
+  isRunning(jobId:number): Observable<any> {
+    return this._httpClient.post<any>(this.API_URL+"/status/"+jobId,null);
+  }
+
 }
