@@ -10,22 +10,25 @@
                 <div class="d-flex justify-content-center"><h3>Liste des Configurations</h3></div>
             </div>
             <br/>
+            <div class="input-group pb-4">
+                <input id="search-focus" type="search"  class="form-control border border-secondary px-4 " placeholder="Filtre.." [(ngModel)]="filters.keyword" >
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-sm table-responsive-sm" >
                     <thead>
                         <tr>
-                            <th class="text-center align-middle" scope="col">Libellé</th>
-                            <th class="text-center align-middle" scope="col">Filtre</th>
+                            <th class="text-center align-middle" scope="col" (click)="sort('libelle')">Libellé</th>
+                            <th class="text-center align-middle" scope="col" (click)="sort('filter')">Filtre</th>
                             <th class="text-center align-middle" scope="col">Serveur source</th>
                             <th class="text-center align-middle" scope="col">Serveur destination</th>
-                            <th class="text-center align-middle" scope="col">Ecrasement</th>
-                            <th class="text-center align-middle" scope="col">Déplacement</th>
-                            <th class="text-center align-middle" scope="col">Archivage</th>
+                            <th class="text-center align-middle" scope="col" (click)="sort('overwrite')">Ecrasement</th>
+                            <th class="text-center align-middle" scope="col" (click)="sort('move')">Déplacement</th>
+                            <th class="text-center align-middle" scope="col" (click)="sort('archive')">Archivage</th>
                             <th class="text-center align-middle" scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let config of configs" >
+                        <tr *ngFor="let config of configs | filter:filters.keyword | sort:filters.order:filters.sortBy" >
                             <td class="text-center align-middle" >{{config.libelle}}</td>
                             <td class="text-center align-middle" >{{config.filter}}</td>
                             <td class="text-center align-middle" >{{config.sourceServer ? config.sourceServer.libelle : "non défini"}}</td>

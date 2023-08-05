@@ -118,8 +118,6 @@ export class ConfigModal implements OnInit {
       this._configurationService
         .getConfiguration(+this.configId)
         .subscribe((data) => {
-          console.log(data);
-          
           this.config = data;
           this.configForm.setValue(this.config);
           if(this.servers!=null && this .servers.length>0){

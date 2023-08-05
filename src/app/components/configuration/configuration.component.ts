@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Configuration } from 'src/app/models/configuration';
+import { SortPipe } from 'src/app/pipes/sort.pipe';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 
 @Component({
@@ -14,9 +14,10 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   configs: Configuration[] = [];
   filters = {
     keyword: '',
-    sortBy: 'Name'
+    sortBy: 'id',
+    order: 'asc'
   }
-  constructor(private _configService: ConfigurationService ) { }
+  constructor(private _configService: ConfigurationService, private sortPipe: SortPipe ) { }
 
   ngOnInit(): void {
     this.listConfigurations();
@@ -57,6 +58,25 @@ export class ConfigurationComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {    
     this.subscribe.next(true);
+  }
+  sort(sortBy: string){
+    if (this.filters.sortBy==sortBy) {
+      console.log("same");
+      console.log(this.filters.order);
+
+      this.filters.order=='desc'? this.filters.order='asc':this.filters.order='desc';
+      console.log(this.filters.order);
+      
+    }else{
+      console.log("not same");
+      console.log(this.filters.order);
+
+      this.filters.sortBy=sortBy;
+      this.filters.order='desc'
+      console.log(this.filters.order);
+
+    }
+
   }
 
 }

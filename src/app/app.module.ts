@@ -36,7 +36,8 @@ import { ApplicationModalComponent } from './components/application/application-
 import { SimpleModalComponent } from './components/simple-modal/simple-modal.component';
 import { HasRoleGuard } from './security/has-role.guard';
 import { TransferSupervisionModalComponent } from './components/transfer-supervision/transfer-supervision-modal/transfer-supervision-modal.component';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { TransferSupervisionModalComponent } from './components/transfer-supervi
     JobModalComponent,
     ApplicationModalComponent,
     SimpleModalComponent,
-    TransferSupervisionModalComponent    
+    TransferSupervisionModalComponent,
+    SortPipe
   ],
   imports: [
     BrowserModule,
@@ -76,10 +78,11 @@ import { TransferSupervisionModalComponent } from './components/transfer-supervi
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    Ng2SearchPipeModule
     
   ],
-  providers: [authInterceptorProviders, AuthGuard,HasRoleGuard],
+  providers: [authInterceptorProviders, AuthGuard,HasRoleGuard,SortPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -37,24 +37,16 @@ export class TransferSupervisionComponent implements OnInit, OnDestroy {
     this.loadPaginatedTransfers();
   }
 
-  deleteTransfer(id: number) {
-    console.log("today");
-    
-    console.log(new Date());
-    console.log("tr date");
-    
-    console.log(new Date(this.transfers[0].date));
-    console.log("diff");
-    
-    console.log(this.calculateDateDifferenceInDays(new Date(this.transfers[0].date)));
-    
-    /*if (confirm('êtes vous sure de vouloir supprimer ?\n cette action est irreversible')) {
-      this._transferSupervisionService.deleteTransfer(id).pipe(takeUntil(this.subscribe)).subscribe(
-        () => {
-          this.loadPaginatedTransfers();
-        }
-      )
-    }*/
+  deleteTransfer(id: number, date: Date) {
+    if(this.calculateDateDifferenceInDays(new Date(date))>30){
+      if (confirm('êtes vous sure de vouloir supprimer ?\n cette action est irreversible')) {
+        this._transferSupervisionService.deleteTransfer(id).pipe(takeUntil(this.subscribe)).subscribe(
+          () => {
+            this.loadPaginatedTransfers();
+          }
+        )
+      }
+    }
   }
 
   listTransfers() {
