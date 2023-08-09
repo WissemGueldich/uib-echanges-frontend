@@ -10,20 +10,25 @@
                 <div class="d-flex justify-content-center"><h3>Liste des Configurations</h3></div>
             </div>
             <br/>
-            <div class="input-group pb-4">
-                <input id="search-focus" type="search"  class="form-control border border-secondary px-4 " placeholder="Filtre.." [(ngModel)]="filters.keyword" >
+            <div class="input-group pb-3">
+                <input id="search-focus" type="search"  class="form-control border border-secondary px-4 mx-4" placeholder="Filtre.." [(ngModel)]="filters.keyword" >
             </div>
             <div class="table-responsive">
                 <table class="table table-striped table-sm table-responsive-sm" >
                     <thead>
                         <tr>
-                            <th class="text-center align-middle" scope="col" (click)="sort('libelle')">Libellé</th>
-                            <th class="text-center align-middle" scope="col" (click)="sort('filter')">Filtre</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('libelle')">
+                                <i *ngIf="filters.order=='asc' && filters.sortBy=='libelle'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>
+                                <ng-template #desc >
+                                    <i class="mx-2 datatable-sort-icon fa fa-caret-down"></i>
+                                </ng-template>Libellé
+                            </th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('filter')"><i *ngIf="filters.order=='asc' && filters.sortBy=='filter'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Filtre</th>
                             <th class="text-center align-middle" scope="col">Serveur source</th>
                             <th class="text-center align-middle" scope="col">Serveur destination</th>
-                            <th class="text-center align-middle" scope="col" (click)="sort('overwrite')">Ecrasement</th>
-                            <th class="text-center align-middle" scope="col" (click)="sort('move')">Déplacement</th>
-                            <th class="text-center align-middle" scope="col" (click)="sort('archive')">Archivage</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('overwrite')"><i *ngIf="filters.order=='asc' && filters.sortBy=='overwrite'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Ecrasement</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('move')"><i *ngIf="filters.order=='asc' && filters.sortBy=='move'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Déplacement</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('archive')"><i *ngIf="filters.order=='asc' && filters.sortBy=='archive'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Archivage</th>
                             <th class="text-center align-middle" scope="col">Options</th>
                         </tr>
                     </thead>

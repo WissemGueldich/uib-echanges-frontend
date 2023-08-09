@@ -9,23 +9,30 @@
                 <div class="d-flex justify-content-center"><h3>Liste des Jobs</h3></div>
             </div>
             <br/>
+            <div class="input-group pb-3">
+                <input id="search-focus" type="search"  class="form-control border border-secondary px-4 mx-4" placeholder="Filtre.." [(ngModel)]="filters.keyword" >
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-sm table-responsive-sm" >
                     <thead>
                         <tr>
                             <th class="text-center align-middle" scope="col">Prog.</th>
                             <th class="text-center align-middle" scope="col">Deprog.</th>
-                            <th class="text-center align-middle" scope="col">Libellé</th>
-                            <th class="text-center align-middle" scope="col">Heure début</th>
-                            <th class="text-center align-middle" scope="col">Heure fin</th>
-                            <th class="text-center align-middle" scope="col">Fréquence</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('libelle')"><i *ngIf="filters.order=='asc' && filters.sortBy=='libelle'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>
+                                <ng-template #desc >
+                                    <i class="mx-2 datatable-sort-icon fa fa-caret-down"></i>
+                                </ng-template>Libellé
+                            </th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('startHour')"><i *ngIf="filters.order=='asc' && filters.sortBy=='startHour'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Heure début</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('endHour')"><i *ngIf="filters.order=='asc' && filters.sortBy=='endHour'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Heure fin</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('frequency')"><i *ngIf="filters.order=='asc' && filters.sortBy=='frequency'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Fréquence</th>
                             <th class="text-center align-middle" scope="col">Jours</th>
-                            <th class="text-center align-middle" scope="col">Etat</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col"(click)="sort('state')"><i *ngIf="filters.order=='asc' && filters.sortBy=='filter'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Etat</th>
                             <th class="text-center align-middle" scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let job of jobs" >
+                        <tr *ngFor="let job of jobs | filter:filters.keyword | sort:filters.order:filters.sortBy" >
                             <td class="text-center align-middle" ><button class="btn mb-2 me-2" [ngClass]="job.state ? 'btn-outline-secondary':'btn-outline-dark'" [disabled]="job.state" (click)="schedule(job.id)" ><i class="fa fa-play" aria-hidden="true"></i></button></td>
                             <td class="text-center align-middle" ><button class="btn mb-2 me-2" [ngClass]="job.state ? 'btn-outline-dark':'btn-outline-secondary'" [disabled]="!job.state" (click)="unschedule(job.id)" ><i class="fa fa-pause" aria-hidden="true"></i></button></td>
                             <td class="text-center align-middle" >{{job.libelle}}</td>

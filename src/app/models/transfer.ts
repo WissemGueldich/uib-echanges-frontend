@@ -7,6 +7,7 @@ export class Transfer{
     result!:boolean;
     error!:string;
 	date!:Date;
+    user!:string;
 }
 
 

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
+import { Configuration } from 'src/app/models/configuration';
 import { Transfer } from 'src/app/models/transfer';
 import { TransferSupervisionService } from 'src/app/services/transfer-supervision.service';
 
@@ -27,11 +28,6 @@ export class TransferSupervisionComponent implements OnInit, OnDestroy {
   last!:boolean;
   number!:number;
   numberOfElements!:number;
-  
-  filters = {
-    keyword: '',
-    sortBy: 'Name'
-  }
 
   ngOnInit(): void {
     this.loadPaginatedTransfers();
@@ -78,21 +74,40 @@ export class TransferSupervisionComponent implements OnInit, OnDestroy {
       )
   }
 
+  sortByFilter(transfers: Transfer[],sortKey: string){
+    console.log("lol");
+    transfers.forEach(t=>console.log(t.configuration.filter));
+    
+    
+    transfers.sort((a, b) =>{
+      if(a.configuration[sortKey as keyof typeof  a.configuration]<b.configuration[sortKey as keyof Configuration])return -1;
+      else return 1;
+    });
+    console.log('hh');
+    
+    transfers.forEach(t=>console.log(t.configuration.filter));
+    
+  }
+
   listener(){
     this.loadPaginatedTransfers();
   }
 
-  filterTransfer(Transfer: Transfer[]) {
-    // return Transfer.filter((e) => {
-    //   return e.TransferDate.toLowerCase().includes(this.filters.keyword.toLowerCase());
-    // }).sort((a, b) => {
-    //   if (this.filters.sortBy === 'date') {
-    //     return a.TransferDate.toLowerCase() > b.TransferDate.toLowerCase() ? -1: 1;
-    //   }else if(this.filters.sortBy === 'id') {
-    //     return a.id > b.id ? -1: 1;
-    //   }
-    // })
+  filters = {
+    keyword: '',
+    sortBy: 'id',
+    order: 'desc'
   }
+  
+  sort(sortBy: string){
+    if (this.filters.sortBy==sortBy) {
+      this.filters.order=='desc'? this.filters.order='asc':this.filters.order='desc';
+    }else{
+      this.filters.sortBy=sortBy;
+      this.filters.order='desc'
+    }
+  }
+
   ngOnDestroy() {
     this.subscribe.next(true);
   }

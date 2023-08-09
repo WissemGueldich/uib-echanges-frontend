@@ -14,10 +14,6 @@ export class UserComponent implements OnInit, OnDestroy {
   subscribe : Subject<boolean> = new Subject();
 
   users: User[] = [];
-  filters = {
-    keyword: '',
-    sortBy: 'Name'
-  }
 
   constructor(private authService: AuthService, private _userService: UserService ) { }
 
@@ -45,17 +41,21 @@ export class UserComponent implements OnInit, OnDestroy {
     this.listUsers();
   }
 
-  filterUsers(users: User[]) {
-    // return users.filter((e) => {
-    //   return e.UserDate.toLowerCase().includes(this.filters.keyword.toLowerCase());
-    // }).sort((a, b) => {
-    //   if (this.filters.sortBy === 'date') {
-    //     return a.UserDate.toLowerCase() > b.UserDate.toLowerCase() ? -1: 1;
-    //   }else if(this.filters.sortBy === 'id') {
-    //     return a.id > b.id ? -1: 1;
-    //   }
-    // })
+  filters = {
+    keyword: '',
+    sortBy: 'id',
+    order: 'desc'
   }
+  
+  sort(sortBy: string){
+    if (this.filters.sortBy==sortBy) {
+      this.filters.order=='desc'? this.filters.order='asc':this.filters.order='desc';
+    }else{
+      this.filters.sortBy=sortBy;
+      this.filters.order='desc'
+    }
+  }
+
   isCurrentUser(matricule : string){
     return this.authService.user.sub==matricule;
   }

@@ -10,18 +10,25 @@
                 <div class="d-flex justify-content-center"><h3>Liste des Utilisateurs Système</h3></div>
             </div>
             <br/>
+            <div class="input-group pb-3">
+                <input id="search-focus" type="search"  class="form-control border border-secondary px-4 mx-4" placeholder="Filtre.." [(ngModel)]="filters.keyword" >
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-sm table-responsive-sm" >
                     <thead>
                         <tr>
-                            <th class="text-center align-middle" scope="col">libellé</th>
-                            <th class="text-center align-middle" scope="col">Nom d'utilisateur</th>
-                            <th class="text-center align-middle" scope="col">Actif</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('libelle')"><i *ngIf="filters.order=='asc' && filters.sortBy=='libelle'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>
+                                <ng-template #desc >
+                                    <i class="mx-2 datatable-sort-icon fa fa-caret-down"></i>
+                                </ng-template>libellé
+                            </th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('login')"><i *ngIf="filters.order=='asc' && filters.sortBy=='login'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Nom d'utilisateur</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('enabled')"><i *ngIf="filters.order=='asc' && filters.sortBy=='enabled'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Actif</th>
                             <th class="text-center align-middle" scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let systemUser of systemUsers" >
+                        <tr *ngFor="let systemUser of systemUsers | filter:filters.keyword | sort:filters.order:filters.sortBy" >
                             <td class="text-center align-middle" >{{systemUser.libelle}}</td>
                             <td class="text-center align-middle" >{{systemUser.login}}</td>
                             <td class="text-center align-middle"  *ngIf="systemUser.enabled; else auto" ><i class="text-success fa fa-check"></i></td>

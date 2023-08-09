@@ -10,20 +10,27 @@
                 <div class="d-flex justify-content-center"><h3>Liste des Utilisateurs</h3></div>
             </div>
             <br/>
+            <div class="input-group pb-3">
+                <input id="search-focus" type="search"  class="form-control border border-secondary px-4 mx-4" placeholder="Filtre.." [(ngModel)]="filters.keyword" >
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-sm table-responsive-sm" >
                     <thead>
                         <tr>
-                            <th class="text-center align-middle" scope="col">Matricule</th>
-                            <th class="text-center align-middle" scope="col">Prénom</th>
-                            <th class="text-center align-middle" scope="col">Nom</th>
-                            <th class="text-center align-middle" scope="col">Email</th>
-                            <th class="text-center align-middle" scope="col">Actif</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('matricule')"><i *ngIf="filters.order=='asc' && filters.sortBy=='matricule'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>
+                                <ng-template #desc >
+                                    <i class="mx-2 datatable-sort-icon fa fa-caret-down"></i>
+                                </ng-template>Matricule
+                            </th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('lastName')"><i *ngIf="filters.order=='asc' && filters.sortBy=='lastName'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up text-danger"></i>Prénom</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('firstName')"><i *ngIf="filters.order=='asc' && filters.sortBy=='firstName'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Nom</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('email')"><i *ngIf="filters.order=='asc' && filters.sortBy=='email'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Email</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('enabled')"><i *ngIf="filters.order=='asc' && filters.sortBy=='enabled'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Actif</th>
                             <th class="text-center align-middle" scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of users" >
+                        <tr *ngFor="let user of users | filter:filters.keyword | sort:filters.order:filters.sortBy" >
                             <td class="text-center align-middle" >{{user.matricule}}</td>
                             <td class="text-center align-middle" >{{user.lastName}}</td>
                             <td class="text-center align-middle" >{{user.firstName}}</td>

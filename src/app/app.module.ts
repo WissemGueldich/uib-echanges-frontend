@@ -38,6 +38,7 @@ import { HasRoleGuard } from './security/has-role.guard';
 import { TransferSupervisionModalComponent } from './components/transfer-supervision/transfer-supervision-modal/transfer-supervision-modal.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SortPipe } from './pipes/sort.pipe';
+import { SortTransferPipe } from './pipes/sort-transfer.pipe';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { SortPipe } from './pipes/sort.pipe';
     ApplicationModalComponent,
     SimpleModalComponent,
     TransferSupervisionModalComponent,
-    SortPipe
+    SortPipe,
+    SortTransferPipe
   ],
   imports: [
     BrowserModule,

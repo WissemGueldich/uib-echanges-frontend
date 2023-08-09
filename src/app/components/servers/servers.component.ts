@@ -12,11 +12,6 @@ export class ServersComponent implements OnInit, OnDestroy {
   subscribe : Subject<boolean> = new Subject();
 
   servers: Server[] = [];
-  
-  filters = {
-    keyword: '',
-    sortBy: 'Name'
-  }
 
   constructor(private _serverService: ServerService ) { }
 
@@ -45,17 +40,21 @@ export class ServersComponent implements OnInit, OnDestroy {
     this.listServers();
   }
 
-  filterServers(Servers: Server[]) {
-    // return Servers.filter((e) => {
-    //   return e.ServerDate.toLowerCase().includes(this.filters.keyword.toLowerCase());
-    // }).sort((a, b) => {
-    //   if (this.filters.sortBy === 'date') {
-    //     return a.ServerDate.toLowerCase() > b.ServerDate.toLowerCase() ? -1: 1;
-    //   }else if(this.filters.sortBy === 'id') {
-    //     return a.id > b.id ? -1: 1;
-    //   }
-    // })
+  filters = {
+    keyword: '',
+    sortBy: 'id',
+    order: 'desc'
   }
+  
+  sort(sortBy: string){
+    if (this.filters.sortBy==sortBy) {
+      this.filters.order=='desc'? this.filters.order='asc':this.filters.order='desc';
+    }else{
+      this.filters.sortBy=sortBy;
+      this.filters.order='desc'
+    }
+  }
+
   ngOnDestroy() {
     this.subscribe.next(true);
   }

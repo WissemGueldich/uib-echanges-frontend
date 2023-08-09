@@ -10,17 +10,24 @@
                 <div class="d-flex justify-content-center"><h3>Liste des Profils</h3></div>
             </div>
             <br/>
+            <div class="input-group pb-3">
+                <input id="search-focus" type="search"  class="form-control border border-secondary px-4 mx-4" placeholder="Filtre.." [(ngModel)]="filters.keyword" >
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-sm table-responsive-sm" >
                     <thead>
                         <tr>
-                            <th class="text-center align-middle" scope="col">libellé</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('libelle')"><i *ngIf="filters.order=='asc' && filters.sortBy=='libelle'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>
+                                <ng-template #desc >
+                                    <i class="mx-2 datatable-sort-icon fa fa-caret-down"></i>
+                                </ng-template>libellé
+                            </th>
                             <th class="text-center align-middle" scope="col">Utilisateurs</th>
                             <th class="text-center align-middle" scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let profile of profiles" >
+                        <tr *ngFor="let profile of profiles | filter:filters.keyword | sort:filters.order:filters.sortBy" >
                             <td class="text-center align-middle" >{{profile.libelle}}</td>
                             <td class="text-center align-middle" ><simple-modal profileId={{profile.id}} profileName={{profile.libelle}} ></simple-modal></td>
                             <td>

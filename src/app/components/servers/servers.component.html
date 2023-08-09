@@ -9,18 +9,25 @@
                 <div class="d-flex justify-content-center"><h3>Liste des Serveurs</h3></div>
             </div>
             <br/>
+            <div class="input-group pb-3">
+                <input id="search-focus" type="search"  class="form-control border border-secondary px-4 mx-4" placeholder="Filtre.." [(ngModel)]="filters.keyword" >
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-sm table-responsive-sm" >
                     <thead>
                         <tr>
-                            <th class="text-center align-middle" scope="col">Libellé</th>
-                            <th class="text-center align-middle" scope="col">Adresse</th>
-                            <th class="text-center align-middle" scope="col">Port</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('libelle')"><i *ngIf="filters.order=='asc' && filters.sortBy=='libelle'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>
+                                <ng-template #desc >
+                                    <i class="mx-2 datatable-sort-icon fa fa-caret-down"></i>
+                                </ng-template>Libellé
+                            </th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('address')"><i *ngIf="filters.order=='asc' && filters.sortBy=='address'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Adresse</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('port')"><i *ngIf="filters.order=='asc' && filters.sortBy=='port'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Port</th>
                             <th class="text-center align-middle" scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let server of servers" >
+                        <tr *ngFor="let server of servers | filter:filters.keyword | sort:filters.order:filters.sortBy" >
                             <td class="text-center align-middle" >{{server.libelle}}</td>
                             <td class="text-center align-middle" >{{server.address}}</td>
                             <td class="text-center align-middle" >{{server.port}}</td>

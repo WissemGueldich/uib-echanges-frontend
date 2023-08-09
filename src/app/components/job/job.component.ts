@@ -13,10 +13,7 @@ export class JobComponent implements OnInit, OnDestroy {
   subscribe : Subject<boolean> = new Subject();
   jobs: Job[] = [];
   days: string[] = [];
-  filters = {
-    keyword: '',
-    sortBy: 'Name',
-  };
+
   constructor(private _jobService: JobService) {}
 
   ngOnInit(): void {
@@ -47,16 +44,19 @@ export class JobComponent implements OnInit, OnDestroy {
     this.listJobs();
   }
 
-  filterJobs(jobs: Job[]) {
-    // return Jobs.filter((e) => {
-    //   return e.JobDate.toLowerCase().includes(this.filters.keyword.toLowerCase());
-    // }).sort((a, b) => {
-    //   if (this.filters.sortBy === 'date') {
-    //     return a.JobDate.toLowerCase() > b.JobDate.toLowerCase() ? -1: 1;
-    //   }else if(this.filters.sortBy === 'id') {
-    //     return a.id > b.id ? -1: 1;
-    //   }
-    // })
+  filters = {
+    keyword: '',
+    sortBy: 'id',
+    order: 'desc'
+  }
+  
+  sort(sortBy: string){
+    if (this.filters.sortBy==sortBy) {
+      this.filters.order=='desc'? this.filters.order='asc':this.filters.order='desc';
+    }else{
+      this.filters.sortBy=sortBy;
+      this.filters.order='desc'
+    }
   }
 
   schedule(jobId:number) {

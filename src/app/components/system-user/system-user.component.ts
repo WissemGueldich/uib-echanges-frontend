@@ -13,10 +13,6 @@ export class SystemUserComponent implements OnInit, OnDestroy {
 
 
   systemUsers: SystemUser[] = [];
-  filters = {
-    keyword: '',
-    sortBy: 'Name'
-  }
 
   constructor(private _systemUserService: SystemUserService ) { }
 
@@ -45,17 +41,21 @@ export class SystemUserComponent implements OnInit, OnDestroy {
     this.listSystemUsers();
   }
 
-  filterSystemUsers(systemUsers: SystemUser[]) {
-    // return SystemUsers.filter((e) => {
-    //   return e.SystemUserDate.toLowerCase().includes(this.filters.keyword.toLowerCase());
-    // }).sort((a, b) => {
-    //   if (this.filters.sortBy === 'date') {
-    //     return a.SystemUserDate.toLowerCase() > b.SystemUserDate.toLowerCase() ? -1: 1;
-    //   }else if(this.filters.sortBy === 'id') {
-    //     return a.id > b.id ? -1: 1;
-    //   }
-    // })
+  filters = {
+    keyword: '',
+    sortBy: 'id',
+    order: 'desc'
   }
+  
+  sort(sortBy: string){
+    if (this.filters.sortBy==sortBy) {
+      this.filters.order=='desc'? this.filters.order='asc':this.filters.order='desc';
+    }else{
+      this.filters.sortBy=sortBy;
+      this.filters.order='desc'
+    }
+  }
+
   ngOnDestroy() {
     this.subscribe.next(true);
   }

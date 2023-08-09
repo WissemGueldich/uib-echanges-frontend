@@ -9,24 +9,33 @@
                 <div class="d-flex justify-content-center"><h3>Liste des Transferts</h3></div>
             </div>
             <br/>
+            <div class="input-group pb-3">
+                <input id="search-focus" type="search"  class="form-control border border-secondary px-4 mx-4" placeholder="Filtre.." [(ngModel)]="filters.keyword" >
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped table-sm table-responsive-sm" >
                     <thead>
                         <tr>
-                            <th class="text-center align-middle" scope="col">Libellé</th>
-                            <th class="text-center align-middle" scope="col">Serveur source</th>
-                            <th class="text-center align-middle" scope="col">Serveur destination</th>
-                            <th class="text-center align-middle" scope="col">Filtre</th>
-                            <th class="text-center align-middle" scope="col">Type</th>
-                            <th class="text-center align-middle" scope="col">Date</th>
-                            <th class="text-center align-middle" scope="col">Résultat</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('libelleConfig')"><i *ngIf="filters.order=='asc' && filters.sortBy=='libelleConfig'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>
+                                <ng-template #desc >
+                                    <i class="mx-2 datatable-sort-icon fa fa-caret-down"></i>
+                                </ng-template>Config.
+                            </th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('user')"><i *ngIf="filters.order=='asc' && filters.sortBy=='user'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Déclench.</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('sourceServer')"><i *ngIf="filters.order=='asc' && filters.sortBy=='sourceServer'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>S. source</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('destinationServer')"><i *ngIf="filters.order=='asc' && filters.sortBy=='destinationServer'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>S. destination</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('filter')"><i *ngIf="filters.order=='asc' && filters.sortBy=='filter'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Filtre</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('type')"><i *ngIf="filters.order=='asc' && filters.sortBy=='type'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Type</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('date')"><i *ngIf="filters.order=='asc' && filters.sortBy=='date'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Date</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('result')"><i *ngIf="filters.order=='asc' && filters.sortBy=='result'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Résul.</th>
                             <th class="text-center align-middle" scope="col">Erreur</th>
                             <th class="text-center align-middle" scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let transfer of transfers" >
+                        <tr *ngFor="let transfer of transfers | filter:filters.keyword | sort:filters.order:filters.sortBy" >
                             <td class="text-center align-middle" >{{transfer.configuration.libelle}}</td>
+                            <td class="text-center align-middle" >{{transfer.user}}</td>
                             <td class="text-center align-middle" >{{transfer.configuration.sourceServer.libelle}}</td>
                             <td class="text-center align-middle" >{{transfer.configuration.destinationServer.libelle}}</td>
                             <td class="text-center align-middle" >{{transfer.configuration.filter}}</td>
@@ -34,7 +43,7 @@
                             <td class="text-center align-middle" >{{transfer.date}}</td>
                             <td class="text-center align-middle"  *ngIf="transfer.result; else auto"><i class="text-success fa fa-check"></i></td>
                             <ng-template #auto ><td class="text-center align-middle" ><i class="text-danger fa fa-times"></i></td></ng-template>
-                            <td class="text-center align-middle" >{{transfer.error}}</td>
+                            <td class="text-center align-middle" >{{transfer.error.split('/')[0]}}</td>
                             <td>
                                 <button [disabled]="calculateDateDifferenceInDays(transfer.date)<=30" class="btn btn-outline-danger mb-2 me-2" [ngClass]="{
                                     'btn-outline-secondary': calculateDateDifferenceInDays(transfer.date)<=30,
