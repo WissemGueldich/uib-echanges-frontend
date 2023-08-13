@@ -1,4 +1,5 @@
 import { Configuration } from "./configuration";
+import { User } from "./user";
 
 export class Job{
     id!:number;
@@ -9,4 +10,6 @@ export class Job{
     state!:boolean;
     days!: any[] ;
     configurations!:Configuration[];
+    mailRecipients!:User[];
+
 }

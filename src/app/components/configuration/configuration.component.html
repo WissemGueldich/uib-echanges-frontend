@@ -43,6 +43,7 @@
                             <td class="text-center align-middle"  *ngIf="config.archive; else auto"><i class="text-success fa fa-check"></i></td>
                             <ng-template #auto ><td class="text-center align-middle" ><i class="text-danger fa fa-times"></i></td></ng-template>
                             <td>
+                                <app-config-check-modal (update)="listener()" title="Tester la connectivité" libelle={{config.libelle}} configId={{config.id}} ></app-config-check-modal>
                                 <config-modal (update)="listener()" title="Modifier" configId={{config.id}} ></config-modal>
                                 <button class="btn btn-outline-danger mb-2 me-2" (click)="deleteConfiguration(config.id)" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>

@@ -39,6 +39,7 @@ import { TransferSupervisionModalComponent } from './components/transfer-supervi
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SortPipe } from './pipes/sort.pipe';
 import { SortTransferPipe } from './pipes/sort-transfer.pipe';
+import { ConfigCheckModalComponent } from './components/configuration/modals/config-check-modal/config-check-modal.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { SortTransferPipe } from './pipes/sort-transfer.pipe';
     SimpleModalComponent,
     TransferSupervisionModalComponent,
     SortPipe,
-    SortTransferPipe
+    SortTransferPipe,
+    ConfigCheckModalComponent
   ],
   imports: [
     BrowserModule,

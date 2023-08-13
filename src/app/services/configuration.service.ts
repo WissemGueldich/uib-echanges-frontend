@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Configuration } from '../models/configuration';
 import { environment } from 'src/environments/environment';
+import { Report } from '../models/report';
 
 
 @Injectable({
@@ -29,6 +30,12 @@ private API_URL=environment.BASE_URL+"configs";
 
   getConfiguration(id: number): Observable<Configuration> {
     return this._httpClient.get<Configuration>(`${this.API_URL}/${id}`).pipe(
+      map(response => response)
+    )
+  }
+
+  checkConfiguration(id: number): Observable<Report> {
+    return this._httpClient.get<Report>(`${this.API_URL}/check/${id}`).pipe(
       map(response => response)
     )
   }

@@ -1,0 +1,110 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Teste de connectivité "{{this.libelle}}"</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-sm table-responsive-sm" >
+                <thead>
+                    <tr>
+                        <th class="text-center align-middle" scope="col">Connex. source</th>
+                        <th class="text-center align-middle" scope="col">Connex. destination</th>
+                        <th class="text-center align-middle" scope="col">Chemin source</th>
+                        <th class="text-center align-middle" scope="col">Chemin destination</th>
+                        <th class="text-center align-middle" scope="col">Erreur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td class="text-center align-middle" >
+                                <div *ngIf="this.isLoading" class="loadingio-spinner-rolling-9r6n4ya78p">
+                                    <div class="ldio-681guhxmxmv">
+                                        <div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            <i *ngIf="!this.isLoading && this.report.sourceConnected" class="text-success fa fa-check"></i>
+                            <i *ngIf="!this.isLoading && !this.report.sourceConnected;" class="text-danger fa fa-times"></i>
+                        </td>
+                        <td class="text-center align-middle" >
+                                <div *ngIf="this.isLoading" class="loadingio-spinner-rolling-9r6n4ya78p">
+                                    <div class="ldio-681guhxmxmv">
+                                        <div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            <i *ngIf="!this.isLoading && this.report.destinationConnected" class="text-success fa fa-check"></i>
+                            <i *ngIf="!this.isLoading && !this.report.destinationConnected;" class="text-danger fa fa-times"></i>
+                        </td>
+                        <td class="text-center align-middle" >
+                                <div *ngIf="this.isLoading" class="loadingio-spinner-rolling-9r6n4ya78p">
+                                    <div class="ldio-681guhxmxmv">
+                                        <div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            <i *ngIf="!this.isLoading && this.report.sourcePathValid" class="text-success fa fa-check"></i>
+                            <i *ngIf="!this.isLoading && !this.report.sourcePathValid;" class="text-danger fa fa-times"></i>
+                        </td>
+                        <td class="text-center align-middle" >
+                                <div *ngIf="this.isLoading" class="loadingio-spinner-rolling-9r6n4ya78p">
+                                    <div class="ldio-681guhxmxmv">
+                                        <div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            <i *ngIf="!this.isLoading && this.report.destinationPathValid" class="text-success fa fa-check"></i>
+                            <i *ngIf="!this.isLoading && !this.report.destinationPathValid;" class="text-danger fa fa-times"></i>
+                        </td>
+                        <td class="text-center align-middle" >
+                            <div *ngIf="!this.isLoading && this.report.message">{{this.report.message}}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-template>
+<button class="btn btn-outline-dark mb-2 me-2" (click)="openVerticallyCentered(content)">
+    <i class="fa fa-wifi" aria-hidden="true"></i>
+</button>
+<style type="text/css">
+    @keyframes ldio-681guhxmxmv {
+      0% { transform: translate(-50%,-50%) rotate(0deg); }
+      100% { transform: translate(-50%,-50%) rotate(360deg); }
+    }
+    .ldio-681guhxmxmv div {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 14px solid #e00a00;
+      border-top-color: transparent;
+      border-radius: 50%;
+    }
+    .ldio-681guhxmxmv div {
+      animation: ldio-681guhxmxmv 1.075268817204301s linear infinite;
+      top: 50px;
+      left: 50px
+    }
+    .loadingio-spinner-rolling-9r6n4ya78p {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+      overflow: hidden;
+      background: #f1f2f3;
+    }
+    .ldio-681guhxmxmv {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform: translateZ(0) scale(0.3);
+      backface-visibility: hidden;
+      transform-origin: 0 0;
+    }
+    .ldio-681guhxmxmv div { box-sizing: content-box; }
+</style>

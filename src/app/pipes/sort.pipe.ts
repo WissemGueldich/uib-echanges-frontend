@@ -54,9 +54,7 @@ export class SortPipe implements PipeTransform {
           }
           
         }else{
-          console.log("Not filter or libelleConfig");
-          console.log(sortKey);
-          
+         
           numberArray = value.filter(item => typeof item[sortKey] === 'number').sort((a, b) => a[sortKey] - b[sortKey]);
           stringArray = value.filter(item => typeof item[sortKey] === 'string').sort((a, b) => {
               if (a[sortKey] < b[sortKey]) return -1;

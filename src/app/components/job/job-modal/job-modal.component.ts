@@ -13,8 +13,10 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Configuration } from 'src/app/models/configuration';
 import { Job } from 'src/app/models/job';
 import { JobConfigs } from 'src/app/models/jobConfig';
+import { User } from 'src/app/models/user';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { JobService } from 'src/app/services/job.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-job-modal',
@@ -44,6 +46,7 @@ export class JobModalComponent implements OnInit {
   job: Job = new Job();
   jobConfigs: JobConfigs = new JobConfigs();
   configurations: Configuration[] = [];
+  mailRecipients: User[] = [];
   dropdownList: any = [];
   selectedItems: Configuration[] = [];
   dropdownSettings: IDropdownSettings = {};
@@ -58,12 +61,15 @@ export class JobModalComponent implements OnInit {
   ];
   selectedItems1: Configuration[] = [];
   dropdownSettings1: IDropdownSettings = {};
-
+  dropdownList2: any = [];
+  selectedItems2: User[] = [];
+  dropdownSettings2: IDropdownSettings = {};
   constructor(
     private modalService: NgbModal,
     private _jobService: JobService,
     private _configurationService: ConfigurationService,
-    private _router: Router
+    private _router: Router,
+    private _userService: UserService,
   ) {}
 
   ngOnInit(): void {
@@ -77,6 +83,17 @@ export class JobModalComponent implements OnInit {
         });
       });
     });
+
+    this._userService.getUsers().subscribe((data) => {
+      this.mailRecipients = data;
+      data.forEach((user) => {
+        this.dropdownList2.push({
+          id: user.id,
+          email: user.email,
+        });
+      });
+    });
+
     this.selectedItems = [];
     this.dropdownSettings = {
       singleSelection: false,
@@ -96,6 +113,16 @@ export class JobModalComponent implements OnInit {
       unSelectAllText: 'Désélectionner tout',
       itemsShowLimit: 7,
       allowSearchFilter: false,
+    };
+    this.selectedItems2 = [];
+    this.dropdownSettings2 = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'email',
+      selectAllText: 'Selectionner tout',
+      unSelectAllText: 'Désélectionner tout',
+      itemsShowLimit: 10,
+      allowSearchFilter: true,
     };
   }
   onItemSelect(item: any) {}
@@ -123,6 +150,7 @@ export class JobModalComponent implements OnInit {
     configurations: new FormControl(this.job.configurations, [
       Validators.required,
     ]),
+    mailRecipients: new FormControl(this.job.mailRecipients),
   });
 
   savejob() {
@@ -140,6 +168,7 @@ export class JobModalComponent implements OnInit {
       this.job.frequency = +this.jobForm.value.frequency!;
       this.job.state = false;
       this.job.days = this.jobForm.value.days!;
+      this.job.mailRecipients = this.jobForm.value.mailRecipients!;
 
       this.jobConfigs.job=this.job;
       this.jobConfigs.configurations=[];
@@ -168,7 +197,7 @@ export class JobModalComponent implements OnInit {
 
   openVerticallyCentered(content: any) {
     if (this.jobId != '') {
-      this._jobService.getJob(+this.jobId).subscribe((jobConfigs) => {
+      this._jobService.getJob(+this.jobId).subscribe((jobConfigs) => {        
         let data:Job = jobConfigs.job;
         this.job.id = data.id;
         this.job.libelle = data.libelle;
@@ -181,6 +210,7 @@ export class JobModalComponent implements OnInit {
           day.day = this.idToDay(day.id);
           this.job.days.push(day);
         });
+        this.job.mailRecipients=data.mailRecipients;
         this.job.configurations = [];
         const confs = new Map(Object.entries(jobConfigs.configurationsMap));
         confs.forEach((libelle:string, id:string)=>{
@@ -197,6 +227,7 @@ export class JobModalComponent implements OnInit {
           frequency: this.job.frequency,
           days: this.job.days,
           configurations: this.job.configurations,
+          mailRecipients: this.job.mailRecipients || null,
         });
       });
     }

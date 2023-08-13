@@ -90,6 +90,12 @@
           </div>
         </div>
       </div>
+      <div class="form-group pb-2">
+        <label class="pb-2" for="mailRecipients">Email en cas d'échec :</label>
+        <ng-multiselect-dropdown [placeholder]="'emails en cas d\'echec'" [settings]="dropdownSettings2" [data]="dropdownList2"
+          formControlName="mailRecipients" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+      </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-dark float-left" [disabled]="!this.jobForm.valid"
           (click)="modal.close('Close click')">Enregistrer</button>
