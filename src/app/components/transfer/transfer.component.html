@@ -30,7 +30,7 @@
                                     {{config.message||"Inactif"}}
                                 </h6>
                                 <h6 class="text-success" *ngIf="config.show && config.error==false">
-                                    {{config.message}}<i class="fal fa-check"></i>
+                                    <i class="fa fa-check"></i> {{config.message}}
                                 </h6>
                                 <h6 class="text-danger" *ngIf="config.show && config.error">
                                     {{config.message}} !

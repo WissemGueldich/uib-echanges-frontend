@@ -30,19 +30,13 @@ export class ConfigCheckModalComponent implements OnInit {
   isLoading:boolean = true;
   constructor( private modalService: NgbModal, private configurationService: ConfigurationService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   openVerticallyCentered(content: any) {
-    
+    this.isLoading=true;
+    this.report== new Report();
     this.configurationService.checkConfiguration(+this.configId).subscribe((data) => {
-      console.log("check conf");
-      
-      console.log(data);
       this.report=data;
-      console.log("rep");
-      console.log(this.report);
       this.isLoading = false;
-      
     });
     this.modalService.open(content, { centered: true });
   }
