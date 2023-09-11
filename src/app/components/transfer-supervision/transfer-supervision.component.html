@@ -24,7 +24,7 @@
                             <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('user')"><i *ngIf="filters.order=='asc' && filters.sortBy=='user'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Déclench.</th>
                             <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('sourceServer')"><i *ngIf="filters.order=='asc' && filters.sortBy=='sourceServer'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>S. source</th>
                             <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('destinationServer')"><i *ngIf="filters.order=='asc' && filters.sortBy=='destinationServer'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>S. destination</th>
-                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('filter')"><i *ngIf="filters.order=='asc' && filters.sortBy=='filter'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Filtre</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('filter')"><i *ngIf="filters.order=='asc' && filters.sortBy=='filter'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Fichiers</th>
                             <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('type')"><i *ngIf="filters.order=='asc' && filters.sortBy=='type'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Type</th>
                             <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('date')"><i *ngIf="filters.order=='asc' && filters.sortBy=='date'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Date</th>
                             <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('result')"><i *ngIf="filters.order=='asc' && filters.sortBy=='result'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Résul.</th>
@@ -38,7 +38,11 @@
                             <td class="text-center align-middle" >{{transfer.user}}</td>
                             <td class="text-center align-middle" >{{transfer.configuration.sourceServer.libelle}}</td>
                             <td class="text-center align-middle" >{{transfer.configuration.destinationServer.libelle}}</td>
-                            <td class="text-center align-middle" >{{transfer.configuration.filter}}</td>
+                            <td class="text-center align-middle" >
+                                <ul>
+                                    <li *ngFor="let file of transfer.transferedFilesArray">{{ file }}</li>
+                                </ul>
+                            </td>
                             <td class="text-center align-middle" >{{transfer.type==0?"tranfert":"job"}}</td>
                             <td class="text-center align-middle" >{{transfer.date}}</td>
                             <td class="text-center align-middle"  *ngIf="transfer.result; else auto"><i class="text-success fa fa-check"></i></td>

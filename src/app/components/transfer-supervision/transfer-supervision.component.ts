@@ -56,7 +56,10 @@ export class TransferSupervisionComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.subscribe)).subscribe(
         
         data => {
-          this.transfers = data.content;
+          this.transfers = data.content;   
+          this.transfers.forEach(transfer => {
+            transfer.transferedFilesArray = transfer.transferedFiles.trim().split('\n');
+          });       
           this.totalElements=data.totalElements;
           this.empty=data.empty;
           this.first=data.first;
@@ -75,18 +78,10 @@ export class TransferSupervisionComponent implements OnInit, OnDestroy {
   }
 
   sortByFilter(transfers: Transfer[],sortKey: string){
-    console.log("lol");
-    transfers.forEach(t=>console.log(t.configuration.filter));
-    
-    
     transfers.sort((a, b) =>{
       if(a.configuration[sortKey as keyof typeof  a.configuration]<b.configuration[sortKey as keyof Configuration])return -1;
       else return 1;
-    });
-    console.log('hh');
-    
-    transfers.forEach(t=>console.log(t.configuration.filter));
-    
+    });    
   }
 
   listener(){

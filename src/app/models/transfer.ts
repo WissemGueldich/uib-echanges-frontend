@@ -8,6 +8,8 @@ export class Transfer{
     error!:string;
 	date!:Date;
     user!:string;
+    transferedFiles!:string;
+    transferedFilesArray!: string[];
 }
 
 
