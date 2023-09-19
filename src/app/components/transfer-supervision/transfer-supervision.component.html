@@ -21,7 +21,7 @@
                                     <i class="mx-2 datatable-sort-icon fa fa-caret-down"></i>
                                 </ng-template>Config.
                             </th>
-                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('user')"><i *ngIf="filters.order=='asc' && filters.sortBy=='user'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Déclench.</th>
+                            <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('initiator')"><i *ngIf="filters.order=='asc' && filters.sortBy=='initiator'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Déclench.</th>
                             <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('sourceServer')"><i *ngIf="filters.order=='asc' && filters.sortBy=='sourceServer'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>S. source</th>
                             <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('destinationServer')"><i *ngIf="filters.order=='asc' && filters.sortBy=='destinationServer'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>S. destination</th>
                             <th style="cursor: pointer;" class="text-center align-middle" scope="col" (click)="sort('filter')"><i *ngIf="filters.order=='asc' && filters.sortBy=='filter'; else desc" class="mx-2 datatable-sort-icon fa fa-caret-up"></i>Fichiers</th>
@@ -35,7 +35,7 @@
                     <tbody>
                         <tr *ngFor="let transfer of transfers | filter:filters.keyword | sort:filters.order:filters.sortBy" >
                             <td class="text-center align-middle" >{{transfer.configuration.libelle}}</td>
-                            <td class="text-center align-middle" >{{transfer.user}}</td>
+                            <td class="text-center align-middle" >{{transfer.initiator}}</td>
                             <td class="text-center align-middle" >{{transfer.configuration.sourceServer.libelle}}</td>
                             <td class="text-center align-middle" >{{transfer.configuration.destinationServer.libelle}}</td>
                             <td style="text-align: left;" class="text-left align-middle" >

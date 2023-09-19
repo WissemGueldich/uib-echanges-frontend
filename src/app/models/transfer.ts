@@ -7,7 +7,7 @@ export class Transfer{
     result!:boolean;
     error!:string;
 	date!:Date;
-    user!:string;
+    initiator!:string;
     transferedFiles!:string;
     transferedFilesArray!: string[];
 }
